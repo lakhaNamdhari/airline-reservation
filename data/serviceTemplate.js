@@ -48,7 +48,7 @@ var DemoService = function( attr ){
 util.inherits( DemoService, REST );
 
 /**
-*	Fetches all available airports
+*	Method description
 *
 *	@method find
 *	@return {JSON}
