@@ -1,0 +1,5 @@
+{
+	"/airports" : "/airports.js",
+	"/flights" : "/flights.js",
+	"/reservations" : "/reservations.js"
+}

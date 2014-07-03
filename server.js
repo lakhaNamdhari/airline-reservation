@@ -18,6 +18,9 @@ var fs = require( "fs" );
 
 var contentType;
 
+// Dictionary to map services to actual URL's
+var serviceMapper;
+
 
 // Load Mime Types
 try{
@@ -25,6 +28,12 @@ try{
 }catch( e ){
 	util.log( e );
 	throw( "ABORTING: Can't find dependency :: mime-types.json" );
+}
+
+try{
+	serviceMapper = require( "./service-mapper.json" );
+} catch( err ){
+	util.log( e );
 }
 	
 
@@ -47,7 +56,7 @@ Server.prototype = {
  		var config;
 
  		var defaultConfig = {
- 			port: "4000",
+ 			port: "3567",
  			serviceRoot: "./data",
  			resourceRoot: "./public",
  			rootFile: "index.html",
@@ -61,7 +70,7 @@ Server.prototype = {
  		}
 
  		// Final Server config
- 		extend( this.config, config, defaultConfig );
+ 		extend( this.config, defaultConfig, config );
 
  		// Server instance
  		this.server = http.createServer();
@@ -92,7 +101,7 @@ Server.prototype = {
  			// RAW url from request
  			var requestUrl = url.parse( request.url );
 
- 			// For holding intermediate
+ 			// For holding intermediate values
  			var helper;
 
  			// Content-type for response
@@ -101,17 +110,14 @@ Server.prototype = {
  			// Status of response
  			var statusCode = 404;
 
- 			// Flag to indicate status of reading Service
-			var pending;
-
 			// Final URL mapped to a resource on the server
 			var finalUrl;
 
 			// data to be sent back as response
 			var responseData;
 
-			// Currently only supporting service with one argument
-			var argument;
+			// Engine to process Service
+			var serviceEngine;
  			
 			// Handle root file
 			if ( requestUrl.pathname === "/" ){
@@ -120,7 +126,7 @@ Server.prototype = {
 
  			helper = requestUrl.pathname.split(".");
 
- 			// Requested Resource
+ 			// Serve Requested Resource
  			if ( helper.length > 1 ){
  				// Contains file extension
  				helper = helper.pop();
@@ -140,7 +146,7 @@ Server.prototype = {
 		 				if ( helper in contentType ){
 		 					mimeType = contentType[ helper ];
 		 				}else {
-		 					mimeType = contentType[ "unknown" ]
+		 					mimeType = contentType[ "unknown" ];
 		 				}
 		 				responseData = data; 
 	 				}
@@ -151,40 +157,72 @@ Server.prototype = {
  				} );
  			}
 
- 			// Requested Service
+ 			// Serve Requested Service
  			else {
-				pending = true;
- 				finalUrl = that.config.serviceRoot + requestUrl.pathname +  ".js";
+ 				// If URL's for service doesn't exist quit
+ 				if ( !serviceMapper ){
+	 				response.writeHead( statusCode );
+	 				response.end();
+	 			}
 
- 				// Only supporting Node services at this point
- 				while( pending ){
- 					try{
- 						// Helper contains service
- 						helper = require( finalUrl );
- 						pending = false;
- 						statusCode = 200;
- 						mimeType = contentType[ "json" ];
- 					}catch( err ){
- 						helper = requestUrl.pathname.split("/");
+	 			else{
+	 				var args = [];
+	 				// Strip arguments from Url
+	 				while ( !(requestUrl.pathname in serviceMapper) && requestUrl.pathname !== "" ){
+	 					helper = requestUrl.pathname.split("/");
  						// Retrieve last value as argument to service
- 						argument = helper.pop();
+ 						args.push( helper.pop() );
+ 						requestUrl.pathname = helper.join("/");
+	 				}
 
- 						// Reconstruct URL
- 						finalUrl = that.config.serviceRoot + helper.join("/") +  ".js";
- 					}
- 				}
+	 				// Helper contains service extention
+	 				helper = serviceMapper[ requestUrl.pathname ].split(".").pop();
+	 				finalUrl = that.config.serviceRoot + serviceMapper[ requestUrl.pathname ];
 
- 				// When service is fetched i.e pending = false
- 				if ( !pending ){
- 					if ( argument ){
- 						responseData = helper.findOne( argument );
- 					}else{
- 						responseData = helper.find();
- 					}
+	 				// Proces Node services
+	 				if ( helper === "js" ){
+	 					try{
+	 						helper = require( finalUrl );
+	 						responseData = helper({
+		 						method : request.method,
+		 						args : args,
+		 						headers : request.headers
+		 					});
+	 						mimeType = contentType[ "json" ];
+	 						statusCode = 200;
+	 					}catch( err ){
+	 						utl.log( err );
+	 					}
 
- 					// Return back data
-	 				response.writeHead( statusCode, { "content-type": mimeType });
-	 				response.end( responseData );
+	 					// Write back response
+ 						response.writeHead( statusCode, { "content-type": mimeType });
+ 						response.end( responseData );
+	 				}
+
+	 				// Can Extend it to support parsing php and JSP's at this point
+	 				/*
+	 				// If engine to process service is found in config, then procees
+	 				if ( helper in that.config.REST.engine ){
+	 					try{
+	 						serviceEngine = require( that.config.REST.engine[ helper ] );
+	 					} catch( err ){
+			 				response.writeHead( statusCode );
+			 				response.end();
+	 					}
+
+	 					responseData = serviceEngine.process( {
+	 						method : request.method,
+	 						args : args,
+	 						headers : request.headers,
+	 						url : finalUrl
+	 					} );
+	 					mimeType = contentType[ "json" ];
+
+		 				// Return back resource
+		 				response.writeHead( statusCode, { "content-type": mimeType });
+		 				response.end( responseData );
+	 				}
+	 				*/
 	 			}
  			} // ends: Requested service else here
  		} // ends: request handler anonomous function 
