@@ -40,7 +40,12 @@ var DemoService = function( attr ){
 	*	reqHeaders -> attr.headers
 	*/
 	if ( attr ){
-		DemoService.super_.call( this, attr );
+		// Self instatiating pattern
+		if ( !( this instanceof DemoService) ){
+			return DemoService.super_.call( new DemoService(), attr );
+		}
+
+		return DemoService.super_.call( this, attr );
 	}
 };
 

@@ -18,10 +18,6 @@ var fs = require( "fs" );
 
 var contentType;
 
-// Dictionary to map services to actual URL's
-var serviceMapper;
-
-
 // Load Mime Types
 try{
 	contentType = require( "./mime-types.json" );
@@ -30,47 +26,45 @@ try{
 	throw( "ABORTING: Can't find dependency :: mime-types.json" );
 }
 
-try{
-	serviceMapper = require( "./service-mapper.json" );
-} catch( err ){
-	util.log( e );
-}
+var defaultConfig = {
+	port: "3567",
+	serviceRoot: "./data",
+	resourceRoot: "./public",
+	rootFile: "index.html",
+	hostname: "localhost"
+};
 	
 
-function Server( config ){
+function Server(){
 	util.log( "Server()" );
+
+	var config;
+
+	if ( arguments.length === 1 ){
+		config = typeof arguments[ 0 ] === "object" ? arguments[ 0 ] : {};
+	}
+
+	else if ( arguments.length === 2 ){
+		config = {
+			hostname: typeof arguments[ 0 ] === "string" ? arguments[ 0 ] : defaultConfig.hostname,
+			port : typeof arguments[ 1 ] === "string" ? arguments[ 1 ] : defaultConfig.port
+		};
+	}
 
 	// Execute module if called as function
 	if ( !( this instanceof Server) ){
-		return ( new Server() ).start();
+		return ( new Server( config ) ).start();
 	}
 
-	this.config = config || {};
+
+
+	extend( this.config = this.config || {}, defaultConfig, config || {} );
 }
 
 Server.prototype = {
  	// init execution sequence
  	start: function(){
  		util.log( "Server.start()" );
-
- 		var config;
-
- 		var defaultConfig = {
- 			port: "3567",
- 			serviceRoot: "./data",
- 			resourceRoot: "./public",
- 			rootFile: "index.html",
- 			hostName: "localhost"
- 		};
-
- 		try {
- 			config = require( "./server-config.json" );
- 		} catch( e ){
- 			config = {};
- 		}
-
- 		// Final Server config
- 		extend( this.config, defaultConfig, config );
 
  		// Server instance
  		this.server = http.createServer();
@@ -79,9 +73,9 @@ Server.prototype = {
  		this.bindEvents();
  		
  		// Start Server
- 		this.server.listen( this.config.port, this.config.hostName );
+ 		this.server.listen( this.config.port, this.config.hostname );
 
- 		util.log( "Server started: " + this.config.hostName + ":" + this.config.port )
+ 		util.log( "Server started: " + this.config.hostname + ":" + this.config.port )
  		// To support chaining
  		return this;
  	},
@@ -159,71 +153,32 @@ Server.prototype = {
 
  			// Serve Requested Service
  			else {
- 				// If URL's for service doesn't exist quit
- 				if ( !serviceMapper ){
-	 				response.writeHead( statusCode );
-	 				response.end();
+				var args = [];
+
+	 			while( !responseData || (!responseData && requestUrl.pathname !== "") ){
+	 				try{	 		
+	 					// Assume service to be a node module
+	 					// Not supporting php, JSP modules as if now	 			
+	 					finalUrl = that.config.serviceRoot + requestUrl.pathname + ".js";
+
+	 					helper = require( finalUrl );
+	 					responseData = helper({
+		 					method : request.method,
+		 					args : args,
+		 					headers : request.headers
+		 				});
+		 				mimeType = contentType[ "json" ];
+	 					statusCode = 200;
+	 				}catch( err ){
+	 					helper = requestUrl.pathname.split( "/" );
+	 					args.push( helper.pop() );
+	 					requestUrl.pathname = helper.join( "/" );
+	 				}
 	 			}
 
-	 			else{
-	 				var args = [];
-	 				// Strip arguments from Url
-	 				while ( !(requestUrl.pathname in serviceMapper) && requestUrl.pathname !== "" ){
-	 					helper = requestUrl.pathname.split("/");
- 						// Retrieve last value as argument to service
- 						args.push( helper.pop() );
- 						requestUrl.pathname = helper.join("/");
-	 				}
-
-	 				// Helper contains service extention
-	 				helper = serviceMapper[ requestUrl.pathname ].split(".").pop();
-	 				finalUrl = that.config.serviceRoot + serviceMapper[ requestUrl.pathname ];
-
-	 				// Proces Node services
-	 				if ( helper === "js" ){
-	 					try{
-	 						helper = require( finalUrl );
-	 						responseData = helper({
-		 						method : request.method,
-		 						args : args,
-		 						headers : request.headers
-		 					});
-	 						mimeType = contentType[ "json" ];
-	 						statusCode = 200;
-	 					}catch( err ){
-	 						utl.log( err );
-	 					}
-
-	 					// Write back response
- 						response.writeHead( statusCode, { "content-type": mimeType });
- 						response.end( responseData );
-	 				}
-
-	 				// Can Extend it to support parsing php and JSP's at this point
-	 				/*
-	 				// If engine to process service is found in config, then procees
-	 				if ( helper in that.config.REST.engine ){
-	 					try{
-	 						serviceEngine = require( that.config.REST.engine[ helper ] );
-	 					} catch( err ){
-			 				response.writeHead( statusCode );
-			 				response.end();
-	 					}
-
-	 					responseData = serviceEngine.process( {
-	 						method : request.method,
-	 						args : args,
-	 						headers : request.headers,
-	 						url : finalUrl
-	 					} );
-	 					mimeType = contentType[ "json" ];
-
-		 				// Return back resource
-		 				response.writeHead( statusCode, { "content-type": mimeType });
-		 				response.end( responseData );
-	 				}
-	 				*/
-	 			}
+	 			// Write back response
+ 				response.writeHead( statusCode, { "content-type": mimeType });
+ 				response.end( responseData );	 			
  			} // ends: Requested service else here
  		} // ends: request handler anonomous function 
  	},

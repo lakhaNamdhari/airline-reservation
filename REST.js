@@ -28,7 +28,7 @@ var REST = function( attr ){
 	console.log( "REST()" );
 
 	if ( attr ){
-		REST.prototype.init.call( this, attr);
+		return REST.prototype.init.call( this, attr);
 	}
 };
 
@@ -42,7 +42,7 @@ REST.prototype.init = function( attr ){
 	console.log( "REST.init()" );
 
 	// Method to invoke on service
-	var method;
+	var method, res;
 
 	// Current request method GET / POST / DELETE
 	this.reqMethod = attr.method = attr.method || "GET";
