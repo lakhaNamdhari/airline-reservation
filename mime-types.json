@@ -1,14 +1,14 @@
 {
-	json: "application/json",
-	js: "application/javascript",
-	gif: "image/gif",
-	pdf: "application/pdf",
-	rss: "application/rss+xml",
-	xhtml: "application/xhtml+xml",
-	xml: "application/xml",
-	zip: "application/zip",
-	jpeg: "image/jpeg",
-	svg: "image/svg+xml",
-	css: "text/css",
-	html: "text/html"
+	"json": "application/json",
+	"js": "application/javascript",
+	"gif": "image/gif",
+	"pdf": "application/pdf",
+	"rss": "application/rss+xml",
+	"xhtml": "application/xhtml+xml",
+	"xml": "application/xml",
+	"zip": "application/zip",
+	"jpeg": "image/jpeg",
+	"svg": "image/svg+xml",
+	"css": "text/css",
+	"html": "text/html"
 }
