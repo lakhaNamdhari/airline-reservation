@@ -1,7 +1,0 @@
-{
- 	"port" : "4000",
- 	"serviceRoot" : "./data",
- 	"resourceRoot" : "./public",
- 	"rootFile" : "index.html",
- 	"hostName" : "localhost"
-}
