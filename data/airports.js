@@ -37,7 +37,7 @@ util.inherits( Airport, Service );
 Airport.prototype.find = function(){
 	console.log( "Airport.find()" );
 
-	return JSON.stringify( airportsData );
+	this.emit( "complete", JSON.stringify( airportsData ) );
 }
 
 /**
@@ -57,7 +57,8 @@ Airport.prototype.findOne = function( airportId ){
 			break;
 		}
 	}
-	return JSON.stringify( airport );
+
+	this.emit( "complete", JSON.stringify( airport ) );
 }
 
 /**

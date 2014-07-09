@@ -48,7 +48,7 @@ REST.prototype.init = function( attr ){
 	this.reqMethod = attr.method = attr.method || "GET";
 
 	// Arguments with current request
-	this.args = attr.args = attr.args || [];
+	attr.args = attr.args || [];
 
 	// Cookie for current reuest
 	this.cookie = attr.headers && attr.headers.cookie || "";
@@ -72,7 +72,7 @@ REST.prototype.init = function( attr ){
 	}
 
 	// Return response back to server
-	return this[ method ]();
+	return this[ method ].apply( this, attr.args );
 }
 
 /* Override these methods in your services */
@@ -85,11 +85,7 @@ REST.prototype.init = function( attr ){
 */
 REST.prototype[ config.method.find ] = function(){
 	console.log( "REST[ config.method.find ]()" );
-
-	// Returns JSON response
-	return JSON.stringify( {} );
 };
-
 
 /**
 *	To find specific entry in DB
@@ -99,11 +95,7 @@ REST.prototype[ config.method.find ] = function(){
 */
 REST.prototype[ config.method.findOne ] = function(){
 	console.log( "REST[ config.method.find ]()" );
-
-	// Returns JSON response
-	return JSON.stringify( {} );
 };
-
 
 /**
 *	To remove specific entry in DB
@@ -113,11 +105,7 @@ REST.prototype[ config.method.findOne ] = function(){
 */
 REST.prototype[ config.method.remove ] = function(){
 	console.log( "REST[ config.method.find ]()" );
-
-	// Returns JSON response
-	return JSON.stringify( {} );
 };
-
 
 /**
 *	To create / update entry in DB
@@ -127,9 +115,6 @@ REST.prototype[ config.method.remove ] = function(){
 */
 REST.prototype[ config.method.save ] = function(){
 	console.log( "REST[ config.method.find ]()" );
-
-	// Returns JSON response
-	return JSON.stringify( {} );
 };
 
 // Export as node module
