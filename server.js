@@ -189,35 +189,7 @@ Server.prototype.hNewRequest = function(){
 
 		// Serve Requested Service
 		else {
-			that.emit( "service", request, response );
-			/*
-			var args = [];
-
-			while( !responseData || (!responseData && requestUrl.pathname !== "") ){
-				try{	 		
-					// Assume service to be a node module
-					// Not supporting php, JSP modules as if now	 			
-					finalUrl = that.config.serviceRoot + requestUrl.pathname + ".js";
-
-					helper = require( finalUrl );
-					responseData = helper({
- 					method : request.method,
- 					args : args,
- 					headers : request.headers
- 				});
- 				mimeType = contentType[ "json" ];
-					statusCode = 200;
-				}catch( err ){
-					helper = requestUrl.pathname.split( "/" );
-					args.push( helper.pop() );
-					requestUrl.pathname = helper.join( "/" );
-				}
-			}
-
-			// Write back response
-			response.writeHead( statusCode, { "content-type": mimeType });
-			response.end( responseData );	 
-			*/			
+			that.emit( "service", request, response );		
 		} // ends: Requested service else here
 	} // ends: request handler anonomous function 	
 };
@@ -234,19 +206,19 @@ Server.prototype.stop = function(){
  	return this;
 };
 
+/**
+*	Exposed interface for this Module
+*
+*	@method start{object}
+*/
+Server.start = function( arg1, arg2 ){
+	console.log( "[ Static-Method ] Server.start()" );
+
+	return new Server( arg1, arg2 );
+}
+
 // Expose Class
  module.exports = {
  	// Creates and returns new server instance
- 	start: function( arg1, arg2 ){
- 		console.log( "start()" );
-
- 		return new Server( arg1, arg2 );
- 	},
-
- 	// Stops the server
- 	stop: function(){
- 		console.log( "stop()" );
-
- 		this.stop();
- 	}
+ 	start: Server.start
  };
