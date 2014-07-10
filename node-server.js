@@ -41,14 +41,16 @@ server.on( "service", function( request, response){
 
 	var statusCode = 404;
 
-	while( !responseData || (!responseData && requestUrl.pathname !== "") ){
+	var pending = true;
+
+	while( pending && requestUrl.pathname !== "" ){
 		try{	 		
 			// Assume service to be a node module
 			// Not supporting php, JSP modules as if now	 			
 			finalUrl = config.serviceRoot + requestUrl.pathname + ".js";
 
-			// check if service exists
-			service = require( finalUrl );
+			// Creates service instance
+			service = require( finalUrl ).create();
 
 			// When service is executed
 			service.on( "complete", function( err, data ){
@@ -66,20 +68,26 @@ server.on( "service", function( request, response){
 				response.end( responseData );	 
 			});
 
+			// Execute the service
 			service.exec({
 				method : request.method,
 				args : args,
 				headers : request.headers
 			});
 
+			// Break the loop
+			pending = false;
 		}catch( err ){
 			helper = requestUrl.pathname.split( "/" );
 			args.push( helper.pop() );
 			requestUrl.pathname = helper.join( "/" );
 		}
 	} 
-
+	
 	// If service not found
-	response.writeHead( statusCode );
-	response.end();
+	if ( pending ){
+		response.writeHead( statusCode );
+		response.end();
+	}
+
 });

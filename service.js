@@ -7,11 +7,9 @@
 */
 
 // Rest interface
-var REST = require( "../REST.js" );
+var REST = require( "./REST.js" );
 
 var util = require( "util" );
-
-var EventEmitter = require( "events" ).EventEmitter;
 
 /**
 *	@constructor
@@ -19,31 +17,51 @@ var EventEmitter = require( "events" ).EventEmitter;
 var Service = function( attr ){
 	console.log( "Service()" );
 
-	if ( attr ){
-		Service.super_.call( this, attr );
+	this.attr = attr;
+};
+
+// Inherit EventEmitter
+util.inherits( Service, REST );
+
+/**
+*	Executes the service
+*
+*	@method exec
+*/
+Service.prototype.exec = function( attr ){
+	if ( attr || this.attr ){
+		Airport.super_.call( this, attr || this.attr );
 	}
 };
 
 /**
-*	Inheritance pattern is very important here as every inheritance
-*	will override Class.super_ variable
+*	Fetches all available Data
+*
+*	@method find
+*	@return {JSON}
 */
-// Inherit EventEmitter
-util.inherits( Service , EventEmitter );
+Service.prototype.find = function(){
+	console.log( "Service.find()" );
 
-// Inherit REST interface
-util.inherits( Service, REST );
+	var err, data;
+
+	/* Logic goes here*/
+
+	this.emit( "complete", err, JSON.stringify( data ) );
+};
 
 /**
-*	A static method that should be exposed by all services.
-*	module.exports = { exec: Service.exec }
+*	Exposed interface for this service - creates service instance
 *
-*	@method exec
+*	@method exec{object}
 */
-Service.exec = function( attr ){
-	console.log( "Service.exec" );
-	new Service( attr );
-}
+Service.create = function( attr ){
+	console.log( "[ Static-Method ] Service.create" );
+
+	return new Service( attr );
+};
 
 // Export as node Class
-module.exports = Service;
+module.exports = {
+	create: Service.create
+};

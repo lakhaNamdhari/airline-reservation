@@ -9,8 +9,7 @@ var util = require( "util" );
 
 var airportsData = require( "./airportsNew.json" );
 
-// Base Service class
-var Service = require( "../service.js" );
+var REST = require( "../REST.js" );
 
 //var mongo = require( "mongodb" ).MongoClient;
 
@@ -20,13 +19,22 @@ var Service = require( "../service.js" );
 var Airport = function( attr ){
 	console.log( "Airport()" );
 
-	if ( attr ){
-		Airport.super_.call( this, attr );
-	}
+	this.attr = attr;
 };
 
-// Inherit Base Service Class
-util.inherits( Airport, Service );
+// Inherit REST interface
+util.inherits( Airport, REST );
+
+/**
+*	Executes the service
+*
+*	@method exec
+*/
+Airport.prototype.exec = function( attr ){
+	if ( attr || this.attr ){
+		Airport.super_.call( this, attr || this.attr );
+	}
+}
 
 /**
 *	Fetches all available airports
@@ -37,7 +45,9 @@ util.inherits( Airport, Service );
 Airport.prototype.find = function(){
 	console.log( "Airport.find()" );
 
-	this.emit( "complete", JSON.stringify( airportsData ) );
+	var err;
+
+	this.emit( "complete", err, JSON.stringify( airportsData ) );
 }
 
 /**
@@ -49,7 +59,7 @@ Airport.prototype.find = function(){
 Airport.prototype.findOne = function( airportId ){
 	console.log( "Airport.findOne()" );
 
-	var airport = {}, i;
+	var airport = {}, i, err;
 
 	for ( i = 0; i < airportsData.length; i++ ){
 		if ( airportsData[ i ][ "code" ] === airportId ){
@@ -58,7 +68,7 @@ Airport.prototype.findOne = function( airportId ){
 		}
 	}
 
-	this.emit( "complete", JSON.stringify( airport ) );
+	this.emit( "complete", err, JSON.stringify( airport ) );
 }
 
 /**
@@ -66,13 +76,13 @@ Airport.prototype.findOne = function( airportId ){
 *
 *	@method exec{object}
 */
-Airport.exec = function( attr ){
-	console.log( "Airport.exec" );
+Airport.create = function( attr ){
+	console.log( "[ Static-Method ] Airport.create" );
 
-	new Airport( attr );
+	return new Airport( attr );
 };
 
 // Export as node Module
 module.exports = {
-	exec: Airport.exec
-};
+	create: Airport.create
+};  

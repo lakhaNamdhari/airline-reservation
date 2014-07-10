@@ -19,6 +19,10 @@ var config = {
 	}
 };
 
+var util = require( "util" );
+
+var EventEmitter = require( "events" ).EventEmitter;
+
 /**
 *	Returned as node module.
 *
@@ -28,9 +32,13 @@ var REST = function( attr ){
 	console.log( "REST()" );
 
 	if ( attr ){
-		return REST.prototype.init.call( this, attr);
+		REST.prototype.init.call( this, attr);
 	}
 };
+
+
+// Inherit REST interface
+util.inherits( REST, EventEmitter );
 
 /**
 *	Initialises the REST service
@@ -72,7 +80,7 @@ REST.prototype.init = function( attr ){
 	}
 
 	// Return response back to server
-	return this[ method ].apply( this, attr.args );
+	this[ method ].apply( this, attr.args );
 }
 
 /* Override these methods in your services */
