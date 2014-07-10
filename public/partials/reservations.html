@@ -1,0 +1,53 @@
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Reserve your Flight</h3>
+	</div>
+	<div class="panel-body">
+		<form class="clearfix controls controls-row" action="">
+			<div class="group span3 pull-left">
+				<input ng-keyup="show.origin = true" placeholder="Origin" class="input-small" type="text" ng-model="origin.city" />
+				<div ng-show="show.origin" class="list-group">
+					<a ng-click="selectPlace( 'origin', airport.code )" href="javscript:void(0)" ng-repeat="airport in airports | filter:origin" class="list-group-item">{{ airport.city }} - {{ airport.code }}</a>
+				</div>
+			</div>
+			<div class="group span3 pull-left">
+				<input ng-keyup="show.destination = true" placeholder="Destination" class="input-small" type="text" ng-model="destination.city" />
+				<div ng-show="show.destination" class="list-group">
+					<a ng-click="selectPlace( 'destination', airport.code )" href="javscript:void(0)" ng-repeat="airport in airports | filter:destination" class="list-group-item">{{ airport.city }} - {{ airport.code }}</a>
+				</div>
+			</div>
+		</form>
+		<ul class="pager">
+			<li class="previous"><a ng-click="reserveFlight()" href="javascript:void(0)">Reserve</a></li>
+		</ul>
+	</div>
+</div>
+<h3></h3>
+
+<div class="panel panel-default"  ng-show="reservations.length">
+	<div class="panel-heading">
+		<h3 class="panel-title">Reservations</h3>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Number</th>
+				<th>Origin</th>
+				<th>Destination</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="flight in reservations">
+				<td>{{ flight.number }}</td>
+				<td>{{ flight.origin }} - {{ flight.originFullName }}</td>
+				<td>{{ flight.destination }} - {{ flight.destinationFullName }}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
+<div class="alert alert-info" ng-hide="reservations.length">
+	<p>You dont currently have any reservations, Why not make one now ?</p>
+</div>

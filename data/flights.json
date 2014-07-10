@@ -1,0 +1,362 @@
+[
+	{
+		"number": 112,
+		"origin": "ATL",
+		"destination": "LAX",
+		"price": 232
+	},
+	{
+		"number": 812,
+		"origin": "ATL",
+		"destination": "JFK",
+		"price": 192
+	},
+	{
+		"number": 357,
+		"origin": "ATL",
+		"destination": "IAH",
+		"price": 152
+	},
+	{
+		"number": 720,
+		"origin": "ORD",
+		"destination": "LAX",
+		"price": 195
+	},
+	{
+		"number": 840,
+		"origin": "ORD",
+		"destination": "JFK",
+		"price": 292
+	},
+	{
+		"number": 321,
+		"origin": "ORD",
+		"destination": "IAH",
+		"price": 246
+	},
+	{
+		"number": 499,
+		"origin": "LAX",
+		"destination": "ATL",
+		"price": 224
+	},
+	{
+		"number": 362,
+		"origin": "LAX",
+		"destination": "ORD",
+		"price": 216
+	},
+	{
+		"number": 472,
+		"origin": "LAX",
+		"destination": "DFW",
+		"price": 187
+	},
+	{
+		"number": 690,
+		"origin": "LAX",
+		"destination": "DEN",
+		"price": 229
+	},
+	{
+		"number": 821,
+		"origin": "LAX",
+		"destination": "JFK",
+		"price": 210
+	},
+	{
+		"number": 870,
+		"origin": "LAX",
+		"destination": "SFO",
+		"price": 199
+	},
+	{
+		"number": 397,
+		"origin": "LAX",
+		"destination": "LAS",
+		"price": 235
+	},
+	{
+		"number": 726,
+		"origin": "LAX",
+		"destination": "PHX",
+		"price": 288
+	},
+	{
+		"number": 632,
+		"origin": "LAX",
+		"destination": "IAH",
+		"price": 178
+	},
+	{
+		"number": 563,
+		"origin": "LAX",
+		"destination": "PDX",
+		"price": 189
+	},
+	{
+		"number": 959,
+		"origin": "LAX",
+		"destination": "STL",
+		"price": 261
+	},
+	{
+		"number": 421,
+		"origin": "LAX",
+		"destination": "MCI",
+		"price": 215
+	},
+	{
+		"number": 187,
+		"origin": "LAX",
+		"destination": "BNA",
+		"price": 245
+	},
+	{
+		"number": 866,
+		"origin": "LAX",
+		"destination": "MKE",
+		"price": 240
+	},
+	{
+		"number": 922,
+		"origin": "DFW",
+		"destination": "LAX",
+		"price": 295
+	},
+	{
+		"number": 178,
+		"origin": "DFW",
+		"destination": "DEN",
+		"price": 191
+	},
+	{
+		"number": 66,
+		"origin": "DFW",
+		"destination": "JFK",
+		"price": 224
+	},
+	{
+		"number": 55,
+		"origin": "DFW",
+		"destination": "SFO",
+		"price": 221
+	},
+	{
+		"number": 415,
+		"origin": "DFW",
+		"destination": "MCI",
+		"price": 233
+	},
+	{
+		"number": 98,
+		"origin": "DEN",
+		"destination": "LAX",
+		"price": 167
+	},
+	{
+		"number": 497,
+		"origin": "DEN",
+		"destination": "DFW",
+		"price": 240
+	},
+	{
+		"number": 679,
+		"origin": "DEN",
+		"destination": "IAH",
+		"price": 210
+	},
+	{
+		"number": 477,
+		"origin": "JFK",
+		"destination": "LAX",
+		"price": 234
+	},
+	{
+		"number": 240,
+		"origin": "JFK",
+		"destination": "DFW",
+		"price": 176
+	},
+	{
+		"number": 678,
+		"origin": "JFK",
+		"destination": "BNA",
+		"price": 178
+	},
+	{
+		"number": 399,
+		"origin": "JFK",
+		"destination": "IAH",
+		"price": 161
+	},
+	{
+		"number": 701,
+		"origin": "JFK",
+		"destination": "PHX",
+		"price": 291
+	},
+	{
+		"number": 101,
+		"origin": "JFK",
+		"destination": "ORD",
+		"price": 168
+	},
+	{
+		"number": 904,
+		"origin": "JFK",
+		"destination": "LAS",
+		"price": 298
+	},
+	{
+		"number": 951,
+		"origin": "JFK",
+		"destination": "ATL",
+		"price": 233
+	},
+	{
+		"number": 95,
+		"origin": "SFO",
+		"destination": "LAX",
+		"price": 188
+	},
+	{
+		"number": 302,
+		"origin": "SFO",
+		"destination": "DFW",
+		"price": 183
+	},
+	{
+		"number": 267,
+		"origin": "SFO",
+		"destination": "PHX",
+		"price": 208
+	},
+	{
+		"number": 810,
+		"origin": "SFO",
+		"destination": "PDX",
+		"price": 294
+	},
+	{
+		"number": 788,
+		"origin": "LAS",
+		"destination": "LAX",
+		"price": 208
+	},
+	{
+		"number": 519,
+		"origin": "LAS",
+		"destination": "JFK",
+		"price": 292
+	},
+	{
+		"number": 680,
+		"origin": "PHX",
+		"destination": "LAX",
+		"price": 213
+	},
+	{
+		"number": 580,
+		"origin": "PHX",
+		"destination": "SFO",
+		"price": 280
+	},
+	{
+		"number": 764,
+		"origin": "PHX",
+		"destination": "JFK",
+		"price": 166
+	},
+	{
+		"number": 161,
+		"origin": "IAH",
+		"destination": "LAX",
+		"price": 245
+	},
+	{
+		"number": 601,
+		"origin": "IAH",
+		"destination": "DEN",
+		"price": 251
+	},
+	{
+		"number": 505,
+		"origin": "IAH",
+		"destination": "JFK",
+		"price": 251
+	},
+	{
+		"number": 261,
+		"origin": "IAH",
+		"destination": "ORD",
+		"price": 258
+	},
+	{
+		"number": 265,
+		"origin": "IAH",
+		"destination": "ATL",
+		"price": 256
+	},
+	{
+		"number": 738,
+		"origin": "PDX",
+		"destination": "LAX",
+		"price": 241
+	},
+	{
+		"number": 217,
+		"origin": "PDX",
+		"destination": "SFO",
+		"price": 243
+	},
+	{
+		"number": 380,
+		"origin": "STL",
+		"destination": "LAX",
+		"price": 254
+	},
+	{
+		"number": 547,
+		"origin": "STL",
+		"destination": "MKE",
+		"price": 184
+	},
+	{
+		"number": 446,
+		"origin": "MCI",
+		"destination": "LAX",
+		"price": 297
+	},
+	{
+		"number": 839,
+		"origin": "MCI",
+		"destination": "DFW",
+		"price": 215
+	},
+	{
+		"number": 303,
+		"origin": "BNA",
+		"destination": "LAX",
+		"price": 291
+	},
+	{
+		"number": 121,
+		"origin": "BNA",
+		"destination": "JFK",
+		"price": 197
+	},
+	{
+		"number": 456,
+		"origin": "MKE",
+		"destination": "LAX",
+		"price": 262
+	},
+	{
+		"number": 932,
+		"origin": "MKE",
+		"destination": "STL",
+		"price": 179
+	}
+]

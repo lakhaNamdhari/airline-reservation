@@ -1,0 +1,47 @@
+
+<html ng-app="airline">
+	<head>
+		<title>Airline App</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+	<body>
+		<div class="container" ng-controller="AL.controller.AppController">
+			<div style="color: #BBB;" class="well well-sm">
+				<h1>
+					<span class="glyphicon glyphicon-plane"></span>
+					<span>AirCanada</span>
+				</h1>
+			</div>	
+				<div class="navbar navbar-default">
+					<div class="container">
+						<div class="navbar-collapse collapse">
+							<ul class="nav navbar-nav">
+								<li ng-class="destinationsActive"><a href="#/">Destinations</a></li>
+								<li ng-class="flightsActive" ><a href="#/flights">Flights</a></li>
+								<li ng-class="reservationsActive"><a href="#/reservations">Reservations</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			
+			
+			<div ng-view></div>
+		</div>
+		
+		<!-- scripts goes here -->
+		<script type="text/javascript" src="js/lib/angular.js"></script>
+		<script type="text/javascript" src="js/lib/angular-resource.js"></script>
+		<script type="text/javascript" src="js/lib/angular-route.js"></script>
+		<script type="text/javascript" src="js/controller/app.js"></script>
+		<script type="text/javascript" src="js/controller/Destinations.js"></script>
+		<script type="text/javascript" src="js/controller/Flights.js"></script>
+		<script type="text/javascript" src="js/controller/Reservations.js"></script>
+		<script type="text/javascript" src="js/controller/Airport.js"></script>
+		<script type="text/javascript" src="js/controller/Airport1.js"></script>
+		<script type="text/javascript" src="js/controller/Airport2.js"></script>
+		<script type="text/javascript" src="js/AirlineServices.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+	</body>
+</html>

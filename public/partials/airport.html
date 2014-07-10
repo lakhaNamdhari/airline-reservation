@@ -1,0 +1,10 @@
+
+<div class="panel panel-default" ng-show="currentAirport">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{currentAirport.name}}</h3>
+	</div>
+
+	<div class="list-group">
+		<a class="list-group-item" ng-repeat="destination in currentAirport.destinations" ng-href="#/airports/{{destination}}"> {{destination}} </a>
+	</div>
+</div>
