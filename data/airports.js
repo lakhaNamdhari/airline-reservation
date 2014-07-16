@@ -9,6 +9,20 @@ var util = require( "util" );
 
 var airportsData = require( "./airportsNew.json" );
 
+// ORM for mongo-db
+var mongodb;
+
+// Databse collection for this service
+var collection = "airports";
+
+try{
+	mongodb = require( "./modules/mongo-db.js" );
+}catch( err ){
+	console.log( err );
+	throw( "Couldn't locate mongo-db.js" );
+}
+
+// The REST functionality
 var REST = require( "../REST.js" );
 
 //var mongo = require( "mongodb" ).MongoClient;
@@ -45,10 +59,12 @@ Airport.prototype.exec = function( attr ){
 Airport.prototype.find = function(){
 	console.log( "Airport.find()" );
 
-	var err;
+	var err, that = this;
 
-	this.emit( "complete", err, JSON.stringify( airportsData ) );
-}
+	mongodb.find( collection, function( err, data ){
+		that.emit( "complete", err, data && JSON.stringify( data ) || "" );
+	});	
+};
 
 /**
 *	Fetches specific airports
