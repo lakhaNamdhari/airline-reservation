@@ -7,25 +7,15 @@
 */
 var util = require( "util" );
 
-var airportsData = require( "./airportsNew.json" );
-
-// ORM for mongo-db
-var mongodb;
-
-// Databse collection for this service
-var collection = "airports";
+// Base Class for Service
+var Service;
 
 try{
-	mongodb = require( "./modules/mongo-db.js" );
+	Service = require( "../modules/service.js" );
 }catch( err ){
 	console.log( err );
-	throw( "Couldn't locate mongo-db.js" );
+	throw( "Couldn't locate service.js" );
 }
-
-// The REST functionality
-var REST = require( "../REST.js" );
-
-//var mongo = require( "mongodb" ).MongoClient;
 
 /**
 *	@constructor
@@ -34,10 +24,13 @@ var Airport = function( attr ){
 	console.log( "Airport()" );
 
 	this.attr = attr;
+
+	// Db-collection for airports data
+	this.collection = "airports";
 };
 
 // Inherit REST interface
-util.inherits( Airport, REST );
+util.inherits( Airport, Service );
 
 /**
 *	Executes the service
@@ -51,22 +44,6 @@ Airport.prototype.exec = function( attr ){
 }
 
 /**
-*	Fetches all available airports
-*
-*	@method find
-*	@return {JSON}
-*/
-Airport.prototype.find = function(){
-	console.log( "Airport.find()" );
-
-	var err, that = this;
-
-	mongodb.find( collection, function( err, data ){
-		that.emit( "complete", err, data && JSON.stringify( data ) || "" );
-	});	
-};
-
-/**
 *	Fetches specific airports
 *
 *	@method find
@@ -75,16 +52,9 @@ Airport.prototype.find = function(){
 Airport.prototype.findOne = function( airportId ){
 	console.log( "Airport.findOne()" );
 
-	var airport = {}, i, err;
+	var query = { code: airportId };
 
-	for ( i = 0; i < airportsData.length; i++ ){
-		if ( airportsData[ i ][ "code" ] === airportId ){
-			airport = airportsData[ i ];
-			break;
-		}
-	}
-
-	this.emit( "complete", err, JSON.stringify( airport ) );
+	this.find( query );
 }
 
 /**

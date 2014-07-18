@@ -46,14 +46,20 @@ var fn = {
 };
 
 var mongoDb = {
-	find: function( collection, callback ){
+	find: function(){
 		console.log( "mongodb.find" );
+
+		var query, collection, callback;
+
+		callback = Array.prototype.pop.call( arguments );
+		collection = Array.prototype.pop.call( arguments );
+		query = Array.prototype.pop.call( arguments );
 
 		fn.connect( collection, function( err, lCollection, db ){
 			if ( err ){
 				callback( err );
 			} else{
-				lCollection.find().toArray( function( err, items ){
+				lCollection.find( query ).toArray( function( err, items ){
 					// Close connection
 					db.close();
 
@@ -64,11 +70,11 @@ var mongoDb = {
 		});
 	},
 
-	insert: function( collection, data ){
+	save: function( collection, data ){
 		console.log( "mongodb.insert" );
 	},
 
-	delete: function( collection, id ){
+	remove: function( collection, id ){
 		console.log( "mongodb.delete" );
 	}
 };
