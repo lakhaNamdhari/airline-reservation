@@ -15,7 +15,16 @@ var dbConfig = {
 // Client to connect to mongo-db
 var mongodb;
 
+// Database instance
 var db;
+
+// Flag to represent database conntection state
+var connected = false;
+
+//
+var connecting = false;
+
+var reqQue = [];
 
 try{
 	mongodb = require( "mongodb" );
@@ -33,15 +42,43 @@ var fn = {
 	connect: function( collection, callback ){
 		console.log( "mongodb.fn.connect" );
 
-		db.open(function( err, database ){
-			if ( err ){
-				callback( err );
-			} else{
-				database.collection( collection, function( err, coll ){
-					callback( err, coll, database );
-				});		
-			}	
-		});
+		var i;
+
+		// If opening a DB Connection, push requests in Queue
+		if ( connecting ){
+			reqQue.push( {collection: collection, callback: callback} );
+		}
+
+		// If Not connected or connecting to DB, start a connection
+		else if ( !connected && !connecting ){
+			connecting = true;
+			db.open(function( err, database ){
+				connected = true;
+
+				if ( err ){
+					callback( err );
+				} else{
+					database.collection( collection, callback );	
+				}	
+
+
+				// process pending requests, if any
+				if ( reqQue.length ){
+					for ( i = 0; i < reqQue.length; i++ ){
+						if ( err ){
+							reqQue[ i ][ "callback" ]( err );
+						}else{
+							database.collection( reqQue[ i ][ "collection" ], reqQue[ i ][ "callback" ] );	
+						}
+					}
+				}
+			});
+		}
+
+		// If DB connection is open
+		else if ( connected ){			
+			db.collection( collection, callback );		
+		}
 	}
 };
 
@@ -55,13 +92,11 @@ var mongoDb = {
 		collection = Array.prototype.pop.call( arguments );
 		query = Array.prototype.pop.call( arguments );
 
-		fn.connect( collection, function( err, lCollection, db ){
+		fn.connect( collection, function( err, lCollection ){
 			if ( err ){
 				callback( err );
 			} else{
 				lCollection.find( query ).toArray( function( err, items ){
-					// Close connection
-					db.close();
 
 					// Return Data
 					callback( err, items );

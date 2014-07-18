@@ -26,8 +26,8 @@
 		<tbody>
 			<tr ng-repeat="flight in flights | filter:search">
 				<td><span class="badge">{{ flight.number }}</span></td>
-				<td><a ng-href="#/airports/{{flight.origin}}">{{ flight.origin }} - {{ flight.originFullName }}</a></td>
-				<td><a ng-href="#/airports/{{flight.destination}}">{{ flight.destination }} - {{ flight.destinationFullName }}</a></td>
+				<td><a ng-href="#/airports/{{flight.origin}}">{{ flight.origin }} - {{ getAirportName( flight.origin ) }}</a></td>
+				<td><a ng-href="#/airports/{{flight.destination}}">{{ flight.destination }} - {{ getAirportName( flight.destination ) }}</a></td>
 				<td>{{ flight.price | currency }}</td>
 			</tr>
 		</tbody>
