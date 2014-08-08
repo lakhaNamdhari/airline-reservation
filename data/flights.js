@@ -7,68 +7,48 @@
 */
 var util = require( "util" );
 
-// Base Class for Service
-var Service;
+// REST module
+var REST;
 
 try{
-	Service = require( "../modules/service.js" );
+	REST = require( "../modules/REST.js" );
 }catch( err ){
 	console.log( err );
-	throw( "Couldn't locate service.js" );
+	throw( "Couldn't locate REST.js" );
 }
 
 /**
 *	@constructor
 */
-var Flight = function( attr ){
+var Flight = function( attr, callback ){
 	console.log( "Flight()" );
-
-	this.attr = attr;
 
 	// Db-collection for airports data
 	this.collection = "flights";
+
+	// Key used for findOne query
+	this.queryKey = "number";
+
+	if ( attr ){
+		Flight.super_.call( this, attr, callback );
+	}	
 };
 
 // Inherit REST interface
-util.inherits( Flight, Service );
-
-/**
-*	Executes the service
-*
-*	@method exec
-*/
-Flight.prototype.exec = function( attr ){
-	if ( attr || this.attr ){
-		Flight.super_.call( this, attr || this.attr );
-	}
-}
-
-/**
-*	Fetches specific airports
-*
-*	@method find
-*	@return {JSON}
-*/
-Flight.prototype.findOne = function( flightNumber ){
-	console.log( "Flight.findOne()" );
-
-	var query = { number: flightNumber };
-
-	this.find( query );
-}
+util.inherits( Flight, REST );
 
 /**
 *	Exposed interface for this service
 *
 *	@method exec{object}
 */
-Flight.create = function( attr ){
-	console.log( "[ Static-Method ] Flight.create" );
+Flight.exec = function( attr, callback ){
+	console.log( "Flight.exec" );
 
-	return new Flight( attr );
+	return new Flight( attr, callback );
 };
 
 // Export as node Module
 module.exports = {
-	create: Flight.create
+	exec: Flight.exec
 };  

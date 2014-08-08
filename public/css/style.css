@@ -17,3 +17,7 @@ input[type=text]{
 	border: 1px solid #CCC;
 	padding: 5px 10px;
 }
+
+a:hover {
+	cursor: pointer;
+}

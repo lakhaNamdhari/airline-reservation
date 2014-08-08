@@ -3,20 +3,24 @@
 	<div class="panel-heading">
 		<h3 class="panel-title">Reserve your Flight</h3>
 	</div>
+
 	<div class="panel-body">
 		<form class="clearfix controls controls-row" action="">
+			
 			<div class="group span3 pull-left">
-				<input ng-keyup="show.origin = true" placeholder="Origin" class="input-small" type="text" ng-model="origin.city" />
-				<div ng-show="show.origin" class="list-group">
-					<a ng-click="selectPlace( 'origin', airport.code )" href="javscript:void(0)" ng-repeat="airport in airports | filter:origin" class="list-group-item">{{ airport.city }} - {{ airport.code }}</a>
+				<input ng-keyup="show.origin = true" placeholder="Origin" class="input-small" type="text" ng-model="reservation.origin" />
+				<div ng-show="reservation.origin && show.origin" class="list-group">
+					<a ng-click="selectPlace( 'origin', airport.code )" ng-repeat="airport in airports | filter:reservation.origin" class="list-group-item">{{ airport.city }} - {{ airport.code }}</a>
 				</div>
 			</div>
+
 			<div class="group span3 pull-left">
-				<input ng-keyup="show.destination = true" placeholder="Destination" class="input-small" type="text" ng-model="destination.city" />
-				<div ng-show="show.destination" class="list-group">
-					<a ng-click="selectPlace( 'destination', airport.code )" href="javscript:void(0)" ng-repeat="airport in airports | filter:destination" class="list-group-item">{{ airport.city }} - {{ airport.code }}</a>
+				<input ng-keyup="show.destination = true" placeholder="Destination" class="input-small" type="text" ng-model="reservation.destination" />
+				<div ng-show="reservation.destination && show.destination" class="list-group">
+					<a ng-click="selectPlace( 'destination', airport.code )" ng-repeat="airport in airports | filter:reservation.destination" class="list-group-item">{{ airport.city }} - {{ airport.code }}</a>
 				</div>
 			</div>
+
 		</form>
 		<ul class="pager">
 			<li class="previous"><a ng-click="reserveFlight()" href="javascript:void(0)">Reserve</a></li>

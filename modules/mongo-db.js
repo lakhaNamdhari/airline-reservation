@@ -42,7 +42,7 @@ var fn = {
 	connect: function( collection, callback ){
 		console.log( "mongodb.fn.connect" );
 
-		var i;
+		var helper;
 
 		// If opening a DB Connection, push requests in Queue
 		if ( connecting ){
@@ -53,6 +53,7 @@ var fn = {
 		else if ( !connected && !connecting ){
 			connecting = true;
 			db.open(function( err, database ){
+				connecting = false;
 				connected = true;
 
 				if ( err ){
@@ -61,15 +62,14 @@ var fn = {
 					database.collection( collection, callback );	
 				}	
 
-
 				// process pending requests, if any
-				if ( reqQue.length ){
-					for ( i = 0; i < reqQue.length; i++ ){
-						if ( err ){
-							reqQue[ i ][ "callback" ]( err );
-						}else{
-							database.collection( reqQue[ i ][ "collection" ], reqQue[ i ][ "callback" ] );	
-						}
+				while ( reqQue.length ){
+					helper = reqQue.shift();
+
+					if ( err ){
+						helper.callback( err );
+					}else{
+						database.collection( helper.collection , helper.callback );	
 					}
 				}
 			});

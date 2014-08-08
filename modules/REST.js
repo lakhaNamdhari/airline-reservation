@@ -21,24 +21,20 @@ var config = {
 
 var util = require( "util" );
 
-var EventEmitter = require( "events" ).EventEmitter;
 
 /**
 *	Returned as node module.
 *
 *	@constructor
 */
-var REST = function( attr ){
+var REST = function( attr, callback ){
 	console.log( "REST()" );
 
 	if ( attr ){
-		REST.prototype.init.call( this, attr);
+		// Enforcing the REST version of init should be called
+		REST.prototype.init.call( this, attr, callback );
 	}
 };
-
-
-// Inherit REST interface
-util.inherits( REST, EventEmitter );
 
 /**
 *	Initialises the REST service
@@ -46,7 +42,7 @@ util.inherits( REST, EventEmitter );
 *	@method init
 *	@return {JSON}
 */
-REST.prototype.init = function( attr ){
+REST.prototype.init = function( attr, callback ){
 	console.log( "REST.init()" );
 
 	// Method to invoke on service
@@ -54,9 +50,6 @@ REST.prototype.init = function( attr ){
 
 	// Current request method GET / POST / DELETE
 	this.reqMethod = attr.method = attr.method || "GET";
-
-	// Arguments with current request
-	attr.args = attr.args || [];
 
 	// Cookie for current reuest
 	this.cookie = attr.headers && attr.headers.cookie || "";
@@ -67,7 +60,7 @@ REST.prototype.init = function( attr ){
 	// Request-method to service method mapping
 	switch( attr.method ){
 		case "GET":
-			method = attr.args.length ? config.method.findOne : config.method.find;
+			method = attr.args ? config.method.findOne : config.method.find;
 		break;
 
 		case "POST":
@@ -79,50 +72,72 @@ REST.prototype.init = function( attr ){
 		break;
 	}
 
+	// add mongo-db module
+	try{
+		this.mongodb = require( "./mongo-db.js" );
+	}catch( err ){
+		console.log( err );
+		throw( "Couldn't locate mongo-db.js" );
+	}
+
 	// Return response back to server
-	this[ method ].apply( this, attr.args );
+	this[ method ].call( this, attr.args, callback );
 }
 
-/* Override these methods in your services */
 
 /**
-*	To find all entries in DB
+*	Finds all records in collection
 *
 *	@method find
 *	@return {JSON}
 */
-REST.prototype[ config.method.find ] = function(){
-	console.log( "REST[ config.method.find ]()" );
+REST.prototype[ config.method.find ] = function( query, callback ){
+	console.log( "REST." + config.method.find + "()" );
+
+	this.mongodb.find( query, this.collection, function( err, data ){
+		callback( err, data && JSON.stringify( query && data.pop() || data ) );
+	});
 };
 
+
 /**
-*	To find specific entry in DB
+*	Finds specific record in collection
 *
 *	@method findOne
 *	@return {JSON}
 */
-REST.prototype[ config.method.findOne ] = function(){
-	console.log( "REST[ config.method.find ]()" );
+REST.prototype[ config.method.findOne ] = function( attr, callback ){
+	console.log( "REST." + config.method.findOne + "()" );
+
+	var query = {};
+
+	query[ this.queryKey ] = attr.id;
+
+	this.find( query, callback );
 };
 
+
 /**
-*	To remove specific entry in DB
+*	Removes a record from collection
 *
 *	@method remove
 *	@return {JSON}
 */
 REST.prototype[ config.method.remove ] = function(){
-	console.log( "REST[ config.method.find ]()" );
+	console.log( "REST." + config.method.remove + "()" );
 };
 
+
 /**
-*	To create / update entry in DB
+*	Saves a record to collection
 *
 *	@method save
 *	@return {JSON}
 */
-REST.prototype[ config.method.save ] = function(){
-	console.log( "REST[ config.method.find ]()" );
+REST.prototype[ config.method.save ] = function( record, callback ){
+	console.log( "REST." + config.method.save + "()" );
+
+	callback( err, JSON.stringify( [] ) );
 };
 
 // Export as node module

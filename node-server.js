@@ -9,6 +9,8 @@ var server = require( "./server.js" ).start( "localhost", 4500 );
 
 var url = require( "url" );
 
+var qs = require( "querystring" );
+
 var contentType;
 
 var config = {
@@ -23,71 +25,112 @@ try{
 	throw( "ABORTING: Can't find dependency :: mime-types.json" );
 }
 
+/**
+*	Parses request : Extracts requested URL and args
+*
+*	@method parseRequest
+*/
+var parseRequest = function( request, baseUrl, callback ){
+	console.log( "parseRequest()" );
+
+	var dataBody = '';
+
+	var result = {};
+
+	var err;
+
+	var helper;
+
+	var requestUrl = url.parse( request.url );
+
+	// For POST request
+	if ( request.method === "POST" ){
+		// Still receiving post data
+		request.on( "data", function( data ){
+			dataBody += data;
+
+			// Kill connection if overloaded with data
+			if ( dataBody.length > 1e6 ){
+				request.connection.destroy();
+			}
+		});
+
+		// When all post data recieved
+		request.on( "end", function(){
+			result.args = qs.parse( dataBody );
+			result.url = baseUrl + requestUrl.pathname + ".js";
+
+			callback( err, result );
+		});
+	}
+
+	// For GET request
+	else if ( request.method === "GET" ){
+		result.url = baseUrl + requestUrl.pathname + ".js";
+
+		try{
+			helper = require( result.url );
+		}catch( e ){
+			helper = requestUrl.pathname.split( "/" );
+			result.args = { id: helper.pop() };
+			result.url = baseUrl + helper.join( "/" ) + ".js";
+		}
+		callback( err, result );
+	}
+};
+
 // When a service is hit
 server.on( "service", function( request, response){
 	console.log( "Server.on.service" );
 
+	// Data to be sent with response
 	var responseData;
 
-	var requestUrl = url.parse( request.url );
-
-	var args = [];
-
-	var helper;
-
+	// Response mime-type
 	var mimeType;
 
+	// Service Instance
 	var service;
 
+	// Response status code
 	var statusCode = 404;
 
-	var pending = true;
+	// Parses incoming request
+	parseRequest( request, config.serviceRoot, function( err, data ){
+		var params = {
+			method : request.method,
+			args : data.args,
+			headers : request.headers
+		};
 
-	while( pending && requestUrl.pathname !== "" ){
-		try{	 		
-			// Assume service to be a node module
-			// Not supporting php, JSP modules as if now	 			
-			finalUrl = config.serviceRoot + requestUrl.pathname + ".js";
-
-			// Creates service instance
-			service = require( finalUrl ).create();
-
-			// When service is executed
-			service.on( "complete", function( err, data ){
-				console.log( "service.complete()" );
-				
-				// If service successfull
-				if ( data ){
-					mimeType = contentType[ "json" ];
-					statusCode = 200;
-					responseData = data;
-				}
-
-				// Write back response
-				response.writeHead( statusCode, { "content-type": mimeType });
-				response.end( responseData );	 
-			});
-
-			// Execute the service
-			service.exec({
-				method : request.method,
-				args : args,
-				headers : request.headers
-			});
-
-			// Break the loop
-			pending = false;
-		}catch( err ){
-			helper = requestUrl.pathname.split( "/" );
-			args.push( helper.pop() );
-			requestUrl.pathname = helper.join( "/" );
+		if ( err ){
+			response.writeHead( statusCode );
+			response.end();
 		}
-	} 
-	
-	// If service not found
-	if ( pending ){
-		response.writeHead( statusCode );
-		response.end();
-	}
 
+		// try loading service
+		try{
+			service = require( data.url );
+		}catch( e ){
+			throw( e );
+		}
+
+		// Execute the service
+		service.exec( params, function( err, data ){
+			console.log( "service.complete()" );
+			
+			if ( err ){
+				response.writeHead( statusCode );
+				response.end();
+			}
+
+			mimeType = contentType[ "json" ];
+			statusCode = 200;
+			responseData = data;
+		
+			// Write back response
+			response.writeHead( statusCode, { "content-type": mimeType });
+			response.end( responseData );	 
+		});
+	});
 });

@@ -3,7 +3,7 @@
 *	This is REST-ful service to get airports data
 *
 *	@author Lakha Singh
-*	@class Airport
+*	@class Flight
 */
 var util = require( "util" );
 
@@ -20,35 +20,35 @@ try{
 /**
 *	@constructor
 */
-var Airport = function( attr, callback ){
-	console.log( "Airport()" );
+var Reservation = function( attr, callback ){
+	console.log( "Reservation()" );
 
 	// Db-collection for airports data
-	this.collection = "airports";
+	this.collection = "reservations";
 
 	// Key used for findOne query
-	this.queryKey = "code";
+	this.queryKey = "id";
 
 	if ( attr ){
-		Airport.super_.call( this, attr, callback );
+		Reservation.super_.call( this, attr, callback );
 	}	
 };
 
 // Inherit REST interface
-util.inherits( Airport, REST );
+util.inherits( Reservation, REST );
 
 /**
 *	Exposed interface for this service
 *
 *	@method exec{object}
 */
-Airport.exec = function( attr, callback ){
-	console.log( "Airport.exec" );
+Reservation.exec = function( attr, callback ){
+	console.log( "Reservation.exec" );
 
-	new Airport( attr, callback );
+	return new Reservation( attr, callback );
 };
 
 // Export as node Module
 module.exports = {
-	exec: Airport.exec
+	exec: Reservation.exec
 };  

@@ -12,7 +12,7 @@
 	};
 
 	service.Reservations = function ( $resource ){
-		return $resource("/reservations");
+		return $resource("/reservations/:bookingId");
 	};
 
 	angular.module( "airlineServices", ["ngResource"] )
