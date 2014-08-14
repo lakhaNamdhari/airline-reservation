@@ -13,10 +13,6 @@ var url = require( "url" );
 
 var contentType;
 
-var config = {
-	serviceRoot: "./data/"
-};
-
 // Load Mime Types
 try{
 	contentType = require( "./mime-types.json" );
@@ -30,7 +26,7 @@ try{
 *
 *	@method parseRequest
 */
-var parseRequest = function( request, baseUrl, callback ){
+var parseRequest = function( request, callback ){
 	console.log( "parseRequest()" );
 
 	var dataBody = '';
@@ -38,6 +34,12 @@ var parseRequest = function( request, baseUrl, callback ){
 	var result = {};
 
 	var helper;
+
+	var api;
+
+	var version;
+
+	var resource;
 
 	var requestUrl = url.parse( request.url );
 
@@ -56,7 +58,7 @@ var parseRequest = function( request, baseUrl, callback ){
 		// When all post data recieved
 		request.on( "end", function(){
 			result.args = [ JSON.parse( dataBody ) ];
-			result.url = baseUrl + requestUrl.pathname + ".js";
+			result.url = "." + requestUrl.pathname + ".js";
 
 			callback( result );
 		});
@@ -67,7 +69,10 @@ var parseRequest = function( request, baseUrl, callback ){
 		helper = requestUrl.pathname.split( "/" );
 		// Ignore the empty value
 		helper.shift();
-		result.url = baseUrl + helper.shift() + ".js";
+		api = helper.shift();
+		version = helper.shift();
+		resource = helper.shift();
+		result.url = "./" + api + "/" + version + "/" + resource + ".js";
 		result.args = helper;
 
 		callback( result );
@@ -91,7 +96,7 @@ server.on( "service", function( request, response){
 	var statusCode = 404;
 
 	// Parses incoming request
-	parseRequest( request, config.serviceRoot, function( data ){
+	parseRequest( request, function( data ){
 		var params = {
 			method : request.method,
 			args : data.args,

@@ -33,7 +33,6 @@ try{
 
 var defaultConfig = {
 	port: "3567",
-	serviceRoot: "./data",
 	resourceRoot: "./public",
 	rootFile: "index.html",
 	hostname: "localhost"

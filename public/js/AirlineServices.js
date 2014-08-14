@@ -4,15 +4,15 @@
 	var service = ns.service = ns.service || {};
 	
 	service.Airports = function ( $resource ){
-		return $resource("/airports/:airportCode");
+		return $resource("airCanadaAPI/v1/airports/:airportCode");
 	};
 
 	service.Flights = function ( $resource ){
-		return $resource("/flights");
+		return $resource("airCanadaAPI/v1/flights");
 	};
 
 	service.Reservations = function ( $resource ){
-		return $resource("/reservations/:bookingId");
+		return $resource("airCanadaAPI/v1/reservations/:bookingId");
 	};
 
 	angular.module( "airlineServices", ["ngResource"] )

@@ -11,7 +11,7 @@ var util = require( "util" );
 var REST;
 
 try{
-	REST = require( "../modules/REST.js" );
+	REST = require( "../../modules/REST.js" );
 }catch( err ){
 	console.log( err );
 	throw( "Couldn't locate REST.js" );
