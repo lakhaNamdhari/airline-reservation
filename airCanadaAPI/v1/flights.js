@@ -38,6 +38,27 @@ var Flight = function( attr, callback ){
 util.inherits( Flight, REST );
 
 /**
+*	Finds all records in collection
+*
+*	@method find
+*	@return {JSON}
+*/
+Flight.prototype.find = function( attr, callback ){
+	console.log( "Flight.find()" );
+
+	var query;
+
+	if ( attr.length === 2 ){
+		query = {
+			origin: attr.shift(),
+			destination: attr.shift()
+		};
+	}
+
+	Flight.super_.prototype.find.call( this, query, callback )
+};
+
+/**
 *	Exposed interface for this service
 *
 *	@method exec{object}

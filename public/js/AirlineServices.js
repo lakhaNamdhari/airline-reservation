@@ -8,7 +8,7 @@
 	};
 
 	service.Flights = function ( $resource ){
-		return $resource("airCanadaAPI/v1/flights");
+		return $resource("airCanadaAPI/v1/flights/:origin/:destination");
 	};
 
 	service.Reservations = function ( $resource ){

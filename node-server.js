@@ -64,8 +64,8 @@ var parseRequest = function( request, callback ){
 		});
 	}
 
-	// For GET request
-	else if ( request.method === "GET" ){
+	// For GET and DELETE request
+	else if ( request.method === "GET" || request.method === "DELETE" ){
 		helper = requestUrl.pathname.split( "/" );
 		// Ignore the empty value
 		helper.shift();

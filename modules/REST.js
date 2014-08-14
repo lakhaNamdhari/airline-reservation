@@ -98,7 +98,7 @@ REST.prototype[ config.method.find ] = function( query, callback ){
 		query = null;
 	}
 
-	this.mongodb.find( query, this.collection, callback );
+	this.mongodb.find( this.collection, query, callback );
 };
 
 
@@ -113,24 +113,16 @@ REST.prototype[ config.method.findOne ] = function( args, callback ){
 
 	var query = {};
 
+	if ( !args.length ){
+		callback( "Identifier Missing!" );
+	}
+
 	query[ this.queryKey ] = args.pop();
 
 	this.find( query, function( err, data ){
 		callback( err, data && data.pop() );
 	});
 };
-
-
-/**
-*	Removes a record from collection
-*
-*	@method remove
-*	@return {JSON}
-*/
-REST.prototype[ config.method.remove ] = function(){
-	console.log( "REST." + config.method.remove + "()" );
-};
-
 
 /**
 *	Saves a record to collection
@@ -141,9 +133,39 @@ REST.prototype[ config.method.remove ] = function(){
 REST.prototype[ config.method.save ] = function( args, callback ){
 	console.log( "REST." + config.method.save + "()" );
 
-	this.mongodb.save( this.collection, args.pop(), function( err, response ){
-		callback( err, response && JSON.stringify( response ) );
-	});
+	var data;
+
+	if ( !args.length ){
+		callback( "Data Missing!" );
+	}
+
+	data = args.pop();
+
+	this.mongodb.save( this.collection, data, callback );
+};
+
+/**
+*	Removes a record from collection
+*
+*	@method remove
+*	@return {JSON}
+*/
+REST.prototype[ config.method.remove ] = function( args, callback ){
+	console.log( "REST." + config.method.remove + "()" );
+
+	var query = {};
+
+	if ( !args.length ){
+		callback( "Identifier Missing!" );
+	}
+
+	query[ this.queryKey ] = args.pop();
+	
+	if ( this.queryType && this.queryType === "number" ){
+		query[ this.queryKey ] = parseInt( query[ this.queryKey ] );
+	}
+
+	this.mongodb.remove( this.collection, query, callback );	
 };
 
 // Export as node module

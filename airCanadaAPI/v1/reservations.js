@@ -27,7 +27,10 @@ var Reservation = function( attr, callback ){
 	this.collection = "reservations";
 
 	// Key used for findOne query
-	this.queryKey = "id";
+	this.queryKey = "number";
+
+	// data-type for queryKey
+	this.queryType = "number";
 
 	if ( attr ){
 		Reservation.super_.call( this, attr, callback );

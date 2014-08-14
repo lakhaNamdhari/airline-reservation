@@ -83,7 +83,7 @@ var fn = {
 };
 
 var mongoDb = {
-	find: function( query, collection, callback ){
+	find: function( collection, query, callback ){
 		console.log( "mongodb.find" );
 
 		fn.connect( collection, function( err, lCollection ){
@@ -104,16 +104,21 @@ var mongoDb = {
 			if ( err ){
 				callback( err );
 			} else{
-				lCollection.save( data, function( err, response ){
-					// Return Data
-					callback( err, response );
-				});	
+				lCollection.save( data, callback );	
 			}	
 		});
 	},
 
-	remove: function( collection, id ){
+	remove: function( collection, query, callback ){
 		console.log( "mongodb.delete" );
+
+		fn.connect( collection, function( err, lCollection ){
+			if ( err ){
+				callback( err );
+			} else{
+				lCollection.remove( query, callback );	
+			}	
+		});
 	}
 };
 

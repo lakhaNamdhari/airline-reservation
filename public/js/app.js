@@ -5,11 +5,7 @@
 	
 	ns.router = function ( $routeProvider ){
 		$routeProvider
-			.when( "/", { templateUrl: "partials/destinations.html", controller: controller.Destinations } )
-			.when( "/airports/:airportCode", { templateUrl: "partials/airport.html", controller: controller.Airport } )
-			.when( "/airports/:airport1/:airport2", { templateUrl: "partials/twoAirports.html" } )
-			.when( "/flights", { templateUrl: "partials/flights.html", controller: controller.Flights } )
-			.when( "/reservations", { templateUrl: "partials/reservations.html", controller: controller.Reservations } );
+			.when( "/", { templateUrl: "partials/reservations.html", controller: controller.Reservations } );
 	};
 
 	angular.module( "airline", ["ngRoute", "airlineServices"] )
