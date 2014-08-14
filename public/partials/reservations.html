@@ -1,7 +1,7 @@
 
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">Reserve your Flight</h3>
+		<h3 class="panel-title">Search Flight</h3>
 	</div>
 
 	<div class="panel-body">
@@ -23,7 +23,7 @@
 
 		</form>
 		<ul class="pager">
-			<li class="previous"><a ng-click="reserveFlight()" href="javascript:void(0)">Reserve</a></li>
+			<li class="previous"><a ng-click="reserveFlight()" href="javascript:void(0)">Search</a></li>
 		</ul>
 	</div>
 </div>
@@ -44,8 +44,9 @@
 		<tbody>
 			<tr ng-repeat="flight in reservations">
 				<td>{{ flight.number }}</td>
-				<td>{{ flight.origin }} - {{ flight.originFullName }}</td>
-				<td>{{ flight.destination }} - {{ flight.destinationFullName }}</td>
+				<td>{{ flight.origin }} - {{ getAirportName( flight.origin) }}</td>
+				<td>{{ flight.destination }} - {{ getAirportName( flight.destination) }}</td>
+				<td style="cursor: pointer" class="text-danger glyphicon glyphicon-remove-sign"></td>
 			</tr>
 		</tbody>
 	</table>

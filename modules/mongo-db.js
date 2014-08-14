@@ -83,30 +83,33 @@ var fn = {
 };
 
 var mongoDb = {
-	find: function(){
+	find: function( query, collection, callback ){
 		console.log( "mongodb.find" );
-
-		var query, collection, callback;
-
-		callback = Array.prototype.pop.call( arguments );
-		collection = Array.prototype.pop.call( arguments );
-		query = Array.prototype.pop.call( arguments );
 
 		fn.connect( collection, function( err, lCollection ){
 			if ( err ){
 				callback( err );
 			} else{
-				lCollection.find( query ).toArray( function( err, items ){
-
-					// Return Data
-					callback( err, items );
-				});	
+				lCollection
+					.find( query )
+					.toArray( callback );	
 			}	
 		});
 	},
 
-	save: function( collection, data ){
+	save: function( collection, data, callback ){
 		console.log( "mongodb.insert" );
+
+		fn.connect( collection, function( err, lCollection ){
+			if ( err ){
+				callback( err );
+			} else{
+				lCollection.save( data, function( err, response ){
+					// Return Data
+					callback( err, response );
+				});	
+			}	
+		});
 	},
 
 	remove: function( collection, id ){

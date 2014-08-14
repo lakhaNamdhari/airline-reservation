@@ -60,7 +60,7 @@ REST.prototype.init = function( attr, callback ){
 	// Request-method to service method mapping
 	switch( attr.method ){
 		case "GET":
-			method = attr.args ? config.method.findOne : config.method.find;
+			method = attr.args && attr.args.length === 1 ? config.method.findOne : config.method.find;
 		break;
 
 		case "POST":
@@ -94,9 +94,11 @@ REST.prototype.init = function( attr, callback ){
 REST.prototype[ config.method.find ] = function( query, callback ){
 	console.log( "REST." + config.method.find + "()" );
 
-	this.mongodb.find( query, this.collection, function( err, data ){
-		callback( err, data && JSON.stringify( query && data.pop() || data ) );
-	});
+	if ( typeof query !== "object" ){
+		query = null;
+	}
+
+	this.mongodb.find( query, this.collection, callback );
 };
 
 
@@ -106,14 +108,16 @@ REST.prototype[ config.method.find ] = function( query, callback ){
 *	@method findOne
 *	@return {JSON}
 */
-REST.prototype[ config.method.findOne ] = function( attr, callback ){
+REST.prototype[ config.method.findOne ] = function( args, callback ){
 	console.log( "REST." + config.method.findOne + "()" );
 
 	var query = {};
 
-	query[ this.queryKey ] = attr.id;
+	query[ this.queryKey ] = args.pop();
 
-	this.find( query, callback );
+	this.find( query, function( err, data ){
+		callback( err, data && data.pop() );
+	});
 };
 
 
@@ -134,10 +138,12 @@ REST.prototype[ config.method.remove ] = function(){
 *	@method save
 *	@return {JSON}
 */
-REST.prototype[ config.method.save ] = function( record, callback ){
+REST.prototype[ config.method.save ] = function( args, callback ){
 	console.log( "REST." + config.method.save + "()" );
 
-	callback( err, JSON.stringify( [] ) );
+	this.mongodb.save( this.collection, args.pop(), function( err, response ){
+		callback( err, response && JSON.stringify( response ) );
+	});
 };
 
 // Export as node module

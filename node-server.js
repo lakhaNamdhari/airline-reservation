@@ -9,12 +9,12 @@ var server = require( "./server.js" ).start( "localhost", 4500 );
 
 var url = require( "url" );
 
-var qs = require( "querystring" );
+//var qs = require( "querystring" );
 
 var contentType;
 
 var config = {
-	serviceRoot: "./data"
+	serviceRoot: "./data/"
 };
 
 // Load Mime Types
@@ -37,8 +37,6 @@ var parseRequest = function( request, baseUrl, callback ){
 
 	var result = {};
 
-	var err;
-
 	var helper;
 
 	var requestUrl = url.parse( request.url );
@@ -57,25 +55,22 @@ var parseRequest = function( request, baseUrl, callback ){
 
 		// When all post data recieved
 		request.on( "end", function(){
-			result.args = qs.parse( dataBody );
+			result.args = [ JSON.parse( dataBody ) ];
 			result.url = baseUrl + requestUrl.pathname + ".js";
 
-			callback( err, result );
+			callback( result );
 		});
 	}
 
 	// For GET request
 	else if ( request.method === "GET" ){
-		result.url = baseUrl + requestUrl.pathname + ".js";
+		helper = requestUrl.pathname.split( "/" );
+		// Ignore the empty value
+		helper.shift();
+		result.url = baseUrl + helper.shift() + ".js";
+		result.args = helper;
 
-		try{
-			helper = require( result.url );
-		}catch( e ){
-			helper = requestUrl.pathname.split( "/" );
-			result.args = { id: helper.pop() };
-			result.url = baseUrl + helper.join( "/" ) + ".js";
-		}
-		callback( err, result );
+		callback( result );
 	}
 };
 
@@ -96,17 +91,12 @@ server.on( "service", function( request, response){
 	var statusCode = 404;
 
 	// Parses incoming request
-	parseRequest( request, config.serviceRoot, function( err, data ){
+	parseRequest( request, config.serviceRoot, function( data ){
 		var params = {
 			method : request.method,
 			args : data.args,
 			headers : request.headers
 		};
-
-		if ( err ){
-			response.writeHead( statusCode );
-			response.end();
-		}
 
 		// try loading service
 		try{
@@ -126,7 +116,7 @@ server.on( "service", function( request, response){
 
 			mimeType = contentType[ "json" ];
 			statusCode = 200;
-			responseData = data;
+			responseData = JSON.stringify( data );
 		
 			// Write back response
 			response.writeHead( statusCode, { "content-type": mimeType });
