@@ -1,92 +1,9 @@
-<!-- Seach Flights STARTS -->
-<div class="panel panel-default">
-	<div class="panel-heading">
-		<h3 class="panel-title">Search Flight</h3>
-	</div>
 
-	<div class="panel-body">
-		<form class="clearfix controls controls-row" action="">
-			
-			<div class="group span3 pull-left">
-				<input ng-keyup="show.origin = true" placeholder="Origin" class="input-small" type="text" ng-model="reservation.origin" />
-				<div ng-show="reservation.origin && show.origin" class="list-group">
-					<a ng-click="selectPlace( 'origin', airport.code )" ng-repeat="airport in airports | filter:reservation.origin" class="list-group-item">{{ airport.city }} - {{ airport.code }}</a>
-				</div>
-			</div>
+<!-- Include Search-flights Component -->
+<div ng-include="view" ng-controller="SearchFlights"></div>
 
-			<div class="group span3 pull-left">
-				<input ng-keyup="show.destination = true" placeholder="Destination" class="input-small" type="text" ng-model="reservation.destination" />
-				<div ng-show="reservation.destination && show.destination" class="list-group">
-					<a ng-click="selectPlace( 'destination', airport.code )" ng-repeat="airport in airports | filter:reservation.destination" class="list-group-item">{{ airport.city }} - {{ airport.code }}</a>
-				</div>
-			</div>
-			<button type="button" ng-click="searchFlights( reservation )" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-search"></span> Search
-			</button>
-		</form>
-	</div>
-</div>
-<!-- Seach Flights ENDS -->
+<!-- Include display-flights Component -->
+<div ng-include="view" ng-controller="DisplayFlights"></div>
 
-<!-- Display Flights STARTS -->
-<div ng-show="flights.length" class="panel panel-default">
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Number</th>
-				<th>Origin</th>
-				<th>Destination</th>
-				<th>Price</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="flight in flights">
-				<td><span class="badge">{{ flight.number }}</span></td>
-				<td><a ng-href="#/airports/{{flight.origin}}">{{ flight.origin }} - {{ getAirportName( flight.origin ) }}</a></td>
-				<td><a ng-href="#/airports/{{flight.destination}}">{{ flight.destination }} - {{ getAirportName( flight.destination ) }}</a></td>
-				<td>{{ flight.price | currency }}</td>
-				<td>
-					<button type="button" ng-click="reserveFlight( flight )" class="btn btn-sm btn-success">
-  						<span class="glyphicon glyphicon-ok-circle"></span>
-  					 Book</button>
-  				</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-<!-- Display Flights ENDS -->
-
-<!-- Display Reservations STARTS -->
-<div>
-	<div class="panel panel-default"  ng-show="reservations.length">
-		<div class="panel-heading">
-			<h3 class="panel-title">Reservations</h3>
-		</div>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Number</th>
-					<th>Origin</th>
-					<th>Destination</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="flight in reservations">
-					<td>{{ flight.number }}</td>
-					<td>{{ flight.origin }} - {{ getAirportName( flight.origin) }}</td>
-					<td>{{ flight.destination }} - {{ getAirportName( flight.destination) }}</td>
-					<td>
-						<button type="button" ng-click="cancelFlight( flight )" class="btn btn-sm btn-danger">
-	  						<span class="glyphicon glyphicon-remove-sign"></span>
-	  					 Cancel</button>	
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-
-	<div class="alert alert-info" ng-hide="reservations.length">
-		<p>You dont currently have any reservations, Why not make one now ?</p>
-	</div>
-</div>
-<!-- Display Reservations ENDS -->
+<!-- Include display-Reservations Component -->
+<div ng-include="view" ng-controller="DisplayReservations"></div>

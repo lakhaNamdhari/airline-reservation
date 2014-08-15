@@ -1,0 +1,28 @@
+<!-- Seach Flights STARTS -->
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Search Flight</h3>
+	</div>
+
+	<div class="panel-body">
+		<form class="clearfix controls controls-row" action="">
+			
+			<div class="group span3 pull-left">
+				<input ng-keyup="show.origin = true" placeholder="Origin" class="input-small" type="text" ng-model="flightQuery.origin" />
+				<div ng-show="flightQuery.origin && show.origin" class="list-group">
+					<a ng-click="selectPlace( 'origin', airport.code )" ng-repeat="airport in airports | filter:flightQuery.origin" class="list-group-item">{{ airport.city }} - {{ airport.code }}</a>
+				</div>
+			</div>
+
+			<div class="group span3 pull-left">
+				<input ng-keyup="show.destination = true" placeholder="Destination" class="input-small" type="text" ng-model="flightQuery.destination" />
+				<div ng-show="flightQuery.destination && show.destination" class="list-group">
+					<a ng-click="selectPlace( 'destination', airport.code )" ng-repeat="airport in airports | filter:flightQuery.destination" class="list-group-item">{{ airport.city }} - {{ airport.code }}</a>
+				</div>
+			</div>
+			<button type="button" ng-click="searchFlights( flightQuery )" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-search"></span> Search
+			</button>
+		</form>
+	</div>
+</div>
+<!-- Seach Flights ENDS -->
