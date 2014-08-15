@@ -1,6 +1,6 @@
 
 /**
-*	Define application level objects here.
+*	Define Angular's application level objects here.
 *
 *	@author Lakha Singh
 */

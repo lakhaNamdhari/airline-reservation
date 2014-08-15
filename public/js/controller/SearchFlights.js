@@ -4,24 +4,21 @@
 *
 *	@author Lakha Singh
 */
-(function( ns ){
+(function(){
 	// Name of this component
 	var ctrlName = "SearchFlights";
-
-	// Logs
-	var log = ns.util && ns.util.log || function(){};
-
+	
 	// Application module
 	var app = angular.module( "appControllers" );
 	
 	// register Controller
-	app.controller( ctrlName, function ( $scope, $rootScope, Airports, Flights ){
-		log( "controller." + ctrlName );
+	app.controller( ctrlName, function ( $scope, Airports, Flights, Reservations ){
+		 $scope.util.log( "controller." + ctrlName );
 		
 		// View Template for this controller
 		$scope.view = 'partials/search-flights.html';
 
-		// Fetch airports data
+		// Fetches airports data
 		$scope.airports = Airports.query();
 
 		// Flag to show / hide the suggestion list
@@ -34,7 +31,7 @@
 		$scope.flightQuery = {};
 
 		/**
-		*	To Choose city from popup menu
+		*	Updates input box with selected value from popup
 		*
 		*	@method reserveFlight
 		*/
@@ -46,12 +43,23 @@
 		};
 		
 		/**
-		*	To Search Flights
+		*	Search's flights based on origin and destination code
 		*
 		*	@method reserveFlight
 		*/
 		$scope.searchFlights = function( query ){			
-			$rootScope.flights = Flights.query( query );
+			$scope.flights = Flights.query( query );
+		};
+
+		/**
+		*	To Book a new flight
+		*
+		*	@method reserveFlight
+		*/
+		$scope.reserveFlight = function( flight ){
+			Reservations.save( flight, function(){
+				$scope.$emit( $scope.events.newReservation, flight );
+			});
 		};
 	});
-}( window.NS = window.NS || {} ));
+}());

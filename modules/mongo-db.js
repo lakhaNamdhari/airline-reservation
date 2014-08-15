@@ -104,7 +104,9 @@ var mongoDb = {
 			if ( err ){
 				callback( err );
 			} else{
-				lCollection.save( data, callback );	
+				lCollection.insert( data, function( err, result){
+					callback( err, result );
+				} );	
 			}	
 		});
 	},
@@ -116,7 +118,9 @@ var mongoDb = {
 			if ( err ){
 				callback( err );
 			} else{
-				lCollection.remove( query, callback );	
+				lCollection.remove( query, function( err, countOfRemoved ){
+					callback( err, countOfRemoved && { removed: countOfRemoved} );
+				});	
 			}	
 		});
 	}
