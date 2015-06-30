@@ -1,0 +1,6 @@
+# Numerous always-ignore extensions
+*.zip
+
+# Folders to ignore
+node_modules
+bower_components
