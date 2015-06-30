@@ -1,0 +1,24 @@
+{
+  "name": "airline-reservation",
+  "version": "1.0.0",
+  "description": "MOckup project based on angular to depict workings of airline",
+  "main": "node-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lakhaNamdhari/airline-reservation"
+  },
+  "author": "Lakha Singh <polizic@yahoo.co.in>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lakhaNamdhari/airline-reservation/issues"
+  },
+  "homepage": "https://github.com/lakhaNamdhari/airline-reservation",
+  "devDependencies": {
+    "extend": "^2.0.1",
+    "mongodb": "^2.0.35"
+  }
+}
