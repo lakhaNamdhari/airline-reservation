@@ -31,7 +31,7 @@
 						airportNames = {};
 
 						for ( i = 0; i < $scope.airports.length; i++ ){
-							airportNames[ $scope.airports[ i ][ "code"] ] = $scope.airports[ i ][ "name"];
+							airportNames[ $scope.airports[ i ][ "code"] ] = $scope.airports[ i ][ "city"];
 						}
 					}
 

@@ -1,0 +1,2 @@
+mongoimport --db aircanada --collection airports --type json --file /Users/lnagi/git/airline-reservation/db/airports.json --jsonArray
+mongoimport --db aircanada --collection flights --type json --file /Users/lnagi/git/airline-reservation/db/flights.json --jsonArray
