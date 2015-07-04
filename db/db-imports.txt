@@ -1,2 +1,4 @@
+## please specify path of airports.json and flights.json as per you installation and OS
+
 mongoimport --db aircanada --collection airports --type json --file /Users/lnagi/git/airline-reservation/db/airports.json --jsonArray
 mongoimport --db aircanada --collection flights --type json --file /Users/lnagi/git/airline-reservation/db/flights.json --jsonArray
