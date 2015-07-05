@@ -14,8 +14,8 @@
 	// Application module
 	var app = angular.module( "appControllers" );
 	
-	app.controller( ctrlName, function( $scope, $rootScope,  Reservations ){
-		$scope.util.log( "controller." + ctrlName );
+	app.controller( ctrlName, function( $scope, $rootScope,  Reservations, CEvents, Shared, Util ){
+		Util.log( "controller." + ctrlName );
 
 		// View Template for this controller
 		$scope.view = 'partials/display-reservations.html';
@@ -23,8 +23,10 @@
 		// Contains all Reservation data
 		$scope.reservations = Reservations.query();
 
+		$scope.shared = Shared;
+
 		// Listen for any new reservations
-		$rootScope.$on( $scope.events.newReservation, function( e, reservation ){
+		$scope.$on( CEvents.newReservation, function( e, reservation ){
 			$scope.reservations.push( reservation );
 		});
 
@@ -41,7 +43,7 @@
 					if (  $scope.reservations[ i ][ "number" ] === flight.number ){
 						$scope.reservations.splice( i, 1 );
 
-						$scope.$emit( $scope.events.cancelReservation, flight );
+						$rootScope.$broadcast( CEvents.cancelReservation, flight );
 						break;
 					}
 				}

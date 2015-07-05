@@ -12,14 +12,16 @@
 	var app = angular.module( "appControllers" );
 	
 	// register Controller
-	app.controller( ctrlName, function ( $scope, Airports, Flights, Reservations ){
-		 $scope.util.log( "controller." + ctrlName );
+	app.controller( ctrlName, function ( $scope, $rootScope, Airports, Flights, Reservations, CEvents, Shared, Util ){
+		 Util.log( "controller." + ctrlName );
 		
 		// View Template for this controller
 		$scope.view = 'partials/search-flights.html';
 
 		// Fetches airports data
 		$scope.airports = Airports.query();
+
+		$scope.shared = Shared;
 
 		// Flag to show / hide the suggestion list
 		$scope.show = {
@@ -58,7 +60,7 @@
 		*/
 		$scope.reserveFlight = function( flight ){
 			Reservations.save( flight, function(){
-				$scope.$emit( $scope.events.newReservation, flight );
+				$rootScope.$broadcast( CEvents.newReservation, flight );
 			});
 		};
 	});

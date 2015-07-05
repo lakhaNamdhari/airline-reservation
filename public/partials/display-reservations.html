@@ -15,8 +15,8 @@
 			<tbody>
 				<tr ng-repeat="flight in reservations">
 					<td>{{ flight.number }}</td>
-					<td>{{ flight.origin }} - {{ getAirportName( flight.origin) }}</td>
-					<td>{{ flight.destination }} - {{ getAirportName( flight.destination) }}</td>
+					<td>{{ flight.origin }} - {{ shared.getAirportName( flight.origin) }}</td>
+					<td>{{ flight.destination }} - {{ shared.getAirportName( flight.destination) }}</td>
 					<td>
 						<button type="button" ng-click="cancelFlight( flight )" class="btn btn-sm btn-danger">
 	  						<span class="glyphicon glyphicon-remove-sign"></span>

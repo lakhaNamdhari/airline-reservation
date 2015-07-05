@@ -41,8 +41,8 @@
 			<tbody>
 				<tr ng-repeat="flight in flights">
 					<td><span class="badge">{{ flight.number }}</span></td>
-					<td><a>{{ flight.origin }} - {{ getAirportName( flight.origin ) }}</a></td>
-					<td><a>{{ flight.destination }} - {{ getAirportName( flight.destination ) }}</a></td>
+					<td><a>{{ flight.origin }} - {{ shared.getAirportName( flight.origin ) }}</a></td>
+					<td><a>{{ flight.destination }} - {{ shared.getAirportName( flight.destination ) }}</a></td>
 					<td>{{ flight.price | currency }}</td>
 					<td>
 						<button type="button" ng-click="reserveFlight( flight )" class="btn btn-sm btn-success">

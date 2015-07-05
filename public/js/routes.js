@@ -5,7 +5,7 @@
 *	@author Lakha Singh
 */
 angular
-	.module( "airline" )
+	.module( "appControllers" )
 	.config( function ( $routeProvider ){
 		$routeProvider
 			.when( "/", { templateUrl: "partials/reservations.html" } );
