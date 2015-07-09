@@ -6,7 +6,10 @@
 */
 angular
 	.module( "appControllers" )
-	.config( function ( $routeProvider ){
-		$routeProvider
-			.when( "/", { templateUrl: "partials/reservations.html" } );
-	});
+	.config( [
+		'$routeProvider',
+		function ( $routeProvider ){
+			$routeProvider
+				.when( "/", { templateUrl: "partials/reservations.html" } );
+		}
+	]);

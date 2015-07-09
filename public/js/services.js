@@ -9,21 +9,30 @@
 	/**
 	*	Service to access Airports Data
 	*/
-	service.factory( "Airports", function ( $resource ){
-		return $resource("airCanadaAPI/v1/airports/:airportCode");
-	});
+	service.factory( "Airports", [
+		'$resource',
+		function ( $resource ){
+			return $resource("airCanadaAPI/v1/airports/:airportCode");
+		}
+	]);
 
 	/**
 	*	Service to access Flights Data
 	*/
-	service.factory( "Flights", function ( $resource ){
-		return $resource("airCanadaAPI/v1/flights/:origin/:destination");
-	});
+	service.factory( "Flights",[
+		'$resource',
+		 function ( $resource ){
+			return $resource("airCanadaAPI/v1/flights/:origin/:destination");
+		}
+	]);
 
 	/**
 	*	Service to access Reservations Data
 	*/
-	service.factory( "Reservations", function ( $resource ){
-		return $resource("airCanadaAPI/v1/reservations/:bookingId");
-	});
+	service.factory( "Reservations", [
+		'$resource',
+		function ( $resource ){
+			return $resource("airCanadaAPI/v1/reservations/:bookingId");
+		}
+	]);
 }());
