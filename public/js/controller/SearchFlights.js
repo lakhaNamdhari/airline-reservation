@@ -18,34 +18,34 @@
 		'Airports', 
 		'Flights',
 		'Reservations',
-		'CEvents',
-		'Shared',
+		'Interface',
+		'Core',
 		'Util',
-		function ( $scope, $rootScope, Airports, Flights, Reservations, CEvents, Shared, Util ){
-			Util.log( "controller." + ctrlName );
+		function ( $scope, $rootScope, Airports, Flights, Reservations, Interface, Core, Util ){
+			Util.log( "appControllers." + ctrlName );
 			
-			// View Template for this controller
+			// Template for this controller
 			$scope.view = 'partials/search-flights.html';
 
-			// Fetches airports data
+			// Airport data
 			$scope.airports = Airports.query();
 
-			$scope.shared = Shared;
+			// Core Functions
+			$scope.core = Core;
 
-			// Flag to show / hide the suggestion list
+			// Shared data - for inter controller comm
+			Interface.reservations = Interface.reservations || Reservations.query();
+
+			// Toggle suggestion list
 			$scope.show = {
 				origin: true,
 				destination: true
 			};
 
-			// flights query data - origin and destination
+			// flights query
 			$scope.flightQuery = {};
 
-			/**
-			*	Updates input box with selected value from popup
-			*
-			*	@method reserveFlight
-			*/
+			// Updates input box with selected value from popup
 			$scope.selectPlace = function( field, airportCode ){
 				$scope.flightQuery[ field ] = airportCode;
 
@@ -53,23 +53,16 @@
 				$scope.show[ field ] = false;
 			};
 			
-			/**
-			*	Search's flights based on origin and destination code
-			*
-			*	@method reserveFlight
-			*/
+			// Search's flights based on origin and destination code
 			$scope.searchFlights = function( query ){			
 				$scope.flights = Flights.query( query );
 			};
 
-			/**
-			*	To Book a new flight
-			*
-			*	@method reserveFlight
-			*/
+			// Books new Flight
 			$scope.reserveFlight = function( flight ){
 				Reservations.save( flight, function(){
-					$rootScope.$broadcast( CEvents.newReservation, flight );
+					//$rootScope.$broadcast( CEvents.newReservation, flight );
+					Interface.reservations.push(flight);
 				});
 			};
 		}

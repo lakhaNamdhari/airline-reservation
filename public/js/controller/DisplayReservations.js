@@ -18,30 +18,25 @@
 		'$scope',
 		'$rootScope',
 		'Reservations',
-		'CEvents',
-		'Shared',
+		'Interface',
+		'Core',
 		'Util',
-		function( $scope, $rootScope,  Reservations, CEvents, Shared, Util ){
-			Util.log( "controller." + ctrlName );
+		function( $scope, $rootScope,  Reservations, Interface, Core, Util ){
+			Util.log( "appControllers." + ctrlName );
 
-			// View Template for this controller
+			// Template for this controller
 			$scope.view = 'partials/display-reservations.html';
 
-			// Contains all Reservation data
-			$scope.reservations = Reservations.query();
+			// Shared data - for inter controller comm
+			Interface.reservations = Interface.reservations || Reservations.query();
+			
+			// Reservation data
+			$scope.reservations = Interface.reservations;
 
-			$scope.shared = Shared;
+			// Core functions
+			$scope.core = Core;
 
-			// Listen for any new reservations
-			$scope.$on( CEvents.newReservation, function( e, reservation ){
-				$scope.reservations.push( reservation );
-			});
-
-			/**
-			*	To Cancel a Flight
-			*
-			*	@method reserveFlight
-			*/
+			// Cancels flight
 			$scope.cancelFlight = function( flight ){		
 				Reservations.remove( { bookingId: flight.number }, function(){
 					var i;
@@ -49,8 +44,6 @@
 					for ( i = 0; i < $scope.reservations.length; i++ ){
 						if (  $scope.reservations[ i ][ "number" ] === flight.number ){
 							$scope.reservations.splice( i, 1 );
-
-							$rootScope.$broadcast( CEvents.cancelReservation, flight );
 							break;
 						}
 					}

@@ -11,7 +11,10 @@
 	*/
 	service.factory( "Airports", [
 		'$resource',
-		function ( $resource ){
+		'Util',
+		function ( $resource, Util ){
+			Util.log( "appServices.Airports" );
+
 			return $resource("airCanadaAPI/v1/airports/:airportCode");
 		}
 	]);
@@ -21,7 +24,10 @@
 	*/
 	service.factory( "Flights",[
 		'$resource',
-		 function ( $resource ){
+		'Util',
+		 function ( $resource, Util ){
+			Util.log( "appServices.Flights" );
+
 			return $resource("airCanadaAPI/v1/flights/:origin/:destination");
 		}
 	]);
@@ -31,8 +37,20 @@
 	*/
 	service.factory( "Reservations", [
 		'$resource',
-		function ( $resource ){
+		'Util',
+		function ( $resource, Util ){
+			Util.log( "appServices.Reservations" );
+
 			return $resource("airCanadaAPI/v1/reservations/:bookingId");
+		}
+	]);
+
+	/**
+	*	Interface - acts as a glue b/w different controllers
+	*/
+	service.factory( "Interface", [
+		function (){
+			return {};
 		}
 	]);
 }());

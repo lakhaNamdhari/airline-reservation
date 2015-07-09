@@ -17,15 +17,11 @@
 			return {
 				// enable / disable logs
 				debug: function( value ){
-					console.log( "util.debug()" );
-
 					debug = value && value || false;
 				},
 
 				// log output to console
 				log: function( text ){
-					console.log( "util.log()" );
-
 					if ( debug ){
 						$window.console.log( text );
 					}
@@ -37,10 +33,11 @@
 	/**
 	*	shared app functions
 	*/
-	global.factory( "Shared", [
+	global.factory( "Core", [
 		'$resource',
 		'Airports',
-		function ( $resource, Airports ){
+		'Util',
+		function ( $resource, Airports, Util ){
 			return {
 				// returns airport-name for airport-code 
 				getAirportName: (function(){
@@ -55,7 +52,7 @@
 					});
 
 					return function( airportCode ){
-						console.log( "common.getAirportName()" );
+						Util.log( "global.Core.getAirportName" );
 
 						return airportNames[ airportCode ];
 					};
@@ -63,17 +60,4 @@
 			}
 		}		
 	]);
-
-	/**
-	*	Events
-	*/
-	global.factory( "CEvents", function (){
-		return {
-			// Emitted when a new reservation completes.
-			newReservation: "new/reservation",
-
-			// Emitted when a new reservation is canceled.
-			cancelReservation: "cancel/reservation"
-		}
-	});
 }());
