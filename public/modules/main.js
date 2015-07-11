@@ -24,15 +24,7 @@ require.config({
 		'booking': 'booking/module'
 	},
 	packages: ['services'],
-	modules: [
-		{
-			name: 'core/main'
-		},
-		{
-			name: 'booking/main'
-		}
-	],
-	deps: [ 'angular', 'app' ],
+	deps: [ 'angular', 'routes' ],
 	callback: function( angular ){
 		angular.bootstrap( document.querySelector('body'), ['BookFlight']);
 	}

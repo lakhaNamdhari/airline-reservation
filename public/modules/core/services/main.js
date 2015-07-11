@@ -6,5 +6,6 @@
 require([
 	'./common',
 	'./utils',
-	'./interface'
+	'./interface',
+	'./airports'
 ], function(){});

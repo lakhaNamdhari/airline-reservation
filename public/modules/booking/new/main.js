@@ -9,4 +9,5 @@ require.config({
 });
 
 require([
+	'./newCtrl'
 ], function(){});

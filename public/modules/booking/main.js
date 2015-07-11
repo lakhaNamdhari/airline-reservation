@@ -13,5 +13,6 @@ require.config({
 });
 
 require([
-	'booking'
+	'./cancel/main',
+	'./new/main'
 ], function(){});

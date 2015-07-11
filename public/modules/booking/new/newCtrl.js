@@ -9,7 +9,7 @@ define([
 	'booking.flights',
 	'services'
 ], function( new ){
-	new.controller('booking.new', [
+	new.controller('booking.newCtrl', [
 		'$scope',
 		'booking.Bookings',
 		'core.Interface',
@@ -21,16 +21,14 @@ define([
 			// Template for this controller
 			$scope.view = './new.tpl.html';
 
-			// Shared data - for inter controller comm
+			// for comm b/w book.new and book.cancel module
 			$scope.bookings = Interface.bookings = Interface.bookings || Bookings.query();
+
+			// for comm b/w search and book.new module
+			$scope.flights = Interface.search = Interface.search || [];
 
 			// Common methods
 			$scope.common = Common;
-
-			// Search's flights based on origin and destination code
-			$scope.searchFlights = function( query ){			
-				$scope.flights = Flights.query( query );
-			};
 
 			// Books new Flight
 			$scope.reserveFlight = function( flight ){
