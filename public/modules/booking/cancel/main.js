@@ -1,12 +1,8 @@
 /**
-*	Entry point for the Cancel-booking module
+*	Entry point for the booking.cancel module
 *
 *	@author Lakha Singh
 */
-require.config({
-	paths: {
-	}
-});
-
 require([
+	'./cancelCtrl'
 ], function(){});
