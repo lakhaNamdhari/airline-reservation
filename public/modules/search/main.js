@@ -9,4 +9,5 @@ require.config({
 });
 
 require([
-], function(){});
+	'./searchCtrl'
+], function( search ){});

@@ -15,13 +15,13 @@ require.config({
 		'angular': '../vendor/angular',
 		'angular-resource': '../vendor/angular-resource',
 		'angular-route': '../vendor/angular-route',
-		'booking': 'booking/module',
 		'core': 'core/module',
 		'search': 'search/module',
 		'services': 'core/services',
 		'utils': 'core/services/utils',
 		'common': 'core/services/common',
-		'airports': 'core/services/airports'
+		'airports': 'core/services/airports',
+		'booking': 'booking/module'
 	},
 	packages: ['services'],
 	modules: [

@@ -5,8 +5,12 @@
 */
 require.config({
 	paths: {
+		'booking.cancel': './cancel/module',
+		'booking.new': './new/module',
+		'booking.bookings': './bookings'
 	}
 });
 
 require([
+	'booking'
 ], function(){});
