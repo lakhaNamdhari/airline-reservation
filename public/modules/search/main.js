@@ -1,5 +1,5 @@
 /**
-*	Entry point for the booking module
+*	Entry point for the search module
 *
 *	@author Lakha Singh
 */

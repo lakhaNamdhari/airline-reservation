@@ -3,7 +3,6 @@
 *
 *	@author Lakha Singh
 */
-
 require.config({
 	shim: {
 		'angular': {
@@ -16,15 +15,21 @@ require.config({
 		'angular': '../vendor/angular',
 		'angular-resource': '../vendor/angular-resource',
 		'angular-route': '../vendor/angular-route',
-		'core' : 'core/main',
-		'booking' : 'booking/main'
+		'booking': 'booking/module',
+		'core': 'core/module',
+		'search': 'search/module',
+		'services': 'core/services',
+		'utils': 'core/services/utils',
+		'common': 'core/services/common',
+		'airports': 'core/services/airports'
 	},
+	packages: ['services'],
 	modules: [
 		{
-			name: 'core'
+			name: 'core/main'
 		},
 		{
-			name: 'booking'
+			name: 'booking/main'
 		}
 	],
 	deps: [ 'angular', 'app' ],
