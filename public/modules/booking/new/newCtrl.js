@@ -8,8 +8,8 @@ define([
 	'booking.bookings',
 	'booking.flights',
 	'services'
-], function( new ){
-	new.controller('booking.newCtrl', [
+], function( module ){
+	module.controller('new.newCtrl', [
 		'$scope',
 		'booking.Bookings',
 		'core.Interface',
@@ -19,7 +19,7 @@ define([
 			Utils.log( "booking.new.newCtrl" );
 
 			// Template for this controller
-			$scope.view = './new.tpl.html';
+			$scope.view = 'modules/booking/new/new.html';
 
 			// for comm b/w book.new and book.cancel module
 			$scope.bookings = Interface.bookings = Interface.bookings || Bookings.query();

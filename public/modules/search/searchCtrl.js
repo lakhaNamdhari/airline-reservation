@@ -4,10 +4,10 @@
 *	@author Lakha Singh
 */
 define([
-	'search/module',
+	'./module',
 	'services'
-], function( search ){
-	search.controller('searchCtrl', [
+], function( module ){
+	module.controller('search.searchCtrl', [
 		'$scope',
 		'core.Airports', 
 		'core.Utils',
@@ -16,7 +16,7 @@ define([
 			Utils.log( "search.searchCtrl");
 			
 			// Template for this controller
-			$scope.view = './search.tpl.html';
+			$scope.view = 'modules/search/search.html';
 
 			// Airport data
 			$scope.airports = Airports.query();

@@ -4,14 +4,14 @@
 *	@author Lakha Singh
 */
 define([
-	'app',
+	'./app',
 	'angular-route'
-], function( App ){
-	App.config( [
+], function( app ){
+	app.config( [
 		'$routeProvider',
 		function ( $routeProvider ){
 			$routeProvider
-				.when( "/", { templateUrl: "modules/main.tpl.html" } );
+				.when( "/", { templateUrl: "modules/main.html" } );
 		}
 	]);
 });

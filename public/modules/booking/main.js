@@ -11,6 +11,8 @@ require.config({
 });
 
 define([
+	'booking.bookings',
+	'booking.flights',
 	'./cancel/main',
 	'./new/main'
 ], function(){});

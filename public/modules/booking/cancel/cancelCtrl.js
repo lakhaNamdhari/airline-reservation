@@ -8,7 +8,7 @@ define([
 	'booking.bookings',
 	'services'
 ], function( cancel ){
-	cancel.controller('booking.cancelCtrl', [
+	cancel.controller('cancel.cancelCtrl', [
 		'$scope',
 		'booking.Bookings',
 		'core.Interface',
@@ -18,7 +18,7 @@ define([
 			Utils.log( "booking.cancel.cancelCtrl" );
 
 			// Template for this controller
-			$scope.view = './cancel.tpl.html';
+			$scope.view = 'modules/booking/cancel/cancel.html';
 
 			// Shared data - for inter controller comm
 			$scope.bookings = Interface.bookings = Interface.bookings || Bookings.query();

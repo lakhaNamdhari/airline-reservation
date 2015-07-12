@@ -5,8 +5,8 @@
 */
 define([
 	'angular',
-	'booking.cancel.module',
-	'booking.new.module'
+	'./cancel/module',
+	'./new/module'
 ], function( angular ){
 	var module = angular.module('BookFlight.booking', [
 		'booking.cancel',

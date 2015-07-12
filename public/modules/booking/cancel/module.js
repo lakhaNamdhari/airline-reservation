@@ -6,7 +6,7 @@
 define([
 	'angular'
 ], function( angular ){
-	var module = angular.module('booking.cancel');
+	var module = angular.module('booking.cancel', []);
 
 	return module;
 });

@@ -15,13 +15,10 @@ require.config({
 		'angular': '../vendor/angular',
 		'angular-resource': '../vendor/angular-resource',
 		'angular-route': '../vendor/angular-route',
-		'services': 'core/services',
-		'utils': 'core/services/utils',
-		'common': 'core/services/common',
-		'airports': 'core/services/airports'
+		'services': 'core/services'
 	},
 	packages: ['services'],
-	deps: [ 'angular', 'routes' ],
+	deps: [ 'angular', 'routes', 'search/main', 'booking/main' ],
 	callback: function( angular ){
 		angular.bootstrap( document.querySelector('body'), ['BookFlight']);
 	}

@@ -6,7 +6,7 @@
 define([
 	'angular'
 ], function( angular ){
-	var module = angular.module('BookFlight.core');
+	var module = angular.module('BookFlight.core', []);
 
 	return module;
 });

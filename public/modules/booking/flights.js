@@ -4,9 +4,9 @@
 *	@author Lakha Singh
 */
 define([
-	'./module',
+	'booking/module',
 	'angular-resource',
-	'utils'
+	'services'
 ], function( booking ){
 	booking.factory( "booking.Flights", [
 		'$resource',

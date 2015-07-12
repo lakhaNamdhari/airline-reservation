@@ -5,8 +5,8 @@
 */
 define([
 	'core/module',
-	'airports',
-	'utils'
+	'./airports',
+	'./utils'
 ], function( core ){
 	core.factory( "core.Common", [
 		'core.Airports',

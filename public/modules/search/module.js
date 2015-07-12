@@ -6,7 +6,7 @@
 define([
 	'angular'
 ], function( angular ){
-	var module = angular.module('BookFlight.search');
+	var module = angular.module('BookFlight.search', []);
 
 	return module;
 });

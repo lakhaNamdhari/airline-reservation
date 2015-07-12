@@ -5,8 +5,8 @@
 */
 define([
 	'angular',
-	'booking/main',
-	'search/main'
+	'booking/module',
+	'search/module'
 ], function( angular ){
 	var module = angular.module('BookFlight', ['BookFlight.booking', 'BookFlight.search']);
 
