@@ -5,7 +5,6 @@
 */
 define([
 	'core/module',
-	'angular-resource',
 	'./utils'
 ], function( module ){
 	module.factory( "core.Airports", [

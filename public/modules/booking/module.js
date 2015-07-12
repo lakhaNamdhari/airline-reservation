@@ -5,12 +5,12 @@
 */
 define([
 	'angular',
-	'./cancel/module',
-	'./new/module'
+	'core/module',
+	'angular-resource'
 ], function( angular ){
 	var module = angular.module('BookFlight.booking', [
-		'booking.cancel',
-		'booking.new'
+		'ngResource',
+		'BookFlight.core'
 	]);
 
 	return module;

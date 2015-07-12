@@ -4,9 +4,11 @@
 *	@author Lakha Singh
 */
 define([
-	'angular'
+	'angular',
+	'core/module',
+	'booking/module'
 ], function( angular ){
-	var module = angular.module('booking.cancel', []);
+	var module = angular.module('booking.cancel', ['BookFlight.core', 'BookFlight.booking']);
 
 	return module;
 });

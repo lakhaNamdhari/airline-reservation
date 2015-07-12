@@ -4,9 +4,10 @@
 *	@author Lakha Singh
 */
 define([
-	'angular'
+	'angular',
+	'angular-resource'
 ], function( angular ){
-	var module = angular.module('BookFlight.core', []);
+	var module = angular.module('BookFlight.core', ['ngResource']);
 
 	return module;
 });

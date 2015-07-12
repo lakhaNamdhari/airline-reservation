@@ -4,8 +4,7 @@
 *	@author Lakha Singh
 */
 define([
-	'./app',
-	'angular-route'
+	'./app'
 ], function( app ){
 	app.config( [
 		'$routeProvider',
