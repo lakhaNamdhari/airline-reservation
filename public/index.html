@@ -11,8 +11,14 @@
 			<div style="color: #BBB;" class="well well-sm">
 				<a href="#"><h1>BookFlight</h1></a>
 			</div>
+
+			<!-- Search Module -->
+			<div ng-include="view" ng-controller="search.searchCtrl"></div>
 			
 			<div ng-view></div>
+			
+			<!-- booking.cancel Module -->
+			<div ng-include="view" ng-controller="cancel.cancelCtrl"></div>
 		</div>
 		
 		<!-- scripts goes here -->

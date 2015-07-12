@@ -11,16 +11,17 @@ define([
 ], function( module ){
 	module.controller('new.newCtrl', [
 		'$scope',
+		'$routeParams',
 		'booking.Bookings',
 		'booking.Flights',
 		'core.Interface',
 		'core.Common',
 		'core.Utils',
-		function( $scope, Bookings, Flights, Interface, Common, Utils ){
+		function( $scope, $routeParams, Bookings, Flights, Interface, Common, Utils ){
 			Utils.log( "booking.new.newCtrl" );
 
 			// Template for this controller
-			$scope.view = 'modules/booking/new/new.html';
+			//$scope.view = 'modules/booking/new/new.html';
 
 			// Common methods
 			$scope.common = Common;
@@ -28,15 +29,11 @@ define([
 			// for comm b/w book.new and book.cancel module
 			$scope.bookings = Interface.bookings = Interface.bookings || Bookings.query();
 
-			// reads search query through this interface
-			$scope.searchQuery = Interface.search = Interface.search || {}; 
-
-			// when search query changes fetch new flights
-			$scope.$watch('searchQuery', function(){
-				if ( $scope.searchQuery.origin && $scope.searchQuery.destination ){
-					$scope.flights = Flights.query(  $scope.searchQuery );
-				}
-			}, true);
+			// populate with flights data
+			$scope.flights = Flights.query({
+				origin: $routeParams.origin,
+				destination: $routeParams.destination
+			});
 
 			// Books new Flight
 			$scope.reserveFlight = function( flight ){

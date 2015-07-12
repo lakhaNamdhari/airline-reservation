@@ -29,19 +29,6 @@ define([
 
 			// Sets serach-query through interface
 			$scope.search = Interface.search = Interface.search || {};
-			
-			/*
-			// Search's flights based on origin and destination code
-			$scope.searchFlights = function( query ){			
-				$scope.flights = Flights.query( query, function(){
-					while( Interface.search.length ){
-						Interface.search.pop();
-					}
-					for ( i = 0; i < $scope.flights.length; i++ ){
-						Interface.search.push( $scope.flights[i] );
-					}
-				});					
-			};*/
 
 			// Updates input box with selected value from popup
 			$scope.selectPlace = function( field, airportCode ){

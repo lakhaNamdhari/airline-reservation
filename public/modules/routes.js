@@ -10,7 +10,10 @@ define([
 		'$routeProvider',
 		function ( $routeProvider ){
 			$routeProvider
-				.when( "/", { templateUrl: "modules/main.html" } );
+			.when( "/flights/:origin/:destination", { 
+				templateUrl: "modules/booking/new/new.html",
+				controller: "new.newCtrl"
+			})
 		}
 	]);
 });
