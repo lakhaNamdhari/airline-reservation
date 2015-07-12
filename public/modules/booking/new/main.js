@@ -3,11 +3,6 @@
 *
 *	@author Lakha Singh
 */
-require.config({
-	paths: {
-	}
-});
-
-require([
+define([
 	'./newCtrl'
 ], function(){});

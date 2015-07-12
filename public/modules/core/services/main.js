@@ -3,7 +3,7 @@
 *
 *	@author Lakha Singh
 */
-require([
+define([
 	'./common',
 	'./utils',
 	'./interface',

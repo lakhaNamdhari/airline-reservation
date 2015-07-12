@@ -5,14 +5,12 @@
 */
 require.config({
 	paths: {
-		'booking.cancel': './cancel/module',
-		'booking.new': './new/module',
-		'booking.bookings': './bookings',
-		'booking.flights': './flights'
+		'booking.bookings': 'booking/bookings',
+		'booking.flights': 'booking/flights'
 	}
 });
 
-require([
+define([
 	'./cancel/main',
 	'./new/main'
 ], function(){});

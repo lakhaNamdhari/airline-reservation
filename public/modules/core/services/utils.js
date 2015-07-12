@@ -4,7 +4,7 @@
 *	@author Lakha Singh
 */
 define([
-	'core'
+	'core/module'
 ], function( core ){
 	core.factory( "core.Utils", [
 		'$window',

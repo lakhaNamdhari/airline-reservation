@@ -4,7 +4,7 @@
 *	@author Lakha Singh
 */
 define([
-	'core',
+	'core/module',
 	'airports',
 	'utils'
 ], function( core ){

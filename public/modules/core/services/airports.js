@@ -4,7 +4,7 @@
 *	@author Lakha Singh
 */
 define([
-	'core',
+	'core/module',
 	'angular-resource',
 	'utils'
 ], function( core ){

@@ -4,7 +4,7 @@
 *	@author Lakha Singh
 */
 define([
-	'search',
+	'search/module',
 	'services'
 ], function( search ){
 	search.controller('searchCtrl', [

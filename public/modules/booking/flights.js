@@ -4,7 +4,7 @@
 *	@author Lakha Singh
 */
 define([
-	'booking',
+	'./module',
 	'angular-resource',
 	'utils'
 ], function( booking ){

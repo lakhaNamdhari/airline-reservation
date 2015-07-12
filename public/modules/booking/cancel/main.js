@@ -3,6 +3,6 @@
 *
 *	@author Lakha Singh
 */
-require([
+define([
 	'./cancelCtrl'
 ], function(){});

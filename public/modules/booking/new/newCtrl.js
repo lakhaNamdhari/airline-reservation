@@ -4,7 +4,7 @@
 *	@author Lakha Singh
 */
 define([
-	'booking.new',
+	'./module',
 	'booking.bookings',
 	'booking.flights',
 	'services'
