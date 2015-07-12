@@ -1,7 +1,7 @@
 <div>
-	<div class="panel panel-default"  ng-show="reservations.length">
+	<div class="panel panel-default"  ng-show="bookings.length">
 		<div class="panel-heading">
-			<h3 class="panel-title">Reservations</h3>
+			<h3 class="panel-title">Bookings</h3>
 		</div>
 		<table class="table">
 			<thead>
@@ -12,7 +12,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="flight in reservations">
+				<tr ng-repeat="flight in bookings">
 					<td>{{ flight.number }}</td>
 					<td>{{ flight.origin }} - {{ common.getAirportName( flight.origin) }}</td>
 					<td>{{ flight.destination }} - {{ common.getAirportName( flight.destination) }}</td>
@@ -26,7 +26,7 @@
 		</table>
 	</div>
 
-	<div class="alert alert-info" ng-hide="reservations.length">
+	<div class="alert alert-info" ng-hide="bookings.length">
 		<p>You dont currently have any reservations, Why not make one now ?</p>
 	</div>
 </div>

@@ -26,10 +26,11 @@ define([
 				origin: true,
 				destination: true
 			};
-			
-			// for comm b/w search and book.new module
-			Interface.search = Interface.search || [];
 
+			// Sets serach-query through interface
+			$scope.search = Interface.search = Interface.search || {};
+			
+			/*
 			// Search's flights based on origin and destination code
 			$scope.searchFlights = function( query ){			
 				$scope.flights = Flights.query( query, function(){
@@ -40,7 +41,7 @@ define([
 						Interface.search.push( $scope.flights[i] );
 					}
 				});					
-			};
+			};*/
 
 			// Updates input box with selected value from popup
 			$scope.selectPlace = function( field, airportCode ){
