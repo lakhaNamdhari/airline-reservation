@@ -8,17 +8,10 @@
 	</head>
 	<body style="overflow: hidden">
 		<div style="width: 1040px;" class="container">
-			<div style="color: #BBB;" class="well well-sm">
-				<a href="#"><h1>BookFlight</h1></a>
-			</div>
+			<!-- Header Module -->
+			<header ng-include="view" ng-controller="header.headerCtrl"></header>
 
-			<!-- Search Module -->
-			<div ng-include="view" ng-controller="search.searchCtrl"></div>
-			
 			<div ng-view></div>
-			
-			<!-- booking.cancel Module -->
-			<div ng-include="view" ng-controller="cancel.cancelCtrl"></div>
 		</div>
 		
 		<!-- scripts goes here -->
