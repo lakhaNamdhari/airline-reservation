@@ -11,24 +11,37 @@ define([
 		'$scope',
 		'core.Airports', 
 		'core.Utils',
-		'core.Interface',
-		function ( $scope, Airports, Utils, Interface ){
+		'$location',
+		function ( $scope, Airports, Utils, $location ){
 			Utils.log( "search.searchCtrl");
 			
 			// Template for this controller
-			$scope.view = 'modules/search/search.html';
+			$scope.view = 'modules/booking/search/search.html';
 
 			// Airport data
 			$scope.airports = Airports.query();
 
-			// Toggle suggestion list
-			$scope.show = {
-				origin: true,
-				destination: true
-			};
+			// Used to toggle suggestion list
+			$scope.show  = {};
 
-			// Sets serach-query through interface
-			$scope.search = Interface.search = Interface.search || {};
+			// Captures serach-query
+			$scope.search = {};
+
+			var url = $location.path();
+
+			// populate origin / destination fields, if applicable
+			if ( url.indexOf('/booking/') > -1 ){
+				url = url.replace('/booking/', '').split('/');
+				$scope.search.origin = url[0] || '';
+				$scope.search.destination = url[1] || '';
+			}
+
+			// If page loads with prepopulated field, disable suggestion list
+			if ( $scope.search.origin && $scope.search.destination ){
+				$scope.show.origin = $scope.show.destination = false;
+			}else{
+				$scope.show.origin = $scope.show.destination = true;
+			}
 
 			// Updates input box with selected value from popup
 			$scope.selectPlace = function( field, airportCode ){

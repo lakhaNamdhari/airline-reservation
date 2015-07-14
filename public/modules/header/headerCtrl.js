@@ -10,7 +10,7 @@ define([
 	module.controller('header.headerCtrl', [
 		'$scope',
 		'$location',
-		'Utils'
+		'core.Utils',
 		function ( $scope, $location, Utils ){
 			Utils.log( "header.headerCtrl");
 			
@@ -19,7 +19,9 @@ define([
 
 			// Activates the nav as per url
 			$scope.activateNav = function( page ){
-				return page == $location.path().substring(1) ? 'active' : '';
+				var url = $location.path().substring(1);
+
+				return url.indexOf( page ) > -1 ? 'active' : '';
 			};
 		}
 	]);

@@ -8,7 +8,7 @@ define([
 	'core/module',
 	'booking/module'
 ], function( angular ){
-	var module = angular.module('booking.new', ['BookFlight.core', 'BookFlight.booking']);
+	var module = angular.module('booking.new', ['BookFlight.core']);
 
 	return module;
 });

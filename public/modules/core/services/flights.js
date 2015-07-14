@@ -8,11 +8,11 @@ define([
 	'angular-resource',
 	'services'
 ], function( booking ){
-	booking.factory( "booking.Flights", [
+	booking.factory( "core.Flights", [
 		'$resource',
 		'core.Utils',
 		function ( $resource, Utils ){
-			Utils.log( "booking.Flights" );
+			Utils.log( "core.services.Flights" );
 
 			return $resource("book_flight/v1/flights/:origin/:destination");
 		}

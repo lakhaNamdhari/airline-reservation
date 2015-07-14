@@ -6,15 +6,15 @@
 define([
 	'angular',
 	'angular-route',
-	'booking/new/module',
-	'booking/cancel/module',
-	'search/module'
+	'booking/module',
+	'manage/module',
+	'header/module'
 ], function( angular ){
 	var module = angular.module('BookFlight', [
 		'ngRoute',
-		'booking.cancel',
-		'booking.new',
-		'BookFlight.search'
+		'BookFlight.booking',
+		'BookFlight.manage',
+		'BookFlight.header'
 	]);
 
 	return module;

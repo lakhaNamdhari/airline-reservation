@@ -7,5 +7,7 @@ define([
 	'./common',
 	'./utils',
 	'./interface',
-	'./airports'
+	'./airports',
+	'./bookings',
+	'./flights'
 ], function(){});

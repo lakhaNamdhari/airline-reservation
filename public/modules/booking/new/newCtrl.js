@@ -5,15 +5,13 @@
 */
 define([
 	'./module',
-	'booking.bookings',
-	'booking.flights',
 	'services'
 ], function( module ){
 	module.controller('new.newCtrl', [
 		'$scope',
 		'$routeParams',
-		'booking.Bookings',
-		'booking.Flights',
+		'core.Bookings',
+		'core.Flights',
 		'core.Interface',
 		'core.Common',
 		'core.Utils',
@@ -21,7 +19,7 @@ define([
 			Utils.log( "booking.new.newCtrl" );
 
 			// Template for this controller
-			//$scope.view = 'modules/booking/new/new.html';
+			$scope.view = 'modules/booking/new/new.html';
 
 			// Common methods
 			$scope.common = Common;

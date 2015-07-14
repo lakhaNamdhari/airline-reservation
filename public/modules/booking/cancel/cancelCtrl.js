@@ -5,12 +5,11 @@
 */
 define([
 	'./module',
-	'booking.bookings',
 	'services'
 ], function( module ){
 	module.controller('cancel.cancelCtrl', [
 		'$scope',
-		'booking.Bookings',
+		'core.Bookings',
 		'core.Interface',
 		'core.Common',
 		'core.Utils',

@@ -4,15 +4,15 @@
 *	@author Lakha Singh
 */
 define([
-	'booking/module',
+	'core/module',
 	'angular-resource',
 	'services'
 ], function( module ){
-	module.factory( "booking.Bookings", [
+	module.factory( "core.Bookings", [
 		'$resource',
 		'core.Utils',
 		function ( $resource, Utils ){
-			Utils.log( "booking.Bookings" );
+			Utils.log( "core.services.Bookings" );
 
 			return $resource("book_flight/v1/reservations/:bookingId");
 		}

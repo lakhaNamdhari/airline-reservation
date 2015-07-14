@@ -6,11 +6,15 @@
 define([
 	'angular',
 	'core/module',
-	'angular-resource'
+	'booking/cancel/module',
+	'booking/new/module',
+	'booking/search/module'
 ], function( angular ){
 	var module = angular.module('BookFlight.booking', [
-		'ngResource',
-		'BookFlight.core'
+		'BookFlight.core',
+		'booking.cancel',
+		'booking.new',
+		'booking.search'
 	]);
 
 	return module;
