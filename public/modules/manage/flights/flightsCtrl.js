@@ -7,7 +7,7 @@ define([
 	'./module',
 	'services'
 ], function( module ){
-	module.controller('flights.flightsCtrl', [
+	module.controller('manage.flightsCtrl', [
 		'$scope',
 		'core.Utils',
 		function ( $scope, Utils ){

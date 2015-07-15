@@ -22,6 +22,9 @@ define([
 			.when( "/manage", { 
 				templateUrl: "modules/manage/manage-airports.html"
 			})
+			.when( "/manage/airports", { 
+				templateUrl: "modules/manage/manage-airports.html"
+			})
 			.when( "/manage/flights", { 
 				templateUrl: "modules/manage/manage-flights.html"
 			})

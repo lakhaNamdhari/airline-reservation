@@ -8,7 +8,10 @@ define([
 	'core/module'
 ], function( angular ){
 	var module = angular.module('BookFlight.manage', [
-		'BookFlight.core'
+		'BookFlight.core',
+		'manage.airports',
+		'manage.flights',
+		'manage.navigation'
 	]);
 
 	return module;

@@ -4,7 +4,7 @@
 
 <nav>
 	<ul class="nav nav-tabs nav-justified">
-	    <li role="presentation" class="active" ng-class="activateNav('')"><a href="#/booking">Booking</a></li>
-	    <li role="presentation" ng-class="activateNav('database')"><a href="#/database">Database</a></li>
+	    <li role="presentation" ng-class="common.activateNav([{text:'booking', test: 'contains'}, 'root'])"><a href="#/booking">Booking</a></li>
+	    <li role="presentation" ng-class="common.activateNav([{text:'manage', test: 'contains'}])"><a href="#/manage">Manage</a></li>
     </ul>
 </nav>
