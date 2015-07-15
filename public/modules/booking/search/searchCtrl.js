@@ -7,7 +7,7 @@ define([
 	'./module',
 	'services'
 ], function( module ){
-	module.controller('search.searchCtrl', [
+	module.controller('booking.searchCtrl', [
 		'$scope',
 		'core.Airports', 
 		'core.Utils',

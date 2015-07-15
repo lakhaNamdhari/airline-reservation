@@ -7,7 +7,7 @@ define([
 	'./module',
 	'services'
 ], function( module ){
-	module.controller('cancel.cancelCtrl', [
+	module.controller('booking.cancelCtrl', [
 		'$scope',
 		'core.Bookings',
 		'core.Interface',

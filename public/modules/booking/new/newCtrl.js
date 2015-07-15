@@ -7,7 +7,7 @@ define([
 	'./module',
 	'services'
 ], function( module ){
-	module.controller('new.newCtrl', [
+	module.controller('booking.newCtrl', [
 		'$scope',
 		'$routeParams',
 		'core.Bookings',
