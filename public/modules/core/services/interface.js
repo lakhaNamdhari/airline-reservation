@@ -8,7 +8,13 @@ define([
 ], function( core ){
 	core.factory( "core.Interface", [
 		function (){
-			return {};
+			return {
+				// Stores the array of all bookings by user
+				booking: null,
+
+				// stores array of all airports
+				airports: null
+			};
 		}
 	]);	
 });

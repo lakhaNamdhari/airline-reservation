@@ -18,11 +18,11 @@ define([
 			// Template for this controller
 			$scope.view = 'modules/manage/airports/add/add.html';
 
-			// Shared data - for inter controller comm
+			// keeps the list of airports
 			$scope.airports = Interface.airports = Interface.airports || Airports.query();
 
-			// Cancels flight
-			$scope.addAirport = function( flight ){
+			// Add new airport
+			$scope.addAirport = function( airport ){
 				if ( airport && airport.code && airport.city ){
 					Airports.save( airport, function(){
 						Interface.airports.push( airport );

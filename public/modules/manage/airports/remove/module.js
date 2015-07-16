@@ -1,5 +1,5 @@
 /**
-*	Defines airports.add module
+*	Defines airports.remove module
 *
 *	@author Lakha Singh
 */
@@ -7,7 +7,7 @@ define([
 	'angular',
 	'core/module'
 ], function( angular ){
-	var module = angular.module('airports.add', ['BookFlight.core']);
+	var module = angular.module('airports.remove', ['BookFlight.core']);
 
 	return module;
 });
