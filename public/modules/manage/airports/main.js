@@ -4,5 +4,5 @@
 *	@author Lakha Singh
 */
 define([
-	'./airportsCtrl'
+	'./add/main'
 ], function(){});
