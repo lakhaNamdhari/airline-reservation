@@ -4,5 +4,6 @@
 *	@author Lakha Singh
 */
 define([
-	'./flightsCtrl'
+	'./add/main'
+	'./remove/main'
 ], function(){});

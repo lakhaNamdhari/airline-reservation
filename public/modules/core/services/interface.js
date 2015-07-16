@@ -14,6 +14,9 @@ define([
 
 				// stores array of all airports
 				airports: null
+
+				// stores array of all flights
+				flights: null
 			};
 		}
 	]);	

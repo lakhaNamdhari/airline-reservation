@@ -5,10 +5,12 @@
 */
 define([
 	'angular',
-	'core/module'
+	'manage/flights/add/module',
+	'manage/flights/remove/module'
 ], function( angular ){
 	var module = angular.module('manage.flights', [
-		'BookFlight.core'
+		'flights.add',
+		'flights.remove'
 	]);
 
 	return module;
