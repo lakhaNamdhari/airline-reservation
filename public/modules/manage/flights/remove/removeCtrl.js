@@ -22,10 +22,10 @@ define([
 			$scope.flights = Interface.flights = Interface.flights || Flights.query();
 
 			// Removes flight
-			$scope.removeflight = function( flight ){
+			$scope.removeFlight = function( flight ){
 				if ( flight && flight.number && flight.origin && flight.destination ){
 					Flights.remove( { 
-						flightNumber: flight.number
+						number: flight.number
 					}, function(){
 						var i;
 

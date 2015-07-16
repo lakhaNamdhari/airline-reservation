@@ -9,5 +9,6 @@ define([
 	'./interface',
 	'./airports',
 	'./bookings',
+	'./search',
 	'./flights'
 ], function(){});

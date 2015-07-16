@@ -1,5 +1,5 @@
 /**
-*	It fetches flights data from server
+*	It searches flights from server
 *
 *	@author Lakha Singh
 */
@@ -8,13 +8,13 @@ define([
 	'angular-resource',
 	'services'
 ], function( booking ){
-	booking.factory( "core.Flights", [
+	booking.factory( "core.Search", [
 		'$resource',
 		'core.Utils',
 		function ( $resource, Utils ){
 			Utils.log( "core.services.Flights" );
 
-			return $resource("book_flight/v1/flights/:number");
+			return $resource("book_flight/v1/search/:origin/:destination");
 		}
 	]);
 });

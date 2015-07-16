@@ -1,9 +1,8 @@
-
 /**
-*	This is REST-ful service to get airports data
+*	This is REST-ful service to get flights data
 *
 *	@author Lakha Singh
-*	@class Flight
+*	@class Airport
 */
 var util = require( "util" );
 
@@ -29,6 +28,9 @@ var Flight = function( attr, callback ){
 	// Key used for findOne query
 	this.queryKey = "number";
 
+	// data-type for queryKey
+	this.queryType = "number";
+
 	if ( attr ){
 		Flight.super_.call( this, attr, callback );
 	}	
@@ -38,27 +40,6 @@ var Flight = function( attr, callback ){
 util.inherits( Flight, REST );
 
 /**
-*	Finds all records in collection
-*
-*	@method find
-*	@return {JSON}
-*/
-Flight.prototype.find = function( attr, callback ){
-	console.log( "Flight.find()" );
-
-	var query;
-
-	if ( attr.length === 2 ){
-		query = {
-			origin: attr.shift(),
-			destination: attr.shift()
-		};
-	}
-
-	Flight.super_.prototype.find.call( this, query, callback )
-};
-
-/**
 *	Exposed interface for this service
 *
 *	@method exec{object}
@@ -66,10 +47,12 @@ Flight.prototype.find = function( attr, callback ){
 Flight.exec = function( attr, callback ){
 	console.log( "Flight.exec" );
 
-	return new Flight( attr, callback );
+	new Flight( attr, callback );
 };
 
 // Export as node Module
 module.exports = {
 	exec: Flight.exec
 };  
+
+

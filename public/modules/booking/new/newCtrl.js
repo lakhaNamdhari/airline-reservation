@@ -11,11 +11,11 @@ define([
 		'$scope',
 		'$routeParams',
 		'core.Bookings',
-		'core.Flights',
+		'core.Search',
 		'core.Interface',
 		'core.Common',
 		'core.Utils',
-		function( $scope, $routeParams, Bookings, Flights, Interface, Common, Utils ){
+		function( $scope, $routeParams, Bookings, Search, Interface, Common, Utils ){
 			Utils.log( "booking.new.newCtrl" );
 
 			// Template for this controller
@@ -28,7 +28,7 @@ define([
 			$scope.bookings = Interface.bookings = Interface.bookings || Bookings.query();
 
 			// populate with flights data
-			$scope.flights = Flights.query({
+			$scope.flights = Search.query({
 				origin: $routeParams.origin,
 				destination: $routeParams.destination
 			});

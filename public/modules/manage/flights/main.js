@@ -4,6 +4,6 @@
 *	@author Lakha Singh
 */
 define([
-	'./add/main'
+	'./add/main',
 	'./remove/main'
 ], function(){});

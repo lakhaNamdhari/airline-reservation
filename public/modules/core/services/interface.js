@@ -13,7 +13,7 @@ define([
 				booking: null,
 
 				// stores array of all airports
-				airports: null
+				airports: null,
 
 				// stores array of all flights
 				flights: null
