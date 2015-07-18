@@ -18,9 +18,6 @@ define([
 		function( $scope, $stateParams, Bookings, Search, Interface, Common, Utils ){
 			Utils.log( "booking.new.newCtrl" );
 
-			// Template for this controller
-			$scope.view = 'modules/booking/new/new.html';
-
 			// Common methods
 			$scope.common = Common;
 
@@ -29,8 +26,8 @@ define([
 
 			// populate with flights data
 			$scope.flights = Search.query({
-				origin: $routeParams.origin,
-				destination: $routeParams.destination
+				origin: $stateParams.origin,
+				destination: $stateParams.destination
 			});
 
 			// Books new Flight

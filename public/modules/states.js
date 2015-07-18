@@ -12,7 +12,7 @@ define([
 		function ( $stateProvider, $urlRouterProvider ){
 			// used for redirection
 			$urlRouterProvider.when("/", "/booking");
-			$urlRouterProvider.when("/manage/airports", "/manage");
+			$urlRouterProvider.when("/manage", "/manage/airports");
 			$urlRouterProvider.otherwise("/");
 
 			$stateProvider
@@ -22,15 +22,20 @@ define([
 				})
 				.state( "booking.search", {
 					url: "/:origin/:destination", 
-					templateUrl: "modules/booking/booking-new.html"
+					templateUrl: "modules/booking/new/new.html",
+					controller: "booking.newCtrl"
 				})
 				.state( "manage", {
 					url: "/manage", 
-					templateUrl: "modules/manage/manage-airports.html"
+					templateUrl: "modules/manage/manage.html"
+				})
+				.state( "manage.airports", {
+					url: "/airports", 
+					templateUrl: "modules/manage/airports/airports.html"
 				})
 				.state( "manage.flights", {
 					url: "/flights", 
-					templateUrl: "modules/manage/manage-flights.html"
+					templateUrl: "modules/manage/flights/flights.html"
 				})
 		}
 	]);
