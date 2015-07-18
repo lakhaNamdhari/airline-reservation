@@ -9,13 +9,13 @@ define([
 ], function( module ){
 	module.controller('booking.newCtrl', [
 		'$scope',
-		'$routeParams',
+		'$stateParams',
 		'core.Bookings',
 		'core.Search',
 		'core.Interface',
 		'core.Common',
 		'core.Utils',
-		function( $scope, $routeParams, Bookings, Search, Interface, Common, Utils ){
+		function( $scope, $stateParams, Bookings, Search, Interface, Common, Utils ){
 			Utils.log( "booking.new.newCtrl" );
 
 			// Template for this controller

@@ -5,13 +5,13 @@
 */
 define([
 	'angular',
-	'angular-route',
+	'angular-ui-router',
 	'booking/module',
 	'manage/module',
 	'header/module'
 ], function( angular ){
 	var module = angular.module('BookFlight', [
-		'ngRoute',
+		'ui.router',
 		'BookFlight.booking',
 		'BookFlight.manage',
 		'BookFlight.header'
