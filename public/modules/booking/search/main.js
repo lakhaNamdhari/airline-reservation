@@ -4,5 +4,6 @@
 *	@author Lakha Singh
 */
 define([
+	'./module',
 	'./searchCtrl'
 ], function(){});

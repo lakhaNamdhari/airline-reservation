@@ -4,6 +4,7 @@
 *	@author Lakha Singh
 */
 define([
+	'./module',
 	'./add/main',
 	'./remove/main'
 ], function(){});

@@ -9,7 +9,18 @@ define([
 	app.config( [
 		'$stateProvider',
 		'$urlRouterProvider',
-		function ( $stateProvider, $urlRouterProvider ){
+		'$ocLazyLoadProvider',
+		function ( $stateProvider, $urlRouterProvider, $ocLazyLoadProvider ){
+
+			var lazyLoad = function( module, path ){
+				return ['$ocLazyLoad', function( $ocLazyLoad ){
+					return $ocLazyLoad.load({
+						name: module,
+						files: [ path ]
+					});
+				}]
+			};
+
 			// used for redirection
 			$urlRouterProvider.when("/", "/booking");
 			$urlRouterProvider.when("/manage", "/manage/airports");
@@ -18,7 +29,10 @@ define([
 			$stateProvider
 				.state( "booking", { 
 					url: "/booking",
-					templateUrl: "modules/booking/booking.html"
+					templateUrl: "modules/booking/booking.html",
+					resolve: {
+						scripts: lazyLoad( 'BookFlight.booking', 'modules/booking/main.js' ) 
+					}
 				})
 				.state( "booking.search", {
 					url: "/:origin/:destination", 
@@ -27,7 +41,10 @@ define([
 				})
 				.state( "manage", {
 					url: "/manage", 
-					templateUrl: "modules/manage/manage.html"
+					templateUrl: "modules/manage/manage.html",
+					resolve: {
+						scripts: lazyLoad( 'BookFlight.manage', 'modules/manage/main.js' )
+					}
 				})
 				.state( "manage.airports", {
 					url: "/airports", 

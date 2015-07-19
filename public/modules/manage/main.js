@@ -4,6 +4,7 @@
 *	@author Lakha Singh
 */
 define([
+	'./module',
 	'./navigation/main',
 	'./flights/main',
 	'./airports/main'

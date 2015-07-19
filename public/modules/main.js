@@ -9,16 +9,18 @@ require.config({
 			exports: 'angular'
 		},
 		'angular-resource': ['angular'],
-		'angular-route': ['angular']
+		'angular-ui-router': ['angular'],
+		'oclazyload': ['angular']
 	},
 	paths: {
 		'angular': '../vendor/angular',
 		'angular-resource': '../vendor/angular-resource',
 		'angular-ui-router': '../vendor/angular-ui-router',
+		'oclazyload': '../vendor/oclazyload',
 		'services': 'core/services'
 	},
 	packages: ['services'],
-	deps: [ 'angular', 'states', 'booking/main', 'manage/main', 'header/main' ],
+	deps: [ 'angular', 'app', 'states' ],
 	callback: function( angular ){
 		angular.bootstrap( document.querySelector('body'), ['BookFlight']);
 	}
