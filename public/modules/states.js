@@ -29,10 +29,11 @@ define([
 			$stateProvider
 				.state( "booking", { 
 					url: "/booking",
-					templateUrl: "modules/booking/booking.html",
+					templateUrl: "modules/booking/booking.html"
+					/*,
 					resolve: {
 						scripts: lazyLoad( 'BookFlight.booking', 'modules/booking/main.js' ) 
-					}
+					}*/
 				})
 				.state( "booking.search", {
 					url: "/:origin/:destination", 
@@ -41,10 +42,10 @@ define([
 				})
 				.state( "manage", {
 					url: "/manage", 
-					templateUrl: "modules/manage/manage.html",
+					templateUrl: "modules/manage/manage.html" /*,
 					resolve: {
 						scripts: lazyLoad( 'BookFlight.manage', 'modules/manage/main.js' )
-					}
+					}*/
 				})
 				.state( "manage.airports", {
 					url: "/airports", 
