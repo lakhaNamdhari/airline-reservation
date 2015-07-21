@@ -15,43 +15,15 @@ define([
 			// all modules in apps
 			$ocLazyLoadProvider.config({
 				modules: [
-				{
-					name: 'BookFlight.booking',
-					files: ['modules/booking/main.js']
-				},				
-				{
-					name: 'BookFlight.manage',
-					files: ['modules/manage/main.js']
-				},				
-				{
-					name: 'manage.airports',
-					files: ['modules/manage/airports/main.js']
-				},				
-				{
-					name: 'manage.flights',
-					files: ['modules/manage/flights/main.js']
-				},				
-				{
-					name: 'manage.navigation',
-					files: ['modules/manage/navigation/main.js']
-				},
-				{
-					name: 'airports.add',
-					files: ['modules/manage/airports/add/main.js']
-				},
-				{
-					name: 'airports.remove',
-					files: ['modules/manage/airports/remove/main.js']
-				},
-				{
-					name: 'flights.add',
-					files: ['modules/manage/flights/add/main.js']
-				},
-				{
-					name: 'flights.remove',
-					files: ['modules/manage/flights/remove/main.js']
-				}
-			]
+					{
+						name: 'BookFlight.booking',
+						files: ['modules/booking/main.js']
+					},				
+					{
+						name: 'BookFlight.manage',
+						files: ['modules/manage/main.js']
+					}
+				]
 			});
 
 			// used for redirection
@@ -64,9 +36,9 @@ define([
 					url: "/booking",
 					templateUrl: "modules/booking/booking.html",
 					resolve: {
-						dep: ['$ocLazyLoad', function( $ocLazyLoad ){
+						booking: ['$ocLazyLoad', function( $ocLazyLoad ){
 							return $ocLazyLoad.load('BookFlight.booking').then(function(){
-								$ocLazyLoad.inject('BookFlight.booking')
+								$ocLazyLoad.inject('BookFlight.booking');
 							});
 						}]
 					}
@@ -78,7 +50,20 @@ define([
 				})
 				.state( "manage", {
 					url: "/manage", 
-					templateUrl: "modules/manage/manage.html"
+					templateUrl: "modules/manage/manage.html",
+					resolve: {					
+						manage: [
+							'$ocLazyLoad',
+							function( $ocLazyLoad ){
+								return $ocLazyLoad.load('BookFlight.manage').then(function(){
+									$ocLazyLoad.inject('BookFlight.manage.navigation');
+									$ocLazyLoad.inject('BookFlight.manage.airports');
+									$ocLazyLoad.inject('BookFlight.manage.flights');
+									$ocLazyLoad.inject('BookFlight.manage');
+								});
+							}
+						]
+					}
 				})
 				.state( "manage.airports", {
 					url: "/airports", 

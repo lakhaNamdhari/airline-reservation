@@ -4,6 +4,6 @@
 *	@author Lakha Singh
 */
 define([
-	'./module',
-	'./navigationCtrl'
+	'manage/navigation/module',
+	'manage/navigation/navigationCtrl'
 ], function(){});

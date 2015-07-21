@@ -5,9 +5,9 @@
 */
 define([
 	'angular',
-	'core/module'
+	'core/main'
 ], function( angular ){
-	var module = angular.module('manage.navigation', [
+	var module = angular.module('BookFlight.manage.navigation', [
 		'BookFlight.core'
 	]);
 

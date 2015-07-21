@@ -4,7 +4,7 @@
 *	@author Lakha Singh
 */
 define([
-	'./module',
+	'manage/airports/module',
 	'services'
 ], function( module ){
 	module.controller('airports.removeCtrl', [

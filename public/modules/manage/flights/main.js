@@ -4,7 +4,7 @@
 *	@author Lakha Singh
 */
 define([
-	'./module',
-	'./add/main',
-	'./remove/main'
+	'manage/flights/module',
+	'manage/flights/add/addCtrl',
+	'manage/flights/remove/removeCtrl'
 ], function(){});
