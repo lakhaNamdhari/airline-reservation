@@ -4,22 +4,55 @@
 *	@author Lakha Singh
 */
 define([
-	'./app'
+	'./app',
 ], function( app ){
 	app.config( [
 		'$stateProvider',
 		'$urlRouterProvider',
 		'$ocLazyLoadProvider',
 		function ( $stateProvider, $urlRouterProvider, $ocLazyLoadProvider ){
-
-			var lazyLoad = function( module, path ){
-				return ['$ocLazyLoad', function( $ocLazyLoad ){
-					return $ocLazyLoad.load({
-						name: module,
-						files: [ path ]
-					});
-				}]
-			};
+			
+			// all modules in apps
+			$ocLazyLoadProvider.config({
+				modules: [
+				{
+					name: 'BookFlight.booking',
+					files: ['modules/booking/main.js']
+				},				
+				{
+					name: 'BookFlight.manage',
+					files: ['modules/manage/main.js']
+				},				
+				{
+					name: 'manage.airports',
+					files: ['modules/manage/airports/main.js']
+				},				
+				{
+					name: 'manage.flights',
+					files: ['modules/manage/flights/main.js']
+				},				
+				{
+					name: 'manage.navigation',
+					files: ['modules/manage/navigation/main.js']
+				},
+				{
+					name: 'airports.add',
+					files: ['modules/manage/airports/add/main.js']
+				},
+				{
+					name: 'airports.remove',
+					files: ['modules/manage/airports/remove/main.js']
+				},
+				{
+					name: 'flights.add',
+					files: ['modules/manage/flights/add/main.js']
+				},
+				{
+					name: 'flights.remove',
+					files: ['modules/manage/flights/remove/main.js']
+				}
+			]
+			});
 
 			// used for redirection
 			$urlRouterProvider.when("/", "/booking");
@@ -29,11 +62,14 @@ define([
 			$stateProvider
 				.state( "booking", { 
 					url: "/booking",
-					templateUrl: "modules/booking/booking.html"
-					/*,
+					templateUrl: "modules/booking/booking.html",
 					resolve: {
-						scripts: lazyLoad( 'BookFlight.booking', 'modules/booking/main.js' ) 
-					}*/
+						dep: ['$ocLazyLoad', function( $ocLazyLoad ){
+							return $ocLazyLoad.load('BookFlight.booking').then(function(){
+								$ocLazyLoad.inject('BookFlight.booking')
+							});
+						}]
+					}
 				})
 				.state( "booking.search", {
 					url: "/:origin/:destination", 
@@ -42,10 +78,7 @@ define([
 				})
 				.state( "manage", {
 					url: "/manage", 
-					templateUrl: "modules/manage/manage.html" /*,
-					resolve: {
-						scripts: lazyLoad( 'BookFlight.manage', 'modules/manage/main.js' )
-					}*/
+					templateUrl: "modules/manage/manage.html"
 				})
 				.state( "manage.airports", {
 					url: "/airports", 

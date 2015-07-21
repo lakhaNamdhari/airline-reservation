@@ -6,13 +6,16 @@
 define([
 	'core/module',
 	'./airports',
-	'./utils'
+	'./utils',
+	'oclazyload'
 ], function( core ){
 	core.factory( "core.Common", [
 		'core.Airports',
 		'core.Utils',
 		'$location',
-		function ( Airports, Utils, $location ){
+		'$ocLazyLoad',
+		'$q',
+		function ( Airports, Utils, $location, $ocLazyLoad, $q ){
 			return {
 				// returns airport-names for airport-code 
 				getAirportName: (function(){

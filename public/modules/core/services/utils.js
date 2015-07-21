@@ -9,7 +9,7 @@ define([
 	core.factory( "core.Utils", [
 		'$window',
 		function ( $window ){
-			var debug = false;
+			var debug = true;
 
 			return {
 				// enable / disable logs

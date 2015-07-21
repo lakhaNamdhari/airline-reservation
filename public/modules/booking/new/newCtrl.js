@@ -4,7 +4,7 @@
 *	@author Lakha Singh
 */
 define([
-	'./module',
+	'booking/module',
 	'services'
 ], function( module ){
 	module.controller('booking.newCtrl', [
@@ -16,7 +16,7 @@ define([
 		'core.Common',
 		'core.Utils',
 		function( $scope, $stateParams, Bookings, Search, Interface, Common, Utils ){
-			Utils.log( "booking.new.newCtrl" );
+			Utils.log( "booking.newCtrl" );
 
 			// Common methods
 			$scope.common = Common;

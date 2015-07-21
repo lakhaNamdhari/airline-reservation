@@ -4,8 +4,8 @@
 *	@author Lakha Singh
 */
 define([
-	'./module',
-	'./cancel/main',
-	'./new/main',
-	'./search/main'
+	'booking/module',
+	'booking/cancel/cancelCtrl',
+	'booking/new/newCtrl',
+	'booking/search/searchCtrl'
 ], function(){});

@@ -4,7 +4,7 @@
 *	@author Lakha Singh
 */
 define([
-	'./module',
+	'booking/module',
 	'services'
 ], function( module ){
 	module.controller('booking.searchCtrl', [
@@ -13,7 +13,7 @@ define([
 		'core.Utils',
 		'$location',
 		function ( $scope, Airports, Utils, $location ){
-			Utils.log( "search.searchCtrl");
+			Utils.log( "booking.searchCtrl");
 			
 			// Template for this controller
 			$scope.view = 'modules/booking/search/search.html';

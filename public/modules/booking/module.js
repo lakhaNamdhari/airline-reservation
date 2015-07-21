@@ -5,16 +5,10 @@
 */
 define([
 	'angular',
-	'core/module',
-	'booking/cancel/module',
-	'booking/new/module',
-	'booking/search/module'
+	'core/module'
 ], function( angular ){
 	var module = angular.module('BookFlight.booking', [
-		'BookFlight.core',
-		'booking.cancel',
-		'booking.new',
-		'booking.search'
+		'BookFlight.core'
 	]);
 
 	return module;

@@ -8,17 +8,13 @@ define([
 	'angular-ui-router',
 	'oclazyload',
 	'core/main',
-	'header/main',
-	'booking/main',
-	'manage/main'
+	'header/main'
 ], function( angular ){
 	var module = angular.module('BookFlight', [
 		'ui.router',
 		'oc.lazyLoad',
 		'BookFlight.core',
-		'BookFlight.header',
-		'BookFlight.booking',
-		'BookFlight.manage'
+		'BookFlight.header'
 	]);
 
 	return module;

@@ -4,8 +4,8 @@
 *	@author Lakha Singh
 */
 define([
-	'./module',
-	'./navigation/main',
-	'./flights/main',
-	'./airports/main'
+	'manage/module',
+	'manage/navigation/main',
+	'manage/flights/main',
+	'manage/airports/main'
 ], function(){});

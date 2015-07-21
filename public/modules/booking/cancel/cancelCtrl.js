@@ -4,7 +4,7 @@
 *	@author Lakha Singh
 */
 define([
-	'./module',
+	'booking/module',
 	'services'
 ], function( module ){
 	module.controller('booking.cancelCtrl', [
@@ -14,7 +14,7 @@ define([
 		'core.Common',
 		'core.Utils',
 		function( $scope, Bookings, Interface, Common, Utils ){
-			Utils.log( "booking.cancel.cancelCtrl" );
+			Utils.log( "booking.cancelCtrl" );
 
 			// Template for this controller
 			$scope.view = 'modules/booking/cancel/cancel.html';
