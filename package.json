@@ -19,6 +19,9 @@
   "homepage": "https://github.com/lakhaNamdhari/airline-reservation",
   "devDependencies": {
     "extend": "^2.0.1",
+    "grunt": "^0.4.5",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-requirejs": "^0.4.4",
     "mongodb": "^2.0.35"
   }
 }

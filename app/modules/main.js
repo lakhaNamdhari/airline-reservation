@@ -20,6 +20,23 @@ require.config({
 		'services': 'core/services'
 	},
 	packages: ['services'],
+	modules: [
+		{
+			name: 'core/main'
+		},
+		{
+			name: 'header/main',
+			exclude: ['services']
+		},
+		{
+			name: 'booking/main',
+			exclude: ['services']
+		},
+		{
+			name: 'manage/main',
+			exclude: ['services']
+		}
+	],
 	deps: [ 'angular', 'app', 'states' ],
 	callback: function( angular ){
 		angular.bootstrap( document.querySelector('body'), ['BookFlight']);
