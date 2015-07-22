@@ -12,7 +12,7 @@ define([
 		'$ocLazyLoadProvider',
 		function ( $stateProvider, $urlRouterProvider, $ocLazyLoadProvider ){
 			
-			// all modules in apps
+			// modules config for oclazyload
 			$ocLazyLoadProvider.config({
 				modules: [
 					{
@@ -56,9 +56,6 @@ define([
 							'$ocLazyLoad',
 							function( $ocLazyLoad ){
 								return $ocLazyLoad.load('BookFlight.manage').then(function(){
-									$ocLazyLoad.inject('BookFlight.manage.navigation');
-									$ocLazyLoad.inject('BookFlight.manage.airports');
-									$ocLazyLoad.inject('BookFlight.manage.flights');
 									$ocLazyLoad.inject('BookFlight.manage');
 								});
 							}
