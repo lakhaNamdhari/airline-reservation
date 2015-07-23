@@ -4,11 +4,11 @@
 *	@author Lakha Singh
 */
 define([
-	'booking/module',
+	'core/module',
 	'angular-resource',
 	'services'
-], function( booking ){
-	booking.factory( "core.Flights", [
+], function( core ){
+	core.factory( "core.Flights", [
 		'$resource',
 		'core.Utils',
 		function ( $resource, Utils ){

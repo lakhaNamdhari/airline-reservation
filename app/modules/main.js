@@ -3,42 +3,10 @@
 *
 *	@author Lakha Singh
 */
-require.config({
-	shim: {
-		'angular': {
-			exports: 'angular'
-		},
-		'angular-resource': ['angular'],
-		'angular-ui-router': ['angular'],
-		'oclazyload': ['angular']
-	},
-	paths: {
-		'angular': '../vendor/angular',
-		'angular-resource': '../vendor/angular-resource',
-		'angular-ui-router': '../vendor/angular-ui-router',
-		'oclazyload': '../vendor/oclazyload',
-		'services': 'core/services'
-	},
-	packages: ['services'],
-	modules: [
-		{
-			name: 'core/main'
-		},
-		{
-			name: 'header/main',
-			exclude: ['services']
-		},
-		{
-			name: 'booking/main',
-			exclude: ['services']
-		},
-		{
-			name: 'manage/main',
-			exclude: ['services']
-		}
-	],
-	deps: [ 'angular', 'app', 'states' ],
-	callback: function( angular ){
-		angular.bootstrap( document.querySelector('body'), ['BookFlight']);
-	}
-});
+require([
+	'angular',
+	'app',
+	'states'
+], function( angular ){
+	angular.bootstrap( document.querySelector('body'), ['BookFlight']);
+})

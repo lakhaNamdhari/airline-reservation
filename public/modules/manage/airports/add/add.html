@@ -1,0 +1,23 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Add Airport</h3>
+	</div>
+
+	<div class="panel-body">
+		<form class="clearfix controls controls-row" action="">
+			
+			<div class="group span3 pull-left">
+				<input placeholder="Code" class="input-small" type="text" ng-model="airport.code" />
+			</div>
+
+			<div class="group span3 pull-left">
+				<input placeholder="City" class="input-small" type="text" ng-model="airport.city" />
+			</div>
+
+			<button type="button" ng-click="addAirport( airport )" class="btn btn-sm btn-success">
+					<span class="glyphicon glyphicon-add-sign"></span>
+				 Add</button>
+			</a>
+		</form>
+	</div>
+</div>

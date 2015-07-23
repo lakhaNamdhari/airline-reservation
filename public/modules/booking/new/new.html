@@ -1,0 +1,26 @@
+<div ng-show="flights.length" class="panel panel-default">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Number</th>
+				<th>Origin</th>
+				<th>Destination</th>
+				<th>Price</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="flight in flights">
+				<td><span class="badge">{{ flight.number }}</span></td>
+				<td><a>{{ flight.origin }} - {{ common.getAirportName( flight.origin ) }}</a></td>
+				<td><a>{{ flight.destination }} - {{ common.getAirportName( flight.destination ) }}</a></td>
+				<td>{{ flight.price | currency }}</td>
+				<td>
+					<button type="button" ng-click="reserveFlight( flight )" class="btn btn-sm btn-success">
+  						<span class="glyphicon glyphicon-ok-circle"></span>
+  					 Book</button>
+  				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

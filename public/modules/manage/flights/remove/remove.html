@@ -1,0 +1,32 @@
+<div>
+	<div class="panel panel-default"  ng-show="flights.length">
+		<div class="panel-heading">
+			<h3 class="panel-title">Flights</h3>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Number</th>
+					<th>Origin</th>
+					<th>Destination</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="flight in flights">
+					<td>{{ flight.number }}</td>
+					<td>{{ flight.origin }}</td>
+					<td>{{ flight.destination }}</td>
+					<td>
+						<button type="button" ng-click="removeFlight( flight )" class="btn btn-sm btn-danger">
+	  						<span class="glyphicon glyphicon-remove-sign"></span>
+	  					 Remove</button>	
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="alert alert-info" ng-hide="flights.length">
+		<p>There are no flights to display.</p>
+	</div>
+</div>

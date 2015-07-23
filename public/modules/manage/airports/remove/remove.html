@@ -1,0 +1,30 @@
+<div>
+	<div class="panel panel-default"  ng-show="airports.length">
+		<div class="panel-heading">
+			<h3 class="panel-title">Airports</h3>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Code</th>
+					<th>City</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="airport in airports">
+					<td>{{ airport.code }}</td>
+					<td>{{ airport.city }}</td>
+					<td>
+						<button type="button" ng-click="removeAirport( airport )" class="btn btn-sm btn-danger">
+	  						<span class="glyphicon glyphicon-remove-sign"></span>
+	  					 Remove</button>	
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="alert alert-info" ng-hide="airports.length">
+		<p>There are no airports to display.</p>
+	</div>
+</div>

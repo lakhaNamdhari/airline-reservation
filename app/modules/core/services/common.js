@@ -8,8 +8,8 @@ define([
 	'./airports',
 	'./utils',
 	'oclazyload'
-], function( core ){
-	core.factory( "core.Common", [
+], function( module ){
+	module.factory( "core.Common", [
 		'core.Airports',
 		'core.Utils',
 		'$location',

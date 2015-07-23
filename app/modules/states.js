@@ -39,6 +39,8 @@ define([
 						booking: ['$ocLazyLoad', function( $ocLazyLoad ){
 							return $ocLazyLoad.load('BookFlight.booking').then(function(){
 								$ocLazyLoad.inject('BookFlight.booking');
+							}, function(){
+								console.log('failed');
 							});
 						}]
 					}

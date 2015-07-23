@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>BookFlight</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+	<body style="overflow: hidden">
+		<div style="width: 1040px;" class="container">
+			<!-- Header Module -->
+			<header ng-include="view" ng-controller="BookFlight.headerCtrl"></header>
+
+			<div ui-view></div>
+		</div>
+		
+		<!-- scripts goes here -->
+		<script type="text/javascript" data-main="modules/main" src="vendor/require.js"></script>
+	</body>
+</html>

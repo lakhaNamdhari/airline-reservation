@@ -8,4 +8,15 @@ define([
 	'booking/cancel/cancelCtrl',
 	'booking/new/newCtrl',
 	'booking/search/searchCtrl'
-], function(){});
+], function(){
+	'use strict;'
+
+	console.log("yo");
+});
+
+require([
+	'booking/main'], function(){
+	'use strict;'
+
+	console.log("yo");
+});

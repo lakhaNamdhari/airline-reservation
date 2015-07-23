@@ -1,0 +1,23 @@
+
+.list-group .list-group-item.active a{
+	color: #fff;
+}
+
+.group{
+	position: relative;
+	margin-right: 20px;
+}
+.group .list-group {
+	position: absolute;
+	width: 100%;
+}
+
+input[type=text]{
+	border-radius: 5px;
+	border: 1px solid #CCC;
+	padding: 5px 10px;
+}
+
+a:hover {
+	cursor: pointer;
+}
