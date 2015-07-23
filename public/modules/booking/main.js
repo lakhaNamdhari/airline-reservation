@@ -162,5 +162,5 @@ define('booking/main',[
 	'booking/cancel/cancelCtrl',
 	'booking/new/newCtrl',
 	'booking/search/searchCtrl'
-], function(){
-});
+], function(){});
+

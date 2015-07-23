@@ -12,19 +12,21 @@ define([
 		'$ocLazyLoadProvider',
 		function ( $stateProvider, $urlRouterProvider, $ocLazyLoadProvider ){
 			
-			// modules config for oclazyload
-			$ocLazyLoadProvider.config({
-				modules: [
-					{
-						name: 'BookFlight.booking',
-						files: ['modules/booking/main.js']
-					},				
-					{
-						name: 'BookFlight.manage',
-						files: ['modules/manage/main.js']
-					}
-				]
-			});
+			// loads and injects modules
+			var lazyLoad = function( module, path ){
+				return [
+					'$ocLazyLoad',
+					'$q',
+					function( $ocLazyLoad, $q ){
+					var df = $q.defer();
+
+					require([ path ], function(){
+						$ocLazyLoad.inject( module );
+						df.resolve({status: true});
+					})
+					return df.promise;
+				}];
+			}
 
 			// used for redirection
 			$urlRouterProvider.when("/", "/booking");
@@ -36,13 +38,7 @@ define([
 					url: "/booking",
 					templateUrl: "modules/booking/booking.html",
 					resolve: {
-						booking: ['$ocLazyLoad', function( $ocLazyLoad ){
-							return $ocLazyLoad.load('BookFlight.booking').then(function(){
-								$ocLazyLoad.inject('BookFlight.booking');
-							}, function(){
-								console.log('failed');
-							});
-						}]
+						booking: lazyLoad('BookFlight.booking', 'booking/main')
 					}
 				})
 				.state( "booking.search", {
@@ -54,14 +50,7 @@ define([
 					url: "/manage", 
 					templateUrl: "modules/manage/manage.html",
 					resolve: {					
-						manage: [
-							'$ocLazyLoad',
-							function( $ocLazyLoad ){
-								return $ocLazyLoad.load('BookFlight.manage').then(function(){
-									$ocLazyLoad.inject('BookFlight.manage');
-								});
-							}
-						]
+						manage: lazyLoad('BookFlight.manage', 'manage/main')
 					}
 				})
 				.state( "manage.airports", {

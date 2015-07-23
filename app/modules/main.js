@@ -8,5 +8,5 @@ require([
 	'app',
 	'states'
 ], function( angular ){
-	angular.bootstrap( document.querySelector('body'), ['BookFlight']);
+	angular.bootstrap( document, ['BookFlight']);
 })

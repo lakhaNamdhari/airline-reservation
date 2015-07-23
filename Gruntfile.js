@@ -32,17 +32,13 @@ module.exports = function( grunt ){
 			},
 
 			modules: [
-				'public/modules/**/*.js',
-				'!public/modules/main.js',
-				'!public/modules/booking/main.js',
-				'!public/modules/core/main.js',
-				'!public/modules/manage/main.js'
+				'public/modules/config.js'
 			]
 		}
 	});
 
 	// Register default task
-	grunt.registerTask('default', ['copy:dest', 'requirejs']);
+	grunt.registerTask('default', ['copy:dest', 'requirejs', 'clean']);
 
 	// Load Task
 	grunt.loadNpmTasks('grunt-contrib-copy');

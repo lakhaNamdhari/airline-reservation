@@ -28245,17 +28245,13 @@ define('app',[
 	'angular-ui-router',
 	'oclazyload',
 	'core/main',
-  'header/main',
-  'booking/main',
-	'manage/main'
+	'header/main'
 ], function( angular ){
 	var module = angular.module('BookFlight', [
 		'ui.router',
 		'oc.lazyLoad',
 		'BookFlight.core',
-    'BookFlight.header',
-    'BookFlight.booking',
-		'BookFlight.manage'
+		'BookFlight.header'
 	]);
 
 	return module;
@@ -28274,19 +28270,21 @@ define('states',[
 		'$ocLazyLoadProvider',
 		function ( $stateProvider, $urlRouterProvider, $ocLazyLoadProvider ){
 			
-			// modules config for oclazyload
-			$ocLazyLoadProvider.config({
-				modules: [
-					{
-						name: 'BookFlight.booking',
-						files: ['modules/booking/main.js']
-					},				
-					{
-						name: 'BookFlight.manage',
-						files: ['modules/manage/main.js']
-					}
-				]
-			});
+			// loads and injects modules
+			var lazyLoad = function( module, path ){
+				return [
+					'$ocLazyLoad',
+					'$q',
+					function( $ocLazyLoad, $q ){
+					var df = $q.defer();
+
+					require([ path ], function(){
+						$ocLazyLoad.inject( module );
+						df.resolve({status: true});
+					})
+					return df.promise;
+				}];
+			}
 
 			// used for redirection
 			$urlRouterProvider.when("/", "/booking");
@@ -28296,16 +28294,10 @@ define('states',[
 			$stateProvider
 				.state( "booking", { 
 					url: "/booking",
-					templateUrl: "modules/booking/booking.html"/*,
+					templateUrl: "modules/booking/booking.html",
 					resolve: {
-						booking: ['$ocLazyLoad', function( $ocLazyLoad ){
-							return $ocLazyLoad.load('BookFlight.booking').then(function(){
-								$ocLazyLoad.inject('BookFlight.booking');
-							}, function(){
-								console.log('failed');
-							});
-						}]
-					}*/
+						booking: lazyLoad('BookFlight.booking', 'booking/main')
+					}
 				})
 				.state( "booking.search", {
 					url: "/:origin/:destination", 
@@ -28314,17 +28306,10 @@ define('states',[
 				})
 				.state( "manage", {
 					url: "/manage", 
-					templateUrl: "modules/manage/manage.html"/*,
+					templateUrl: "modules/manage/manage.html",
 					resolve: {					
-						manage: [
-							'$ocLazyLoad',
-							function( $ocLazyLoad ){
-								return $ocLazyLoad.load('BookFlight.manage').then(function(){
-									$ocLazyLoad.inject('BookFlight.manage');
-								});
-							}
-						]
-					}*/
+						manage: lazyLoad('BookFlight.manage', 'manage/main')
+					}
 				})
 				.state( "manage.airports", {
 					url: "/airports", 
@@ -28347,7 +28332,7 @@ require([
 	'app',
 	'states'
 ], function( angular ){
-	angular.bootstrap( document.querySelector('body'), ['BookFlight']);
+	angular.bootstrap( document, ['BookFlight']);
 });
 define("main", function(){});
 
