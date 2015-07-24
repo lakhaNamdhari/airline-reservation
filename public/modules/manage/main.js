@@ -1,13 +1,4 @@
 /**
-*	Entry point for the core module
-*
-*	@author Lakha Singh
-*/
-define('core/main',[
-	'./module',
-	'services'
-], function(){});
-/**
 *	Defines booking module
 *
 *	@author Lakha Singh

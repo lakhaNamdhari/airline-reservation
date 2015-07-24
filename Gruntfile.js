@@ -7,7 +7,7 @@
 module.exports = function( grunt ){
 	grunt.initConfig({
 		copy: {
-			dest: {
+			dist: {
 				expand: true,
 				cwd: 'app',
 				src: '**',
@@ -21,7 +21,7 @@ module.exports = function( grunt ){
 					dir: 'public/modules',
 					optimize: 'none',
 					removeCombined: true,
-					mainConfigFile: 'app/modules/config.js'				
+					mainConfigFile: 'app/modules/main.js'				
 				}
 			}
 		},
@@ -38,7 +38,7 @@ module.exports = function( grunt ){
 	});
 
 	// Register default task
-	grunt.registerTask('default', ['copy:dest', 'requirejs', 'clean']);
+	grunt.registerTask('default', ['copy:dist', 'requirejs', 'clean']);
 
 	// Load Task
 	grunt.loadNpmTasks('grunt-contrib-copy');

@@ -32,7 +32,6 @@ booking/main.js
 
 manage/main.js
 ----------------
-core/main.js
 manage/airports/module.js
 manage/airports/add/addCtrl.js
 manage/airports/remove/removeCtrl.js
