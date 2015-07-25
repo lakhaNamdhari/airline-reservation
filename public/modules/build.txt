@@ -1,4 +1,8 @@
 
+core/directives/carousel/carousel.css
+----------------
+core/directives/carousel/carousel.css
+
 main.js
 ----------------
 angular.js
@@ -14,6 +18,8 @@ core/services/bookings.js
 core/services/search.js
 core/services/flights.js
 core/services/main.js
+core/directives/carousel/carouselDr.js
+core/directives/main.js
 core/main.js
 header/module.js
 header/headerCtrl.js
@@ -28,6 +34,7 @@ booking/module.js
 booking/cancel/cancelCtrl.js
 booking/new/newCtrl.js
 booking/search/searchCtrl.js
+booking/flight_status/flightStatusCtrl.js
 booking/main.js
 
 manage/main.js

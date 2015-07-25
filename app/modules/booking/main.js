@@ -7,5 +7,6 @@ define([
 	'booking/module',
 	'booking/cancel/cancelCtrl',
 	'booking/new/newCtrl',
-	'booking/search/searchCtrl'
+	'booking/search/searchCtrl',
+	'booking/flight_status/flightStatusCtrl'
 ], function(){});

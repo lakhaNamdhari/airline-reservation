@@ -26,22 +26,32 @@ module.exports = function( grunt ){
 			}
 		},
 
-		clean: {
+		esteWatch: {
 			options: {
-				force: true
+				dirs: ['app/modules/**']
 			},
 
-			modules: [
-				'public/modules/config.js'
-			]
+			js: function(){
+				return ['default'];
+			},
+
+			html: function(){
+				return ['default'];
+			},
+
+			css: function(){
+				return ['default'];
+			}
 		}
 	});
 
 	// Register default task
-	grunt.registerTask('default', ['copy:dist', 'requirejs', 'clean']);
+	grunt.registerTask('default', ['copy:dist', 'requirejs']);
+	
+	grunt.registerTask('watch', ['esteWatch']);
 
 	// Load Task
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
-	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-este-watch');
 }

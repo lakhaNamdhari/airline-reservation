@@ -17,20 +17,21 @@ require.config({
 		'angular-resource': '../vendor/angular-resource',
 		'angular-ui-router': '../vendor/angular-ui-router',
 		'oclazyload': '../vendor/oclazyload',
-		'services': 'core/services'
+		'services': 'core/services',
+		'directives': 'core/directives'
 	},
-	packages: ['services'],
+	packages: ['services', 'directives'],
 	modules: [
 		{
 			name: 'main'
 		},
 		{
 			name: 'booking/main',
-			exclude: ['services']
+			exclude: ['services', 'directives']
 		},
 		{
 			name: 'manage/main',
-			exclude: ['services']
+			exclude: ['services', 'directives']
 		}
 	],
 	deps: [

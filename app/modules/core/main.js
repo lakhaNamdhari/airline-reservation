@@ -5,5 +5,6 @@
 */
 define([
 	'./module',
-	'services'
+	'services',
+	'directives'
 ], function(){});

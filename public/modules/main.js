@@ -28181,13 +28181,56 @@ define('services/main',[
 define('services', ['services/main'], function (main) { return main; });
 
 /**
+*	Implemented carousel as a Directive
+*
+*	Usage :
+*	<bf-carousel>
+*		<li>Data1</li>
+*		<li>Data2</li>
+*		<li>Data3</li>
+*	</bf-carousel>
+*
+*	@author Lakha Singh
+*/
+define('directives/carousel/carouselDr',[
+	'core/module',
+	'services'
+], function( module ){
+	module.directive( "bfCarousel", [
+		'core.Utils',
+		function ( Utils ){
+			Utils.log( "core.directives.bfCarousel" );
+
+			return {
+				restrict: 'E',
+				template: '<span class="glyphicon glyphicon-chevron-up"><span>\
+								<ul></ul>\
+							<span class="glyphicon glyphicon-chevron-down"></span>'
+			};
+		}
+	]);
+});
+
+/**
+*	Used to load directives as a package
+*
+*	@author Lakha Singh
+*/
+define('directives/main',[
+	'./carousel/carouselDr'
+], function(){});
+
+define('directives', ['directives/main'], function (main) { return main; });
+
+/**
 *	Entry point for the core module
 *
 *	@author Lakha Singh
 */
 define('core/main',[
 	'./module',
-	'services'
+	'services',
+	'directives'
 ], function(){});
 /**
 *	Defines header module
@@ -28341,20 +28384,21 @@ require.config({
 		'angular-resource': '../vendor/angular-resource',
 		'angular-ui-router': '../vendor/angular-ui-router',
 		'oclazyload': '../vendor/oclazyload',
-		'services': 'core/services'
+		'services': 'core/services',
+		'directives': 'core/directives'
 	},
-	packages: ['services'],
+	packages: ['services', 'directives'],
 	modules: [
 		{
 			name: 'main'
 		},
 		{
 			name: 'booking/main',
-			exclude: ['services']
+			exclude: ['services', 'directives']
 		},
 		{
 			name: 'manage/main',
-			exclude: ['services']
+			exclude: ['services', 'directives']
 		}
 	],
 	deps: [
@@ -28366,20 +28410,5 @@ require.config({
 		angular.bootstrap( document, ['BookFlight']);
 	}
 });
-
-
-/**
-*	Entry point for the app
-*
-*	@author Lakha Singh
-require([
-	'angular',
-	'app',
-	'states'
-], function( angular ){
-	angular.bootstrap( document, ['BookFlight']);
-})
-*/
-;
 define("main", function(){});
 
