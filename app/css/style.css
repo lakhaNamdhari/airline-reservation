@@ -25,3 +25,7 @@ a:hover {
 .well{
 	background-color: #FFF;
 }
+
+.table.colored td{
+	background-color: #f9f9f9;
+}    

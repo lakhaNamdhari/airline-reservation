@@ -5,8 +5,9 @@
 */
 define([
 	'manage/flights/module',
+	'angular',
 	'services'
-], function( module ){
+], function( module, angular ){
 	module.controller('flights.addCtrl', [
 		'$scope',
 		'core.Flights',
@@ -25,7 +26,10 @@ define([
 			$scope.addFlight = function( flight ){
 				if ( flight && flight.number && flight.origin && flight.destination ){
 					Flights.save( flight, function(){
-						Interface.flights.push( flight );
+						Interface.flights.push( angular.copy(flight) );
+						flight.number = '';
+						flight.origin = '';
+						flight.destination = '';
 					});
 				}
 			};

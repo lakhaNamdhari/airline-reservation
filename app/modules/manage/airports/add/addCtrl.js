@@ -5,8 +5,9 @@
 */
 define([
 	'manage/airports/module',
+	'angular',
 	'services'
-], function( module ){
+], function( module, angular ){
 	module.controller('airports.addCtrl', [
 		'$scope',
 		'core.Airports',
@@ -25,7 +26,9 @@ define([
 			$scope.addAirport = function( airport ){
 				if ( airport && airport.code && airport.city ){
 					Airports.save( airport, function(){
-						Interface.airports.push( airport );
+						Interface.airports.push( angular.copy(airport) );
+						airport.code = '';
+						airport.city = '';
 					});
 				}
 			};

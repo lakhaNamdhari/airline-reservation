@@ -28,7 +28,7 @@ module.exports = function( grunt ){
 
 		esteWatch: {
 			options: {
-				dirs: ['app/modules/**']
+				dirs: ['app/**']
 			},
 
 			js: function(){

@@ -20,8 +20,9 @@ define('manage/airports/module',[
 */
 define('manage/airports/add/addCtrl',[
 	'manage/airports/module',
+	'angular',
 	'services'
-], function( module ){
+], function( module, angular ){
 	module.controller('airports.addCtrl', [
 		'$scope',
 		'core.Airports',
@@ -40,7 +41,9 @@ define('manage/airports/add/addCtrl',[
 			$scope.addAirport = function( airport ){
 				if ( airport && airport.code && airport.city ){
 					Airports.save( airport, function(){
-						Interface.airports.push( airport );
+						Interface.airports.push( angular.copy(airport) );
+						airport.code = '';
+						airport.city = '';
 					});
 				}
 			};
@@ -122,8 +125,9 @@ define('manage/flights/module',[
 */
 define('manage/flights/add/addCtrl',[
 	'manage/flights/module',
+	'angular',
 	'services'
-], function( module ){
+], function( module, angular ){
 	module.controller('flights.addCtrl', [
 		'$scope',
 		'core.Flights',
@@ -142,7 +146,10 @@ define('manage/flights/add/addCtrl',[
 			$scope.addFlight = function( flight ){
 				if ( flight && flight.number && flight.origin && flight.destination ){
 					Flights.save( flight, function(){
-						Interface.flights.push( flight );
+						Interface.flights.push( angular.copy(flight) );
+						flight.number = '';
+						flight.origin = '';
+						flight.destination = '';
 					});
 				}
 			};
