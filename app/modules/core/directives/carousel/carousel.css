@@ -9,12 +9,17 @@ bf-carousel{
     overflow: hidden;
     display: block;
     position: relative;
-    border-left: 1px solid #EEE;
-    border-right: 1px solid #eee;
+    border: 1px solid #EEE;
     margin-bottom: 20px;
     margin-top: 20px;
 }
 
+/* Wrapped content */
+bf-carousel > .content{
+	transition: margin 0.5s;
+}
+
+/* Navigation icons */
 bf-carousel > a:hover .glyphicon{
     background-color: rgba(189, 70, 133, 0.9);
 }
@@ -38,8 +43,3 @@ bf-carousel .glyphicon.glyphicon-chevron-down{
 	top: 87.3%;
     padding: 7px 28px;
 }
-
-.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
-    border-top: 1px solid #eee;
-}
-

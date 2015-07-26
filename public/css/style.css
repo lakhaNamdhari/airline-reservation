@@ -1,3 +1,8 @@
+/**
+*	App specific Bootstrap overrides
+*	
+*	@author Lakha Singh
+*/
 
 .list-group .list-group-item.active a{
 	color: #fff;
@@ -28,4 +33,21 @@ a:hover {
 
 .table.colored td{
 	background-color: #fff;
-}    
+}
+
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    border-top: 1px solid #eee;
+}
+
+a:hover{
+	text-decoration: none;
+}
+
+body > .container{
+	width: : 1040px;
+}
+
+h1{
+	text-align: center;
+}
