@@ -5,7 +5,41 @@
 */
 
 bf-carousel{
-	width: 600px;
-	height: 400px;
-	overflow: hidden;
+    height: 200px;
+    overflow: hidden;
+    display: block;
+    position: relative;
+    border-left: 1px solid #EEE;
+    border-right: 1px solid #eee;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
+
+bf-carousel > a:hover .glyphicon{
+    background-color: rgba(189, 70, 133, 0.9);
+}
+
+bf-carousel .glyphicon{
+    position: absolute;
+    left: 47%;
+    width: 72px;
+    height: 25px;
+    padding: 5px 30px;
+    background-color: rgba(189, 70, 133, 0.5);
+    color: #FFF;
+    transition: all 0.7s;
+}
+
+bf-carousel .glyphicon.glyphicon-chevron-up{
+	top: 0;
+}
+
+bf-carousel .glyphicon.glyphicon-chevron-down{
+	top: 87.3%;
+    padding: 7px 28px;
+}
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    border-top: 1px solid #eee;
+}
+

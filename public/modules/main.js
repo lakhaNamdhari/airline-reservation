@@ -28203,9 +28203,10 @@ define('directives/carousel/carouselDr',[
 
 			return {
 				restrict: 'E',
-				template: '<span class="glyphicon glyphicon-chevron-up"><span>\
-								<ul></ul>\
-							<span class="glyphicon glyphicon-chevron-down"></span>'
+				transclude: true,
+				template: '<a><span class="glyphicon glyphicon-chevron-up"></span></a>\
+								<div class="content" ng-transclude></div>\
+						   <a><span class="glyphicon glyphicon-chevron-down"></span></a>'
 			};
 		}
 	]);
