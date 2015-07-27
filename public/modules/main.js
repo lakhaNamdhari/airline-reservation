@@ -28281,6 +28281,34 @@ define('providers/main',[
 define('providers', ['providers/main'], function (main) { return main; });
 
 /**
+*	Custom Filter- delay
+*	It is used to format time as delayed
+*
+*	@Lakha Singh
+*/
+
+define('filters/delayFilter',[
+	'core/module'
+], function( module ){
+	module.filter('core.delay', function(){
+		return function( time ){
+			time = parseInt( time );
+			time = (time < 10 ? '0'+time : ''+time)+':00';
+			return ' by ' + time + ' hrs';
+		}
+	});
+});
+/**
+*	Used to load filters as a package
+*
+*	@author Lakha Singh
+*/
+define('filters/main',[
+	'./delayFilter'
+], function(){});
+define('filters', ['filters/main'], function (main) { return main; });
+
+/**
 *	Entry point for the core module
 *
 *	@author Lakha Singh
@@ -28289,7 +28317,8 @@ define('core/main',[
 	'./module',
 	'services',
 	'directives',
-	'providers'
+	'providers',
+	'filters'
 ], function(){});
 /**
 *	Defines header module
@@ -28462,9 +28491,10 @@ require.config({
 		'oclazyload': '../vendor/oclazyload',
 		'services': 'core/services',
 		'directives': 'core/directives',
-		'providers': 'core/providers'
+		'providers': 'core/providers',
+		'filters': 'core/filters'
 	},
-	packages: ['services', 'directives', 'providers'],
+	packages: ['services', 'directives', 'providers', 'filters'],
 	modules: [
 		{
 			name: 'main'

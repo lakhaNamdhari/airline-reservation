@@ -19,9 +19,10 @@ require.config({
 		'oclazyload': '../vendor/oclazyload',
 		'services': 'core/services',
 		'directives': 'core/directives',
-		'providers': 'core/providers'
+		'providers': 'core/providers',
+		'filters': 'core/filters'
 	},
-	packages: ['services', 'directives', 'providers'],
+	packages: ['services', 'directives', 'providers', 'filters'],
 	modules: [
 		{
 			name: 'main'

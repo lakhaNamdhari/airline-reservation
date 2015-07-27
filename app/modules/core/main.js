@@ -7,5 +7,6 @@ define([
 	'./module',
 	'services',
 	'directives',
-	'providers'
+	'providers',
+	'filters'
 ], function(){});

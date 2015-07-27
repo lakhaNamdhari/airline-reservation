@@ -5,7 +5,7 @@
 				<td>Flight #{{ flight.number }}</td>
 				<td>{{ AirportName.get( flight.origin) }}</td>
 				<td>{{ AirportName.get( flight.destination) }}</td>
-				<td>{{ flight.status }}<span ng-if="flight.delay"> - by {{ flight.delay }} hrs</span></td>
+				<td>{{ flight.status }}<span ng-if="flight.delay">{{flight.delay | core.delay}}</span></td>
 			</tr>
 		</tbody>
 	</table>

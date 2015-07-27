@@ -21,6 +21,8 @@ core/directives/carousel/carouselDr.js
 core/directives/main.js
 core/providers/airportname.js
 core/providers/main.js
+core/filters/delayFilter.js
+core/filters/main.js
 core/main.js
 header/module.js
 header/headerCtrl.js
