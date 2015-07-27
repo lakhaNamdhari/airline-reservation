@@ -11,7 +11,8 @@ define([
 		'$stateProvider',
 		'$urlRouterProvider',
 		'$logProvider',
-		function ( $provide, $stateProvider, $urlRouterProvider, $logProvider ){
+		'core.AirportNameProvider',
+		function ( $provide, $stateProvider, $urlRouterProvider, $logProvider, AirportNameProvider ){
 			// Decorates oclazyload with built-in way to load require modules
 			$provide.decorator('$ocLazyLoad', [
 				'$delegate',
@@ -36,6 +37,9 @@ define([
 			]);
 			// Disable debug messages for prod
 			//$logProvider.debugEnabled(false);
+
+			// Config AirportName
+			AirportNameProvider.sync( true );
 
 			// used for redirection
 			$urlRouterProvider.when("/", "/booking");
