@@ -10,11 +10,11 @@ define([
 ], function( module ){
 	module.controller('booking.flightStatus', [
 		'$scope',
-		'core.Utils',
+		'$log',
 		'core.Flights',
 		'core.Common',
-		function( $scope, Utils, Flights, Common ){
-			Utils.log('booking.FlightStatus');
+		function( $scope, $log, Flights, Common ){
+			$log.debug('booking.FlightStatus');
 
 			var i, delay;
 

@@ -10,7 +10,8 @@ define([
 		'$stateProvider',
 		'$urlRouterProvider',
 		'$ocLazyLoadProvider',
-		function ( $stateProvider, $urlRouterProvider, $ocLazyLoadProvider ){
+		'$logProvider',
+		function ( $stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $logProvider ){
 			
 			// loads and injects modules
 			var lazyLoad = function( module, path ){
@@ -27,6 +28,9 @@ define([
 					return df.promise;
 				}];
 			}
+
+			// Disable debug messages for prod
+			//$logProvider.debugEnabled(false);
 
 			// used for redirection
 			$urlRouterProvider.when("/", "/booking");

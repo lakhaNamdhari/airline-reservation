@@ -5,14 +5,13 @@
 */
 define([
 	'core/module',
-	'angular-resource',
-	'services'
-], function( core ){
-	core.factory( "core.Flights", [
+	'angular-resource'
+], function( module ){
+	module.factory( "core.Flights", [
 		'$resource',
-		'core.Utils',
-		function ( $resource, Utils ){
-			Utils.log( "core.services.Flights" );
+		'$log',
+		function ( $resource, $log ){
+			$log.debug( "core.services.Flights" );
 
 			return $resource("book_flight/v1/flights/:number");
 		}

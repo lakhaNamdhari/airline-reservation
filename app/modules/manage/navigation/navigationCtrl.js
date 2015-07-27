@@ -10,10 +10,10 @@ define([
 	module.controller('manage.navigationCtrl', [
 		'$scope',
 		'$location',
-		'core.Utils',
+		'$log',
 		'core.Common',
-		function ( $scope, $location, Utils, Common ){
-			Utils.log( "manage.navigation.navigationCtrl");
+		function ( $scope, $location, $log, Common ){
+			$log.debug( "manage.navigation.navigationCtrl");
 			
 			// Template for this controller
 			$scope.view = 'modules/manage/navigation/navigation.html';

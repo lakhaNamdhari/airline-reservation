@@ -10,7 +10,6 @@ angular-ui-router.js
 oclazyload.js
 angular-resource.js
 core/module.js
-core/services/utils.js
 core/services/airports.js
 core/services/common.js
 core/services/interface.js

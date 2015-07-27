@@ -14,9 +14,9 @@ define([
 		'core.Search',
 		'core.Interface',
 		'core.Common',
-		'core.Utils',
-		function( $scope, $stateParams, Bookings, Search, Interface, Common, Utils ){
-			Utils.log( "booking.newCtrl" );
+		'$log',
+		function( $scope, $stateParams, Bookings, Search, Interface, Common, $log ){
+			$log.debug( "booking.newCtrl" );
 
 			// Common methods
 			$scope.common = Common;

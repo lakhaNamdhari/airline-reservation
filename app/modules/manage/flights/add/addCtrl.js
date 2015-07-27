@@ -12,9 +12,9 @@ define([
 		'$scope',
 		'core.Flights',
 		'core.Interface',
-		'core.Utils',
-		function( $scope, Flights, Interface, Utils ){
-			Utils.log( "manage.flights.addCtrl" );
+		'$log',
+		function( $scope, Flights, Interface, $log ){
+			$log( "manage.flights.addCtrl" );
 
 			// Template for this controller
 			$scope.view = 'modules/manage/flights/add/add.html';

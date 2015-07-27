@@ -11,9 +11,9 @@ define([
 		'$scope',
 		'core.Airports',
 		'core.Interface',
-		'core.Utils',
-		function( $scope, Airports, Interface, Utils ){
-			Utils.log( "manage.airports.remove.removeCtrl" );
+		'$log',
+		function( $scope, Airports, Interface, $log ){
+			$log.debug( "manage.airports.remove.removeCtrl" );
 
 			// Template for this controller
 			$scope.view = 'modules/manage/airports/remove/remove.html';

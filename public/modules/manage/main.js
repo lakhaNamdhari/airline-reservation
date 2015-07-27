@@ -27,9 +27,9 @@ define('manage/airports/add/addCtrl',[
 		'$scope',
 		'core.Airports',
 		'core.Interface',
-		'core.Utils',
-		function( $scope, Airports, Interface, Utils ){
-			Utils.log( "manage.airports.addCtrl" );
+		'$log',
+		function( $scope, Airports, Interface, $log ){
+			$log.debug( "manage.airports.addCtrl" );
 
 			// Template for this controller
 			$scope.view = 'modules/manage/airports/add/add.html';
@@ -63,9 +63,9 @@ define('manage/airports/remove/removeCtrl',[
 		'$scope',
 		'core.Airports',
 		'core.Interface',
-		'core.Utils',
-		function( $scope, Airports, Interface, Utils ){
-			Utils.log( "manage.airports.remove.removeCtrl" );
+		'$log',
+		function( $scope, Airports, Interface, $log ){
+			$log.debug( "manage.airports.remove.removeCtrl" );
 
 			// Template for this controller
 			$scope.view = 'modules/manage/airports/remove/remove.html';
@@ -93,6 +93,7 @@ define('manage/airports/remove/removeCtrl',[
 		}
 	]);
 });
+
 /**
 *	Entry point for the manage.airports module
 *
@@ -132,9 +133,9 @@ define('manage/flights/add/addCtrl',[
 		'$scope',
 		'core.Flights',
 		'core.Interface',
-		'core.Utils',
-		function( $scope, Flights, Interface, Utils ){
-			Utils.log( "manage.flights.addCtrl" );
+		'$log',
+		function( $scope, Flights, Interface, $log ){
+			$log( "manage.flights.addCtrl" );
 
 			// Template for this controller
 			$scope.view = 'modules/manage/flights/add/add.html';
@@ -169,9 +170,9 @@ define('manage/flights/remove/removeCtrl',[
 		'$scope',
 		'core.Flights',
 		'core.Interface',
-		'core.Utils',
-		function( $scope, Flights, Interface, Utils ){
-			Utils.log( "manage.flights.remove.removeCtrl" );
+		'$log',
+		function( $scope, Flights, Interface, $log ){
+			$log.debug( "manage.flights.remove.removeCtrl" );
 
 			// Template for this controller
 			$scope.view = 'modules/manage/flights/remove/remove.html';
@@ -236,10 +237,10 @@ define('manage/navigation/navigationCtrl',[
 	module.controller('manage.navigationCtrl', [
 		'$scope',
 		'$location',
-		'core.Utils',
+		'$log',
 		'core.Common',
-		function ( $scope, $location, Utils, Common ){
-			Utils.log( "manage.navigation.navigationCtrl");
+		function ( $scope, $location, $log, Common ){
+			$log.debug( "manage.navigation.navigationCtrl");
 			
 			// Template for this controller
 			$scope.view = 'modules/manage/navigation/navigation.html';

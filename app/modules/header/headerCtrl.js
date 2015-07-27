@@ -10,10 +10,10 @@ define([
 	module.controller('BookFlight.headerCtrl', [
 		'$scope',
 		'$location',
-		'core.Utils',
+		'$log',
 		'core.Common',
-		function ( $scope, $location, Utils, Common ){
-			Utils.log( "header.headerCtrl");
+		function ( $scope, $location, $log, Common ){
+			$log.debug( "header.headerCtrl");
 			
 			// Template for this controller
 			$scope.view = 'modules/header/header.html';

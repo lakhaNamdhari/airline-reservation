@@ -10,13 +10,12 @@
 */
 define([
 	'core/module',
-	'angular',
-	'services'
+	'angular'
 ], function( module, angular ){
 	module.directive( "bfCarousel", [
-		'core.Utils',
-		function ( Utils ){
-			Utils.log( "core.directives.bfCarousel" );
+		'$log',
+		function ( $log ){
+			$log.debug( "core.directives.bfCarousel" );
 
 			return {
 				restrict: 'E',

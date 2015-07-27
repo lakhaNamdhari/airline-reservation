@@ -5,17 +5,13 @@
 */
 define([
 	'core/module',
-	'./airports',
-	'./utils',
-	'oclazyload'
+	'./airports'
 ], function( module ){
 	module.factory( "core.Common", [
 		'core.Airports',
-		'core.Utils',
+		'$log',
 		'$location',
-		'$ocLazyLoad',
-		'$q',
-		function ( Airports, Utils, $location, $ocLazyLoad, $q ){
+		function ( Airports, $log, $location ){
 			return {
 				// returns airport-names for airport-code 
 				getAirportName: (function(){
@@ -30,7 +26,7 @@ define([
 					});
 
 					return function( airportCode ){
-						Utils.log( "core.services.Common" );
+						$log.debug( "core.services.Common.getAirportName" );
 
 						return airportNames[ airportCode ];
 					};
@@ -38,6 +34,8 @@ define([
 
 				// adds active class nav menu based on url
 				activateNav: function( page ){
+					$log.debug( "core.services.Common.activateNav" );
+
 					var url = $location.path().substring(1);
 					var result = '', i;
 

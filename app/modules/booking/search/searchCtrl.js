@@ -10,10 +10,10 @@ define([
 	module.controller('booking.searchCtrl', [
 		'$scope',
 		'core.Airports', 
-		'core.Utils',
+		'$log',
 		'$location',
-		function ( $scope, Airports, Utils, $location ){
-			Utils.log( "booking.searchCtrl");
+		function ( $scope, Airports, $log, $location ){
+			$log.debug( "booking.searchCtrl");
 			
 			// Template for this controller
 			$scope.view = 'modules/booking/search/search.html';

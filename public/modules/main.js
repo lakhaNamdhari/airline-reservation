@@ -27953,50 +27953,19 @@ define('core/module',[
 	return module;
 });
 /**
-*	Utility methods
-*
-*	@author Lakha Singh
-*/
-define('services/utils',[
-	'core/module'
-], function( core ){
-	core.factory( "core.Utils", [
-		'$window',
-		function ( $window ){
-			var debug = true;
-
-			return {
-				// enable / disable logs
-				debug: function( value ){
-					debug = value && value || false;
-				},
-
-				// log output to console
-				log: function( text ){
-					if ( debug ){
-						$window.console.log( text );
-					}
-				}
-			}
-		}
-	]);	
-});
-
-/**
 *	It fetches Airports data from server
 *
 *	@author Lakha Singh
 */
 define('services/airports',[
 	'core/module',
-	'angular-resource',
-	'./utils'
+	'angular-resource'
 ], function( module ){
 	module.factory( "core.Airports", [
 		'$resource',
-		'core.Utils',
-		function ( $resource, Utils ){
-			Utils.log( "core.services.Airports" );
+		'$log',
+		function ( $resource, $log ){
+			$log.debug( "core.services.Airports  YYY" );
 
 			return $resource("book_flight/v1/airports/:airportCode");
 		}
@@ -28010,17 +27979,13 @@ define('services/airports',[
 */
 define('services/common',[
 	'core/module',
-	'./airports',
-	'./utils',
-	'oclazyload'
+	'./airports'
 ], function( module ){
 	module.factory( "core.Common", [
 		'core.Airports',
-		'core.Utils',
+		'$log',
 		'$location',
-		'$ocLazyLoad',
-		'$q',
-		function ( Airports, Utils, $location, $ocLazyLoad, $q ){
+		function ( Airports, $log, $location ){
 			return {
 				// returns airport-names for airport-code 
 				getAirportName: (function(){
@@ -28035,7 +28000,7 @@ define('services/common',[
 					});
 
 					return function( airportCode ){
-						Utils.log( "core.services.Common" );
+						$log.debug( "core.services.Common.getAirportName" );
 
 						return airportNames[ airportCode ];
 					};
@@ -28043,6 +28008,8 @@ define('services/common',[
 
 				// adds active class nav menu based on url
 				activateNav: function( page ){
+					$log.debug( "core.services.Common.activateNav" );
+
 					var url = $location.path().substring(1);
 					var result = '', i;
 
@@ -28107,14 +28074,13 @@ define('services/interface',[
 */
 define('services/bookings',[
 	'core/module',
-	'angular-resource',
-	'services'
+	'angular-resource'
 ], function( module ){
 	module.factory( "core.Bookings", [
 		'$resource',
-		'core.Utils',
-		function ( $resource, Utils ){
-			Utils.log( "core.services.Bookings" );
+		'$log',
+		function ( $resource, $log ){
+			$log.debug( "core.services.Bookings" );
 
 			return $resource("book_flight/v1/reservations/:bookingId");
 		}
@@ -28128,14 +28094,13 @@ define('services/bookings',[
 */
 define('services/search',[
 	'core/module',
-	'angular-resource',
-	'services'
+	'angular-resource'
 ], function( module ){
 	module.factory( "core.Search", [
 		'$resource',
-		'core.Utils',
-		function ( $resource, Utils ){
-			Utils.log( "core.services.Flights" );
+		'$log',
+		function ( $resource, $log ){
+			$log.debug( "core.services.Flights" );
 
 			return $resource("book_flight/v1/search/:origin/:destination");
 		}
@@ -28149,14 +28114,13 @@ define('services/search',[
 */
 define('services/flights',[
 	'core/module',
-	'angular-resource',
-	'services'
-], function( core ){
-	core.factory( "core.Flights", [
+	'angular-resource'
+], function( module ){
+	module.factory( "core.Flights", [
 		'$resource',
-		'core.Utils',
-		function ( $resource, Utils ){
-			Utils.log( "core.services.Flights" );
+		'$log',
+		function ( $resource, $log ){
+			$log.debug( "core.services.Flights" );
 
 			return $resource("book_flight/v1/flights/:number");
 		}
@@ -28170,7 +28134,6 @@ define('services/flights',[
 */
 define('services/main',[
 	'./common',
-	'./utils',
 	'./interface',
 	'./airports',
 	'./bookings',
@@ -28192,13 +28155,12 @@ define('services', ['services/main'], function (main) { return main; });
 */
 define('directives/carousel/carouselDr',[
 	'core/module',
-	'angular',
-	'services'
+	'angular'
 ], function( module, angular ){
 	module.directive( "bfCarousel", [
-		'core.Utils',
-		function ( Utils ){
-			Utils.log( "core.directives.bfCarousel" );
+		'$log',
+		function ( $log ){
+			$log.debug( "core.directives.bfCarousel" );
 
 			return {
 				restrict: 'E',
@@ -28288,10 +28250,10 @@ define('header/headerCtrl',[
 	module.controller('BookFlight.headerCtrl', [
 		'$scope',
 		'$location',
-		'core.Utils',
+		'$log',
 		'core.Common',
-		function ( $scope, $location, Utils, Common ){
-			Utils.log( "header.headerCtrl");
+		function ( $scope, $location, $log, Common ){
+			$log.debug( "header.headerCtrl");
 			
 			// Template for this controller
 			$scope.view = 'modules/header/header.html';
@@ -28342,7 +28304,8 @@ define('states',[
 		'$stateProvider',
 		'$urlRouterProvider',
 		'$ocLazyLoadProvider',
-		function ( $stateProvider, $urlRouterProvider, $ocLazyLoadProvider ){
+		'$logProvider',
+		function ( $stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $logProvider ){
 			
 			// loads and injects modules
 			var lazyLoad = function( module, path ){
@@ -28359,6 +28322,9 @@ define('states',[
 					return df.promise;
 				}];
 			}
+
+			// Disable debug messages for prod
+			//$logProvider.debugEnabled(false);
 
 			// used for redirection
 			$urlRouterProvider.when("/", "/booking");

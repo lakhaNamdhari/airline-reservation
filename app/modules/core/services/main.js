@@ -5,7 +5,6 @@
 */
 define([
 	'./common',
-	'./utils',
 	'./interface',
 	'./airports',
 	'./bookings',

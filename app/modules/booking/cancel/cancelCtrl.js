@@ -12,9 +12,9 @@ define([
 		'core.Bookings',
 		'core.Interface',
 		'core.Common',
-		'core.Utils',
-		function( $scope, Bookings, Interface, Common, Utils ){
-			Utils.log( "booking.cancelCtrl" );
+		'$log',
+		function( $scope, Bookings, Interface, Common, $log ){
+			$log.debug( "booking.cancelCtrl" );
 
 			// Template for this controller
 			$scope.view = 'modules/booking/cancel/cancel.html';

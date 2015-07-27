@@ -27,9 +27,9 @@ define('booking/cancel/cancelCtrl',[
 		'core.Bookings',
 		'core.Interface',
 		'core.Common',
-		'core.Utils',
-		function( $scope, Bookings, Interface, Common, Utils ){
-			Utils.log( "booking.cancelCtrl" );
+		'$log',
+		function( $scope, Bookings, Interface, Common, $log ){
+			$log.debug( "booking.cancelCtrl" );
 
 			// Template for this controller
 			$scope.view = 'modules/booking/cancel/cancel.html';
@@ -72,9 +72,9 @@ define('booking/new/newCtrl',[
 		'core.Search',
 		'core.Interface',
 		'core.Common',
-		'core.Utils',
-		function( $scope, $stateParams, Bookings, Search, Interface, Common, Utils ){
-			Utils.log( "booking.newCtrl" );
+		'$log',
+		function( $scope, $stateParams, Bookings, Search, Interface, Common, $log ){
+			$log.debug( "booking.newCtrl" );
 
 			// Common methods
 			$scope.common = Common;
@@ -109,10 +109,10 @@ define('booking/search/searchCtrl',[
 	module.controller('booking.searchCtrl', [
 		'$scope',
 		'core.Airports', 
-		'core.Utils',
+		'$log',
 		'$location',
-		function ( $scope, Airports, Utils, $location ){
-			Utils.log( "booking.searchCtrl");
+		function ( $scope, Airports, $log, $location ){
+			$log.debug( "booking.searchCtrl");
 			
 			// Template for this controller
 			$scope.view = 'modules/booking/search/search.html';
@@ -164,11 +164,11 @@ define('booking/flight_status/flightStatusCtrl',[
 ], function( module ){
 	module.controller('booking.flightStatus', [
 		'$scope',
-		'core.Utils',
+		'$log',
 		'core.Flights',
 		'core.Common',
-		function( $scope, Utils, Flights, Common ){
-			Utils.log('booking.FlightStatus');
+		function( $scope, $log, Flights, Common ){
+			$log.debug('booking.FlightStatus');
 
 			var i, delay;
 
