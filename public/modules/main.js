@@ -28144,87 +28144,14 @@ define('services/main',[
 define('services', ['services/main'], function (main) { return main; });
 
 /**
-*	Implemented carousel as a Directive
-*
-*	Usage :
-*	<bf-carousel>
-*		\\ your data goes here
-*	</bf-carousel>
-*
-*	@author Lakha Singh
-*/
-define('directives/carousel/carouselDr',[
-	'core/module',
-	'angular'
-], function( module, angular ){
-	module.directive( "bfCarousel", [
-		'$log',
-		function ( $log ){
-			$log.debug( "core.directives.bfCarousel" );
-
-			return {
-				restrict: 'E',
-				transclude: true,
-				template: '<a><span ng-click="hBtnUp()" class="glyphicon glyphicon-chevron-up"></span></a>\
-								<div class="content" ng-transclude></div>\
-						   <a><span ng-click="hBtnDown()" class="glyphicon glyphicon-chevron-down"></span></a>',
-				link: function( scope, $el, attrs ){
-					var $content =  angular.element( $el.children()[1] ),
-						slideHeight = $el.prop('offsetHeight'),
-						contentHeight;
-
-					scope.hBtnUp = function(){
-						var margin = parseInt($content.css('margin-top')) || 0,
-							newMargin = margin + slideHeight,
-							bound = 0;
-
-						// Refresh content height
-						contentHeight = $content.prop('offsetHeight');
-
-						// restricting in bounds
-						newMargin = (newMargin > bound ? bound : newMargin)+'px';
-						$content.css('margin-top', newMargin ); 
-					}		
-
-					scope.hBtnDown = function(){
-						var margin = parseInt($content.css('margin-top')) || 0,
-							newMargin = margin - slideHeight,
-							bound = contentHeight - slideHeight;
-
-						// Refresh content height
-						contentHeight = $content.prop('offsetHeight');
-
-						// restricting in bounds
-						newMargin = (-1*newMargin > bound  ? -bound : newMargin)+'px';
-						$content.css('margin-top', newMargin ); 					
-					}				
-				}
-			};
-		}
-	]);
-});
-
-/**
-*	Used to load directives as a package
-*
-*	@author Lakha Singh
-*/
-define('directives/main',[
-	'./carousel/carouselDr'
-], function(){});
-
-define('directives', ['directives/main'], function (main) { return main; });
-
-/**
 *	Entry point for the core module
 *
 *	@author Lakha Singh
 */
 define('core/main',[
 	'./module',
-	'services',
-	'directives'
-], function(){});
+	'services'
+], function(){}); 
 /**
 *	Defines header module
 *
@@ -28301,28 +28228,33 @@ define('states',[
 	'./app',
 ], function( app ){
 	app.config( [
+		'$provide',
 		'$stateProvider',
 		'$urlRouterProvider',
-		'$ocLazyLoadProvider',
 		'$logProvider',
-		function ( $stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $logProvider ){
-			
-			// loads and injects modules
-			var lazyLoad = function( module, path ){
-				return [
-					'$ocLazyLoad',
-					'$q',
-					function( $ocLazyLoad, $q ){
-					var df = $q.defer();
+		function ( $provide, $stateProvider, $urlRouterProvider, $logProvider ){
+			// Decorates oclazyload with built-in way to load require modules
+			$provide.decorator('$ocLazyLoad', [
+				'$delegate',
+				'$q',
+				'$log',
+				function( $delegate, $q, $log ){
+					$log.debug('config.ocLazyLoad');
 
-					require([ path ], function(){
-						$ocLazyLoad.inject( module );
-						df.resolve({status: true});
-					})
-					return df.promise;
-				}];
-			}
+					$delegate.require = function( module, path ){
+						var df = $q.defer(),
+							_this = this;
 
+						require([ path ], function(){
+							_this.inject( module );
+							df.resolve({status: true});
+						})
+						return df.promise;
+					}
+
+					return $delegate;
+				}
+			]);
 			// Disable debug messages for prod
 			//$logProvider.debugEnabled(false);
 
@@ -28336,7 +28268,9 @@ define('states',[
 					url: "/booking",
 					templateUrl: "modules/booking/booking.html",
 					resolve: {
-						booking: lazyLoad('BookFlight.booking', 'booking/main')
+						booking: ['$ocLazyLoad', function( $ocLazyLoad ){
+							return $ocLazyLoad.require('BookFlight.booking', 'booking/main');
+						}]
 					}
 				})
 				.state( "booking.search", {
@@ -28348,7 +28282,9 @@ define('states',[
 					url: "/manage", 
 					templateUrl: "modules/manage/manage.html",
 					resolve: {					
-						manage: lazyLoad('BookFlight.manage', 'manage/main')
+						manage: ['$ocLazyLoad', function( $ocLazyLoad ){
+							return $ocLazyLoad.require('BookFlight.manage', 'manage/main');
+						}]
 					}
 				})
 				.state( "manage.airports", {

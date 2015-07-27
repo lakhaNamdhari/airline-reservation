@@ -14,7 +14,7 @@ define([
 		'core.Interface',
 		'$log',
 		function( $scope, Flights, Interface, $log ){
-			$log( "manage.flights.addCtrl" );
+			$log.debug( "manage.flights.addCtrl" );
 
 			// Template for this controller
 			$scope.view = 'modules/manage/flights/add/add.html';

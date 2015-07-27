@@ -17,8 +17,6 @@ core/services/bookings.js
 core/services/search.js
 core/services/flights.js
 core/services/main.js
-core/directives/carousel/carouselDr.js
-core/directives/main.js
 core/main.js
 header/module.js
 header/headerCtrl.js

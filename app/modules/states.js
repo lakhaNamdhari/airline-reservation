@@ -7,28 +7,33 @@ define([
 	'./app',
 ], function( app ){
 	app.config( [
+		'$provide',
 		'$stateProvider',
 		'$urlRouterProvider',
-		'$ocLazyLoadProvider',
 		'$logProvider',
-		function ( $stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $logProvider ){
-			
-			// loads and injects modules
-			var lazyLoad = function( module, path ){
-				return [
-					'$ocLazyLoad',
-					'$q',
-					function( $ocLazyLoad, $q ){
-					var df = $q.defer();
+		function ( $provide, $stateProvider, $urlRouterProvider, $logProvider ){
+			// Decorates oclazyload with built-in way to load require modules
+			$provide.decorator('$ocLazyLoad', [
+				'$delegate',
+				'$q',
+				'$log',
+				function( $delegate, $q, $log ){
+					$log.debug('config.ocLazyLoad');
 
-					require([ path ], function(){
-						$ocLazyLoad.inject( module );
-						df.resolve({status: true});
-					})
-					return df.promise;
-				}];
-			}
+					$delegate.require = function( module, path ){
+						var df = $q.defer(),
+							_this = this;
 
+						require([ path ], function(){
+							_this.inject( module );
+							df.resolve({status: true});
+						})
+						return df.promise;
+					}
+
+					return $delegate;
+				}
+			]);
 			// Disable debug messages for prod
 			//$logProvider.debugEnabled(false);
 
@@ -42,7 +47,9 @@ define([
 					url: "/booking",
 					templateUrl: "modules/booking/booking.html",
 					resolve: {
-						booking: lazyLoad('BookFlight.booking', 'booking/main')
+						booking: ['$ocLazyLoad', function( $ocLazyLoad ){
+							return $ocLazyLoad.require('BookFlight.booking', 'booking/main');
+						}]
 					}
 				})
 				.state( "booking.search", {
@@ -54,7 +61,9 @@ define([
 					url: "/manage", 
 					templateUrl: "modules/manage/manage.html",
 					resolve: {					
-						manage: lazyLoad('BookFlight.manage', 'manage/main')
+						manage: ['$ocLazyLoad', function( $ocLazyLoad ){
+							return $ocLazyLoad.require('BookFlight.manage', 'manage/main');
+						}]
 					}
 				})
 				.state( "manage.airports", {
