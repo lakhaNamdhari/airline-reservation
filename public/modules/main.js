@@ -27987,25 +27987,6 @@ define('services/common',[
 		'$location',
 		function ( Airports, $log, $location ){
 			return {
-				// returns airport-names for airport-code 
-				getAirportName: (function(){
-					// Map of Airportcode: airportName
-					var airportNames = {};
-
-					// raw response from Airports service
-					var airports = Airports.query(function(){
-						for ( i = 0; i < airports.length; i++ ){
-							airportNames[ airports[ i ][ "code"] ] = airports[ i ][ "city"];
-						}
-					});
-
-					return function( airportCode ){
-						$log.debug( "core.services.Common.getAirportName" );
-
-						return airportNames[ airportCode ];
-					};
-				}()),
-
 				// adds active class nav menu based on url
 				activateNav: function( page ){
 					$log.debug( "core.services.Common.activateNav" );
@@ -28144,14 +28125,172 @@ define('services/main',[
 define('services', ['services/main'], function (main) { return main; });
 
 /**
+*	Implemented carousel as a Directive
+*
+*	Usage :
+*	<bf-carousel>
+*		\\ your data goes here
+*	</bf-carousel>
+*
+*	@author Lakha Singh
+*/
+define('directives/carousel/carouselDr',[
+	'core/module',
+	'angular'
+], function( module, angular ){
+	module.directive( "bfCarousel", [
+		'$log',
+		function ( $log ){
+			$log.debug( "core.directives.bfCarousel" );
+
+			return {
+				restrict: 'E',
+				transclude: true,
+				template: '<a><span ng-click="hBtnUp()" class="glyphicon glyphicon-chevron-up"></span></a>\
+								<div class="content" ng-transclude></div>\
+						   <a><span ng-click="hBtnDown()" class="glyphicon glyphicon-chevron-down"></span></a>',
+				link: function( scope, $el, attrs ){
+					var $content =  angular.element( $el.children()[1] ),
+						slideHeight = $el.prop('offsetHeight'),
+						contentHeight;
+
+					scope.hBtnUp = function(){
+						var margin = parseInt($content.css('margin-top')) || 0,
+							newMargin = margin + slideHeight,
+							bound = 0;
+
+						// Refresh content height
+						contentHeight = $content.prop('offsetHeight');
+
+						// restricting in bounds
+						newMargin = (newMargin > bound ? bound : newMargin)+'px';
+						$content.css('margin-top', newMargin ); 
+					}		
+
+					scope.hBtnDown = function(){
+						var margin = parseInt($content.css('margin-top')) || 0,
+							newMargin = margin - slideHeight,
+							bound = contentHeight - slideHeight;
+
+						// Refresh content height
+						contentHeight = $content.prop('offsetHeight');
+
+						// restricting in bounds
+						newMargin = (-1*newMargin > bound  ? -bound : newMargin)+'px';
+						$content.css('margin-top', newMargin ); 					
+					}				
+				}
+			};
+		}
+	]);
+});
+
+/**
+*	Used to load directives as a package
+*
+*	@author Lakha Singh
+*/
+define('directives/main',[
+	'./carousel/carouselDr'
+], function(){});
+
+define('directives', ['directives/main'], function (main) { return main; });
+
+/**
+*	Provider to fetch airportname based on code
+*
+*	@author Lakha Singh
+*/
+
+define('providers/airportname',[
+	'core/module',
+	'services'
+], function( module ){
+	module.provider('core.AirportName', function(){
+		var opts = {
+			sync: false, // doesn't sync airportnames unless page is refreshed
+			interval: 30  // sync interval in sec
+		};
+
+		// if set, data is refreshed from server after interval elapses 
+		this.sync = function( val ){
+			opts.sync = typeof val === 'boolean' && val || opts.sync;
+		}
+
+		// useful if sync is true
+		this.interval = function( val ){
+			opts.interval = typeof val === 'number' && val || opts.interval;
+		}		
+
+		// service config
+		this.config = function( opts ){
+			if ( typeof opts === 'object'){
+				this.sync( opts.sync );
+				this.interval( opts.interval );
+			}
+		}
+
+		this.$get = [
+			'core.Airports',
+			'$interval',
+			'$log',
+			function( Airports, $interval, $log ){
+				$log.debug('core.providers.airportname');
+
+				// Map of Airportcode: airportName
+				var airportNames;
+
+				// raw response from Airports service
+				var airports;
+
+				var _fetch = function(){
+					airportNames = {};
+
+					airports = Airports.query(function(){
+						for ( i = 0; i < airports.length; i++ ){
+							airportNames[ airports[ i ][ "code"] ] = airports[ i ][ "city"];
+						}
+					});
+				};
+
+				// fetch data
+				_fetch();
+
+				if ( opts.sync ){
+					$interval( _fetch, opts.interval * 1000 );
+				}
+
+				return {
+					get: function( airportCode ){
+						return airportNames[ airportCode ];
+					}
+				};
+			}
+		];	
+	});
+});
+/**
+*	Used to load providers as a package
+*
+*	@author Lakha Singh
+*/
+define('providers/main',[
+	'./airportname'
+], function(){});
+
+define('providers', ['providers/main'], function (main) { return main; });
+
+/**
 *	Entry point for the core module
 *
 *	@author Lakha Singh
 */
 define('core/main',[
 	'./module',
-	'services'
-], function(){}); 
+	'services',
+	'directives',
+	'providers'
+], function(){});
 /**
 *	Defines header module
 *
@@ -28318,9 +28457,10 @@ require.config({
 		'angular-ui-router': '../vendor/angular-ui-router',
 		'oclazyload': '../vendor/oclazyload',
 		'services': 'core/services',
-		'directives': 'core/directives'
+		'directives': 'core/directives',
+		'providers': 'core/providers'
 	},
-	packages: ['services', 'directives'],
+	packages: ['services', 'directives', 'providers'],
 	modules: [
 		{
 			name: 'main'

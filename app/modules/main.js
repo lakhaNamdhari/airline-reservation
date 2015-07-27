@@ -18,9 +18,10 @@ require.config({
 		'angular-ui-router': '../vendor/angular-ui-router',
 		'oclazyload': '../vendor/oclazyload',
 		'services': 'core/services',
-		'directives': 'core/directives'
+		'directives': 'core/directives',
+		'providers': 'core/providers'
 	},
-	packages: ['services', 'directives'],
+	packages: ['services', 'directives', 'providers'],
 	modules: [
 		{
 			name: 'main'

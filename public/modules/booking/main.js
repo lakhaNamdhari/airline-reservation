@@ -20,15 +20,16 @@ define('booking/module',[
 */
 define('booking/cancel/cancelCtrl',[
 	'booking/module',
-	'services'
+	'services',
+	'providers'
 ], function( module ){
 	module.controller('booking.cancelCtrl', [
 		'$scope',
 		'core.Bookings',
 		'core.Interface',
-		'core.Common',
+		'core.AirportName',
 		'$log',
-		function( $scope, Bookings, Interface, Common, $log ){
+		function( $scope, Bookings, Interface, AirportName, $log ){
 			$log.debug( "booking.cancelCtrl" );
 
 			// Template for this controller
@@ -38,7 +39,7 @@ define('booking/cancel/cancelCtrl',[
 			$scope.bookings = Interface.bookings = Interface.bookings || Bookings.query();
 
 			// Common methods
-			$scope.common = Common;
+			$scope.AirportName = AirportName;
 
 			// Cancels flight
 			$scope.cancelFlight = function( flight ){		
@@ -55,7 +56,7 @@ define('booking/cancel/cancelCtrl',[
 			};
 		}
 	]);
-});
+}); 
 /**
 *	Controller for booking.cancel module
 *
@@ -63,7 +64,8 @@ define('booking/cancel/cancelCtrl',[
 */
 define('booking/new/newCtrl',[
 	'booking/module',
-	'services'
+	'services',
+	'providers'
 ], function( module ){
 	module.controller('booking.newCtrl', [
 		'$scope',
@@ -71,13 +73,13 @@ define('booking/new/newCtrl',[
 		'core.Bookings',
 		'core.Search',
 		'core.Interface',
-		'core.Common',
+		'core.AirportName',
 		'$log',
-		function( $scope, $stateParams, Bookings, Search, Interface, Common, $log ){
+		function( $scope, $stateParams, Bookings, Search, Interface, AirportName, $log ){
 			$log.debug( "booking.newCtrl" );
 
 			// Common methods
-			$scope.common = Common;
+			$scope.AirportName = AirportName;
 
 			// for comm b/w book.new and book.cancel module
 			$scope.bookings = Interface.bookings = Interface.bookings || Bookings.query();
@@ -160,14 +162,15 @@ define('booking/search/searchCtrl',[
 
 define('booking/flight_status/flightStatusCtrl',[
 	'booking/module',
-	'services'
+	'services',
+	'providers'
 ], function( module ){
 	module.controller('booking.flightStatus', [
 		'$scope',
 		'$log',
 		'core.Flights',
-		'core.Common',
-		function( $scope, $log, Flights, Common ){
+		'core.AirportName',
+		function( $scope, $log, Flights, AirportName ){
 			$log.debug('booking.FlightStatus');
 
 			var i, delay;
@@ -182,7 +185,7 @@ define('booking/flight_status/flightStatusCtrl',[
 			});
 
 			$scope.view = "modules/booking/flight_status/flightStatus.html"
-			$scope.common = Common;
+			$scope.AirportName = AirportName;
 		}
 	]);
 });

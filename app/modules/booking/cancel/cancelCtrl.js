@@ -5,15 +5,16 @@
 */
 define([
 	'booking/module',
-	'services'
+	'services',
+	'providers'
 ], function( module ){
 	module.controller('booking.cancelCtrl', [
 		'$scope',
 		'core.Bookings',
 		'core.Interface',
-		'core.Common',
+		'core.AirportName',
 		'$log',
-		function( $scope, Bookings, Interface, Common, $log ){
+		function( $scope, Bookings, Interface, AirportName, $log ){
 			$log.debug( "booking.cancelCtrl" );
 
 			// Template for this controller
@@ -23,7 +24,7 @@ define([
 			$scope.bookings = Interface.bookings = Interface.bookings || Bookings.query();
 
 			// Common methods
-			$scope.common = Common;
+			$scope.AirportName = AirportName;
 
 			// Cancels flight
 			$scope.cancelFlight = function( flight ){		
@@ -40,4 +41,4 @@ define([
 			};
 		}
 	]);
-});
+}); 

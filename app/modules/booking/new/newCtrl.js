@@ -5,7 +5,8 @@
 */
 define([
 	'booking/module',
-	'services'
+	'services',
+	'providers'
 ], function( module ){
 	module.controller('booking.newCtrl', [
 		'$scope',
@@ -13,13 +14,13 @@ define([
 		'core.Bookings',
 		'core.Search',
 		'core.Interface',
-		'core.Common',
+		'core.AirportName',
 		'$log',
-		function( $scope, $stateParams, Bookings, Search, Interface, Common, $log ){
+		function( $scope, $stateParams, Bookings, Search, Interface, AirportName, $log ){
 			$log.debug( "booking.newCtrl" );
 
 			// Common methods
-			$scope.common = Common;
+			$scope.AirportName = AirportName;
 
 			// for comm b/w book.new and book.cancel module
 			$scope.bookings = Interface.bookings = Interface.bookings || Bookings.query();

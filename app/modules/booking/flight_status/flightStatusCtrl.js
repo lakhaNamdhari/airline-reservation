@@ -6,14 +6,15 @@
 
 define([
 	'booking/module',
-	'services'
+	'services',
+	'providers'
 ], function( module ){
 	module.controller('booking.flightStatus', [
 		'$scope',
 		'$log',
 		'core.Flights',
-		'core.Common',
-		function( $scope, $log, Flights, Common ){
+		'core.AirportName',
+		function( $scope, $log, Flights, AirportName ){
 			$log.debug('booking.FlightStatus');
 
 			var i, delay;
@@ -28,7 +29,7 @@ define([
 			});
 
 			$scope.view = "modules/booking/flight_status/flightStatus.html"
-			$scope.common = Common;
+			$scope.AirportName = AirportName;
 		}
 	]);
 })

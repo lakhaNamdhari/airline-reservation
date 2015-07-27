@@ -3,8 +3,8 @@
 		<tbody>
 			<tr ng-class="flight.delay ? 'danger' : ''" ng-repeat="flight in flights">
 				<td>Flight #{{ flight.number }}</td>
-				<td>{{ common.getAirportName( flight.origin) }}</td>
-				<td>{{ common.getAirportName( flight.destination) }}</td>
+				<td>{{ AirportName.get( flight.origin) }}</td>
+				<td>{{ AirportName.get( flight.destination) }}</td>
 				<td>{{ flight.status }}<span ng-if="flight.delay"> - by {{ flight.delay }} hrs</span></td>
 			</tr>
 		</tbody>

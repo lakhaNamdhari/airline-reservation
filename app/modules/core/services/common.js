@@ -13,25 +13,6 @@ define([
 		'$location',
 		function ( Airports, $log, $location ){
 			return {
-				// returns airport-names for airport-code 
-				getAirportName: (function(){
-					// Map of Airportcode: airportName
-					var airportNames = {};
-
-					// raw response from Airports service
-					var airports = Airports.query(function(){
-						for ( i = 0; i < airports.length; i++ ){
-							airportNames[ airports[ i ][ "code"] ] = airports[ i ][ "city"];
-						}
-					});
-
-					return function( airportCode ){
-						$log.debug( "core.services.Common.getAirportName" );
-
-						return airportNames[ airportCode ];
-					};
-				}()),
-
 				// adds active class nav menu based on url
 				activateNav: function( page ){
 					$log.debug( "core.services.Common.activateNav" );
